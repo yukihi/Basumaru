@@ -5,7 +5,7 @@ namespace Basumaru
 {
     public class BundleConfig
     {
-        // バンドルの詳細については、http://go.microsoft.com/fwlink/?LinkId=301862  を参照してください
+        // の詳細については、http://go.microsoft.com/fwlink/?LinkId=301862  を参照してください
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
