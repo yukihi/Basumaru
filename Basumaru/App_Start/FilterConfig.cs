@@ -1,6 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
-
+//test
 namespace Basumaru
 {
     public class FilterConfig
