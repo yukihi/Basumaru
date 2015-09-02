@@ -1,6 +1,6 @@
 ﻿using System.Web;
 using System.Web.Optimization;
-
+//test
 namespace Basumaru
 {
     public class BundleConfig
