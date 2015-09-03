@@ -42,5 +42,9 @@ namespace Basumaru.Models
         [StringLength(1)]
         [Display(Name = "ベンチ")]
         public string benchiFlg { get; set; }
+
+        [StringLength(100)]
+        [Display(Name = "乗り場")]
+        public string noriba { get; set; }
     }
 }

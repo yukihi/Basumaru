@@ -1,0 +1,94 @@
+﻿@model IEnumerable<mojiconvert.Models.ConversionTable>
+@{
+    ViewBag.Title = "ファイル変換実行画面";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <link href="~/Content/CSS/ConversionExecuteCss.css"rel="stylesheet" type="text/css" />
+}
+
+<script type="text/javascript">
+    window.onload = function () {
+        $(function () {
+            $("#loading").fadeOut();
+            $("#container").fadeIn();
+
+            //alert(ConversionNo);
+            var ConversionNo = "@ViewBag.ConversionNo";
+            if (ConversionNo != "") {
+                $("#container2").fadeIn();
+            }
+
+            var LogFileName = "@ViewBag.LogFileName";
+            if (LogFileName != "") {
+                $("#container3").fadeIn();
+            }
+        });
+    }
+
+</script>
+
+<h2>ファイル変換実行画面</h2>
+
+<div id="loading"><img src="img/loading/loading.gif" /></div>
+<div id="container">
+    <p>参照ボタンをクリックし、ファイルを指定後アップロードボタンを押下してください。アップロード後、変換処理が実行されます。</p>
+
+    <p>
+        @using (Html.BeginForm("ConversionExecute", "ConversionExecute", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <input type="file" name="uploadFile" />
+            <input type="submit" value ="アップロード" />
+        }
+    </p>
+    
+    <p>@ViewBag.OperationMessage</p>
+    <p>@ViewBag.OperationMessage2</p>
+
+    <p>
+        @ViewBag.BeforeFileNameLabel
+        @ViewBag.BeforeFileName
+    </p>
+
+
+    <p>
+        @ViewBag.AfterFileNameLabel
+        @ViewBag.AfterFileName
+    </p>
+
+    <p>
+        @ViewBag.LogFileNameLabel
+        @ViewBag.LogFileName
+    </p>
+
+    <p>
+        @ViewBag.ConversionNoLabel
+        @ViewBag.ConversionNo
+    </p>
+
+    
+    <div id="container2">
+        <p>
+            @using (Html.BeginForm("AfterFileDownLoad", 
+                "ConversionExecute",
+                new { No = ViewBag.ConversionNo, FileName = ViewBag.AfterFileName}, 
+                FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <input type="submit" value ="変換後ファイルダウンロード" >
+            }
+        </p>
+        <div id="container3">
+            <p>
+                @using (Html.BeginForm("LogFileDownLoad", 
+                    "ConversionExecute",
+                    new { No = ViewBag.ConversionNo, FileName = ViewBag.LogFileName }, 
+                    FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <input type="submit" value ="ログファイルダウンロード" >
+                }
+            </p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
