@@ -1,0 +1,58 @@
+﻿@model Basumaru.Models.Rosen
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Rosen</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.kigyou)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kigyou)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.rosenmei)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.rosenmei)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.hidukebunrui)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.hidukebunrui)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.kigoui)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kigoui)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.komento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.komento)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RosenId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

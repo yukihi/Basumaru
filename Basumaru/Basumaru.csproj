@@ -167,15 +167,23 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="BasumaruDBContext.cs" />
+    <Compile Include="BasumaruInitializer.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BasuteisController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Basutei.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Jikokuhyou.cs" />
+    <Compile Include="Models\JikokuhyousController.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Rosen.cs" />
+    <Compile Include="Models\RosensController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -234,9 +242,25 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Basuteis\Create.cshtml" />
+    <Content Include="Views\Basuteis\Delete.cshtml" />
+    <Content Include="Views\Basuteis\Details.cshtml" />
+    <Content Include="Views\Basuteis\Edit.cshtml" />
+    <Content Include="Views\Basuteis\Index.cshtml" />
+    <Content Include="Views\Rosens\Create.cshtml" />
+    <Content Include="Views\Rosens\Delete.cshtml" />
+    <Content Include="Views\Rosens\Details.cshtml" />
+    <Content Include="Views\Rosens\Edit.cshtml" />
+    <Content Include="Views\Rosens\Index.cshtml" />
+    <Content Include="Views\Jikokuhyous\Create.cshtml" />
+    <Content Include="Views\Jikokuhyous\Delete.cshtml" />
+    <Content Include="Views\Jikokuhyous\Details.cshtml" />
+    <Content Include="Views\Jikokuhyous\Edit.cshtml" />
+    <Content Include="Views\Jikokuhyous\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\BussInfoEntry\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

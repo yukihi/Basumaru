@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Basumaru.Models.Basutei>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.kigyou)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.rosenmei)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.basuteimei)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.keido)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.kigyou)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.rosenmei)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.basuteimei)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ido)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.keido)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.BasuteiId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.BasuteiId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.BasuteiId })
+        </td>
+    </tr>
+}
+
+</table>

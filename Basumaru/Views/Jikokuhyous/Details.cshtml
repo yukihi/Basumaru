@@ -1,0 +1,74 @@
+﻿@model Basumaru.Models.Jikokuhyou
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Jikokuhyou</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.kigyou)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kigyou)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.rosenmei)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.rosenmei)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ikisaki)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ikisaki)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.hidukebunrui)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.hidukebunrui)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.basuteimei)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.basuteimei)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.zikoku)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.zikoku)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.hachakuKubun)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.hachakuKubun)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.JikokuhyouId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

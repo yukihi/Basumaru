@@ -1,0 +1,80 @@
+﻿@model Basumaru.Models.Jikokuhyou
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Jikokuhyou</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.kigyou)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kigyou)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.rosenmei)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.rosenmei)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ikisaki)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ikisaki)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.hidukebunrui)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.hidukebunrui)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.basuteimei)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.basuteimei)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.zikoku)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.zikoku)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.hachakuKubun)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.hachakuKubun)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
