@@ -1,31 +1,107 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Index";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<h2>ばす丸</h2>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+
+
+<CENTER>
+
+    <form id="colors" action="#">
+        出発地点：
+        <input id="result" type="text" value="" />
+        <button type="button" value="ボタン">地図で選択</button>
+
+        <br>
+
+        到着地点：
+        <input id="result" type="text" value="" />
+        <button type="button" value="ボタン">地図で選択</button>
+
+    </form>
+
+    <br><br>
+    <input type="radio" name="q1" value="出発時刻"> 出発時刻
+    <input type="radio" name="q1" value="到着時刻"> 到着時刻
+
+    <datalist id="codeType">
+        <option value="AAA-"></option>
+        <option value="BBB-"></option>
+        <option value="CCC-"></option>
+    </datalist>
+    <br>
+
+    年：
+    <span name="ComboBox">
+        <select id="pulldownList" name="pulldownList">
+            <option>　</option>
+            <option>1995</option>
+            <option>2000</option>
+            <option>2005</option>
+            <option>2010</option>
+        </select>
+    </span>
+    月：
+    <span name="ComboBox">
+        <select id="pulldownList" name="pulldownList">
+
+            <option>　</option>
+            <option>1月</option>
+            <option>4月</option>
+            <option>8月</option>
+            <option>12月</option>
+        </select>
+    </span>
+    日：
+    <span name="ComboBox">
+        <select id="pulldownList" name="pulldownList">
+
+            <option>　</option>
+            <option>1日</option>
+            <option>8日</option>
+            <option>15日</option>
+            <option>22日</option>
+        </select>
+    </span>
+
+    <br><br>
+
+    時：
+    <span name="ComboBox">
+        <select id="pulldownList" name="pulldownList">
+            <option>　</option>
+            <option>1時</option>
+            <option>6時</option>
+            <option>12時</option>
+            <option>18時</option>
+        </select>
+    </span>
+    分：
+    <span name="ComboBox">
+        <select id="pulldownList" name="pulldownList">
+            <option>　</option>
+            <option>00分</option>
+            <option>12分</option>
+            <option>24分</option>
+            <option>36分</option>
+        </select>
+    </span>
+
+    <br><br><br>
+
+    <button type="button"><big>検索</big></button>
+
+
+
+    </form>
+
+</CENTER>
+
+
+
+
+
+<p>
+    @ViewData["msg"]
+</p>
