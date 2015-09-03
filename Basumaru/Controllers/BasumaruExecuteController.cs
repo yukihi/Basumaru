@@ -3,20 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using mojiconvert.Models;
+using Basumaru.Models;
 using System.Collections;
 using System.Diagnostics;
 using System.IO;
 using System.Configuration;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 
 
-namespace mojiconvert.Controllers
+namespace Basumaru.Controllers
+
 {
-    public class ConversionExecuteController : Controller
+    public class BasumaruExecuteController : Controller
     {
-        private MojiconvertDBContext db = new MojiconvertDBContext();
+        private BasumaruDBContext db = new BasumaruDBContext();
 
-        /// <summary>
+        /// <summary>   
         /// ConversionExecute ビュー初期表示用
         /// </summary>
         /// <returns></returns>
@@ -76,7 +80,7 @@ namespace mojiconvert.Controllers
                 string SaveFilePath = ConfigurationManager.AppSettings["ServerFileSavePath"];
 
                 //フォルダの名称は、ConversionLogIdの値
-                System.IO.DirectoryInfo di = System.IO.Directory.CreateDirectory(SaveFilePath + (conversionlogMaxNum + 1).ToString());
+               // System.IO.DirectoryInfo di = System.IO.Directory.CreateDirectory(SaveFilePath + (conversionlogMaxNum + 1).ToString());
 
                 //Uploadされたファイルをサーバーにコピー
                 //変換前ファイル格納
