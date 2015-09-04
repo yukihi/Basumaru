@@ -3,24 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Basumaru.Models;
+using mojiconvert.Models;
 using System.Collections;
 using System.Diagnostics;
 using System.IO;
 using System.Configuration;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Data.Entity;
 
 
-namespace Basumaru.Controllers
-
+namespace mojiconvert.Controllers
 {
-    public class BasumaruExecuteController : Controller
+    public class ConversionExecuteController : Controller
     {
-        private BasumaruDBContext db = new BasumaruDBContext();
+        private MojiconvertDBContext db = new MojiconvertDBContext();
 
-        /// <summary>   
+        /// <summary>
         /// ConversionExecute ビュー初期表示用
         /// </summary>
         /// <returns></returns>
@@ -65,7 +61,9 @@ namespace Basumaru.Controllers
                 //拡張子の判別
                 switch(FileExtension)
                 {
+                    case ".txt":
                     case ".csv":
+                    case ".dat":
                         //Do Nothing
                         break;
                     default:
@@ -80,7 +78,7 @@ namespace Basumaru.Controllers
                 string SaveFilePath = ConfigurationManager.AppSettings["ServerFileSavePath"];
 
                 //フォルダの名称は、ConversionLogIdの値
-               // System.IO.DirectoryInfo di = System.IO.Directory.CreateDirectory(SaveFilePath + (conversionlogMaxNum + 1).ToString());
+                System.IO.DirectoryInfo di = System.IO.Directory.CreateDirectory(SaveFilePath + (conversionlogMaxNum + 1).ToString());
 
                 //Uploadされたファイルをサーバーにコピー
                 //変換前ファイル格納
