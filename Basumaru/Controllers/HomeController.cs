@@ -26,5 +26,11 @@ namespace Basumaru.Controllers
 
             return View();
         }
+
+        public ActionResult DataImport()
+        {
+
+            return View();
+        }
     }
 }

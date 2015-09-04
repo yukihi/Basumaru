@@ -1,63 +1,38 @@
-﻿
-<h2>データ取り込み処理画面</h2>
+﻿@{
+    ViewBag.Title = "データ取り込み処理画面";
+}
 
-<div id="loading"><img src="img/loading/loading.gif" /></div>
-<div id="container">
-    <p>参照ボタンをクリックし、ファイルを指定後アップロードボタンを押下してください。アップロード後、変換処理が実行されます。</p>
+<CENTER>
+    <h2>～入力フォーム～</h2>
+
+    <h3>バス停テーブル</h3>
 
     <p>
         @using (Html.BeginForm("ConversionExecute", "ConversionExecute", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <input type="file" name="uploadFile" />
-            <input type="submit" value ="アップロード" />
+            <input type="submit" value="アップロード" />
         }
     </p>
-    
-    <p>@ViewBag.OperationMessage</p>
-    <p>@ViewBag.OperationMessage2</p>
+
+    <h3>時刻表テーブル</h3>
 
     <p>
-        @ViewBag.BeforeFileNameLabel
-        @ViewBag.BeforeFileName
+        @using (Html.BeginForm("ConversionExecute", "ConversionExecute", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <input type="file" name="uploadFile" />
+            <input type="submit" value="アップロード" />
+        }
     </p>
 
+    <h3>路線テーブル</h3>
 
     <p>
-        @ViewBag.AfterFileNameLabel
-        @ViewBag.AfterFileName
+        @using (Html.BeginForm("ConversionExecute", "ConversionExecute", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <input type="file" name="uploadFile" />
+            <input type="submit" value="アップロード" />
+        }
     </p>
 
-    <p>
-        @ViewBag.LogFileNameLabel
-        @ViewBag.LogFileName
-    </p>
-
-    <p>
-        @ViewBag.ConversionNoLabel
-        @ViewBag.ConversionNo
-    </p>
-
-    
-    <div id="container2">
-        <p>
-            @using (Html.BeginForm("AfterFileDownLoad", 
-                "ConversionExecute",
-                new { No = ViewBag.ConversionNo, FileName = ViewBag.AfterFileName}, 
-                FormMethod.Post, new { enctype = "multipart/form-data" }))
-            {
-                <input type="submit" value ="変換後ファイルダウンロード" >
-            }
-        </p>
-        <div id="container3">
-            <p>
-                @using (Html.BeginForm("LogFileDownLoad", 
-                    "ConversionExecute",
-                    new { No = ViewBag.ConversionNo, FileName = ViewBag.LogFileName }, 
-                    FormMethod.Post, new { enctype = "multipart/form-data" }))
-                {
-                    <input type="submit" value ="ログファイルダウンロード" >
-                }
-            </p>
-        </div>
-    </div>
-</div>
+</CENTER>
