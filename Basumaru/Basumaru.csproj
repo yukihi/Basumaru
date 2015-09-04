@@ -258,7 +258,7 @@
     <Content Include="Views\Jikokuhyous\Details.cshtml" />
     <Content Include="Views\Jikokuhyous\Edit.cshtml" />
     <Content Include="Views\Jikokuhyous\Index.cshtml" />
-    <Content Include="Views\DataImport\DataImport.cshtml" />
+    <Content Include="Views\Home\DataImport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
