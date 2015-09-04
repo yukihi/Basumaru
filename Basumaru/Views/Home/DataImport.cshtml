@@ -4,23 +4,14 @@
 
 <style>
     .up {
-            margin: 0 0 0 30%;
+            margin: 0 0 0 0;
         }
 
 </style>
 
 <CENTER>
     <h2>～入力フォーム～</h2>
-    <h3>バス停テーブル</h3>
 
-    <p>
-        @using (Html.BeginForm("ConversionExecute", "ConversionExecute", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            <input type="file" name="uploadFile" />
-        　　<input class="up" type="submit" value="アップロード" />
-
-        }
-    </p>
 
     <h3>時刻表テーブル</h3>
 
@@ -32,14 +23,6 @@
         }
     </p>
 
-    <h3>路線テーブル</h3>
 
-    <p>
-        @using (Html.BeginForm("ConversionExecute", "ConversionExecute", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            <input type="file" name="uploadFile" />
-            <input class="up" type="submit" value="アップロード" />
-        }
-    </p>
 
 </CENTER>
