@@ -2,16 +2,23 @@
     ViewBag.Title = "データ取り込み処理画面";
 }
 
+<style>
+    .up {
+            margin: 0 0 0 30%;
+        }
+
+</style>
+
 <CENTER>
     <h2>～入力フォーム～</h2>
-
     <h3>バス停テーブル</h3>
 
     <p>
         @using (Html.BeginForm("ConversionExecute", "ConversionExecute", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <input type="file" name="uploadFile" />
-            <input type="submit" value="アップロード" />
+        　　<input class="up" type="submit" value="アップロード" />
+
         }
     </p>
 
@@ -21,7 +28,7 @@
         @using (Html.BeginForm("ConversionExecute", "ConversionExecute", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <input type="file" name="uploadFile" />
-            <input type="submit" value="アップロード" />
+            <input class="up" type="submit" value="アップロード" />
         }
     </p>
 
@@ -31,7 +38,7 @@
         @using (Html.BeginForm("ConversionExecute", "ConversionExecute", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <input type="file" name="uploadFile" />
-            <input type="submit" value="アップロード" />
+            <input class="up" type="submit" value="アップロード" />
         }
     </p>
 

@@ -7,110 +7,112 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Basumaru;
+using Basumaru.Models;
+
 
 namespace Basumaru.Models
 {
-    public class RosensController : Controller
+    public class JikokuhyousController : Controller
     {
         private BasumaruDBContext db = new BasumaruDBContext();
 
-        // GET: Rosens
+        // GET: Jikokuhyous
         public ActionResult Index()
         {
-            return View(db.rosen.ToList());
+            return View(db.jikokuhyou.ToList());
         }
 
-        // GET: Rosens/Details/5
+        // GET: Jikokuhyous/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Rosen rosen = db.rosen.Find(id);
-            if (rosen == null)
+            Jikokuhyou jikokuhyou = db.jikokuhyou.Find(id);
+            if (jikokuhyou == null)
             {
                 return HttpNotFound();
             }
-            return View(rosen);
+            return View(jikokuhyou);
         }
 
-        // GET: Rosens/Create
+        // GET: Jikokuhyous/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Rosens/Create
+        // POST: Jikokuhyous/Create
         // 過多ポスティング攻撃を防止するには、バインド先とする特定のプロパティを有効にしてください。
         // 詳細については、http://go.microsoft.com/fwlink/?LinkId=317598 を参照してください。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RosenId,kigyou,rosenmei,hidukebunrui,kigoui,komento")] Rosen rosen)
+        public ActionResult Create([Bind(Include = "JikokuhyouId,kigyou,rosenmei,ikisaki,hidukebunrui,basuteimei,zikoku,hachakuKubun")] Jikokuhyou jikokuhyou)
         {
             if (ModelState.IsValid)
             {
-                db.rosen.Add(rosen);
+                db.jikokuhyou.Add(jikokuhyou);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(rosen);
+            return View(jikokuhyou);
         }
 
-        // GET: Rosens/Edit/5
+        // GET: Jikokuhyous/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Rosen rosen = db.rosen.Find(id);
-            if (rosen == null)
+            Jikokuhyou jikokuhyou = db.jikokuhyou.Find(id);
+            if (jikokuhyou == null)
             {
                 return HttpNotFound();
             }
-            return View(rosen);
+            return View(jikokuhyou);
         }
 
-        // POST: Rosens/Edit/5
+        // POST: Jikokuhyous/Edit/5
         // 過多ポスティング攻撃を防止するには、バインド先とする特定のプロパティを有効にしてください。
         // 詳細については、http://go.microsoft.com/fwlink/?LinkId=317598 を参照してください。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RosenId,kigyou,rosenmei,hidukebunrui,kigoui,komento")] Rosen rosen)
+        public ActionResult Edit([Bind(Include = "JikokuhyouId,kigyou,rosenmei,ikisaki,hidukebunrui,basuteimei,zikoku,hachakuKubun")] Jikokuhyou jikokuhyou)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(rosen).State = EntityState.Modified;
+                db.Entry(jikokuhyou).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(rosen);
+            return View(jikokuhyou);
         }
 
-        // GET: Rosens/Delete/5
+        // GET: Jikokuhyous/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Rosen rosen = db.rosen.Find(id);
-            if (rosen == null)
+            Jikokuhyou jikokuhyou = db.jikokuhyou.Find(id);
+            if (jikokuhyou == null)
             {
                 return HttpNotFound();
             }
-            return View(rosen);
+            return View(jikokuhyou);
         }
 
-        // POST: Rosens/Delete/5
+        // POST: Jikokuhyous/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Rosen rosen = db.rosen.Find(id);
-            db.rosen.Remove(rosen);
+            Jikokuhyou jikokuhyou = db.jikokuhyou.Find(id);
+            db.jikokuhyou.Remove(jikokuhyou);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -67,9 +67,6 @@ namespace Basumaru.Controllers
                 //サーバーに格納するフォルダのパスをWebConfigから取得
                 string SaveFilePath = ConfigurationManager.AppSettings["ServerFileSavePath"];
 
-                //フォルダの名称は、ConversionLogIdの値
-               // System.IO.DirectoryInfo di = System.IO.Directory.CreateDirectory(SaveFilePath + (conversionlogMaxNum + 1).ToString());
-
                 //Uploadされたファイルをサーバーにコピー
                 //変換前ファイル格納
                 //System.IO.File.Copy(uploadFile.FileName, SaveFilePath + (conversionlogMaxNum + 1).ToString() + "/" + BeforeFileName);
