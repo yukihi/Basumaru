@@ -19,6 +19,8 @@ namespace Basumaru.Controllers
     public class DataImport : Controller
     {
         private BasumaruDBContext db = new BasumaruDBContext();
+        DateTime dt = DateTime.Now;
+
 
         /// <summary>   
         /// ConversionExecute ビュー初期表示用
@@ -71,10 +73,10 @@ namespace Basumaru.Controllers
                 //Uploadされたファイルをサーバーにコピー
                 //変換前ファイル格納
                 //System.IO.File.Copy(uploadFile.FileName, SaveFilePath + (conversionlogMaxNum + 1).ToString() + "/" + BeforeFileName);
-                uploadFile.SaveAs(SaveFilePath + (conversionlogMaxNum + 1).ToString() + "/" + BeforeFileName);
+                uploadFile.SaveAs(SaveFilePath + (dt.ToString("yyyy年MM月dd日 HH時mm分ss秒")).ToString() + "/" + BeforeFileName);
 
                 //Viewから指定されたファイルを取得
-                FileStream stream = new FileStream(SaveFilePath + (conversionlogMaxNum + 1).ToString() + "/" + BeforeFileName, FileMode.Open, FileAccess.Read);
+                FileStream stream = new FileStream(SaveFilePath + (dt.ToString("yyyy年MM月dd日 HH時mm分ss秒")).ToString() + "/" + BeforeFileName, FileMode.Open, FileAccess.Read);
                 byte[] bs = new byte[stream.Length];
                 //byte配列に読み込む
                 stream.Read(bs, 0, bs.Length);
@@ -87,7 +89,7 @@ namespace Basumaru.Controllers
                     //ファイルがUnicodeの場合
                     //FileStreamを一度読み込んだので、再度読み込みを行う
                     //stream = new FileStream(uploadFile.FileName, FileMode.Open, FileAccess.Read);
-                    stream = new FileStream(SaveFilePath + (conversionlogMaxNum + 1).ToString() + "/" + BeforeFileName, FileMode.Open, FileAccess.Read);
+                    stream = new FileStream(SaveFilePath + (dt.ToString("yyyy年MM月dd日 HH時mm分ss秒")).ToString() + "/" + BeforeFileName, FileMode.Open, FileAccess.Read);
                 }
                 else
                 {
