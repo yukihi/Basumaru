@@ -171,7 +171,6 @@
     <Compile Include="BasumaruInitializer.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BasuteisController.cs" />
-    <Compile Include="Controllers\kekka.cs" />
     <Compile Include="Controllers\DataCaptureProcessController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -260,7 +259,6 @@
     <Content Include="Views\Jikokuhyous\Edit.cshtml" />
     <Content Include="Views\Jikokuhyous\Index.cshtml" />
     <Content Include="Views\DataCaptureProcess\DataCaptureProcess.cshtml" />
-    <Content Include="Views\kekka\kekka.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

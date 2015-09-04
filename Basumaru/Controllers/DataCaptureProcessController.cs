@@ -3,20 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using mojiconvert.Models;
+using Basumaru.Models;
 using System.Collections;
 using System.Diagnostics;
 using System.IO;
 using System.Configuration;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 
 
-namespace mojiconvert.Controllers
+namespace Basumaru.Controllers
+
 {
-    public class ConversionExecuteController : Controller
+    public class DataCaptureProcessController : Controller
     {
-        private MojiconvertDBContext db = new MojiconvertDBContext();
+        private BasumaruDBContext db = new BasumaruDBContext();
 
-        /// <summary>
+        /// <summary>   
         /// ConversionExecute ビュー初期表示用
         /// </summary>
         /// <returns></returns>
@@ -61,9 +65,7 @@ namespace mojiconvert.Controllers
                 //拡張子の判別
                 switch(FileExtension)
                 {
-                    case ".txt":
                     case ".csv":
-                    case ".dat":
                         //Do Nothing
                         break;
                     default:
@@ -78,7 +80,7 @@ namespace mojiconvert.Controllers
                 string SaveFilePath = ConfigurationManager.AppSettings["ServerFileSavePath"];
 
                 //フォルダの名称は、ConversionLogIdの値
-                System.IO.DirectoryInfo di = System.IO.Directory.CreateDirectory(SaveFilePath + (conversionlogMaxNum + 1).ToString());
+               // System.IO.DirectoryInfo di = System.IO.Directory.CreateDirectory(SaveFilePath + (conversionlogMaxNum + 1).ToString());
 
                 //Uploadされたファイルをサーバーにコピー
                 //変換前ファイル格納
@@ -125,27 +127,6 @@ namespace mojiconvert.Controllers
                     {
                         //MojiBをMojiAに変換する
                         FileStr.Replace(item.MojiB, item.MojiA);
-                    }
-
-                    string tmp = "";
-
-                    long StrCount = 0;
-                    //変換不可外字格納変数
-                    string NotConversionStr = "";
-                    long NotConversionCount = 0;
-
-                    //変換不可文調査
-                    foreach (char SearchChar in  tmp = FileStr.ToString())
-                    {
-                        int SearchCharCode = (int)SearchChar;
-                        StrCount++;
-                        if (57344 <= SearchCharCode && SearchCharCode <= 63743)
-                        {
-                            //unicodeの外字範囲
-                            //外字変換ができない文字を格納
-                            NotConversionStr += SearchChar.ToString() + "\n";
-                            NotConversionCount++;
-                        }
                     }
                     
                     /*
