@@ -16,7 +16,7 @@ using System.Data.Entity;
 namespace Basumaru.Controllers
 
 {
-    public class DataCaptureProcessController : Controller
+    public class DataImport : Controller
     {
         private BasumaruDBContext db = new BasumaruDBContext();
 
@@ -41,24 +41,10 @@ namespace Basumaru.Controllers
             //アップロードファイルが存在する場合のみ処理を実行
             if (uploadFile != null)
             {    
-                //ログインデックスの最大値取得処理
-                long conversionlogMaxNum = 0;
-
-                var RecordNullCheck = db.ConversionLogs.ToList();
-
-                if (RecordNullCheck.Count == 0)
-                {
-                    //ConversionLogsのレコード件数が0の場合
-                    conversionlogMaxNum = 0;
-                }
-                else
-                {
-                    //ConversionLogsのレコード件数が1以上の場合
-                    conversionlogMaxNum = db.ConversionLogs.Select(s => s.ConversionLogId).Max();
-                }
 
                 //uploadされたファイルの拡張子を取得
                 string FileExtension = Path.GetExtension(uploadFile.FileName);
+
                 //uploadされたファイルの名称を取得
                 string BeforeFileName = Path.GetFileName(uploadFile.FileName);
 
@@ -113,8 +99,7 @@ namespace Basumaru.Controllers
 
                 StreamReader reader = new StreamReader(stream, System.Text.Encoding.GetEncoding("utf-8"));
 
-                //データベースから全レコードを取得
-                var ConversionTablesAllRecord = db.ConversionTables.ToList();
+                
 
                 //データベースから取得した、変換文字をReplaceする
                 if ((reader.Peek() > 0))
@@ -122,98 +107,10 @@ namespace Basumaru.Controllers
                     //ファイルから取得した文字列を格納する変数を定義
                     System.Text.StringBuilder FileStr = new System.Text.StringBuilder(reader.ReadToEnd());
 
-                    //データベースから取得したレコード分、文字変換処理を行う
-                    foreach (var item in ConversionTablesAllRecord)
-                    {
-                        //MojiBをMojiAに変換する
-                        FileStr.Replace(item.MojiB, item.MojiA);
-                    }
-                    
-                    /*
-                    //Uploadされたファイルをサーバーにコピー
-                    //変換前ファイル格納
-                    System.IO.File.Copy(uploadFile.FileName, SaveFilePath + (conversionlogMaxNum + 1).ToString() + "/" + BeforeFileName);
-                    */
-                      
-                    //変換後のファイル名を取得
-                    string AfterFileName = BeforeFileName.Replace(".", "After.");
-                    //変換後ファイル格納
-                    StreamWriter Writer = new StreamWriter(SaveFilePath + (conversionlogMaxNum + 1).ToString() + "/" + AfterFileName, false, System.Text.Encoding.GetEncoding("utf-8"));
-                    Writer.Write(FileStr);
-                    Writer.Close();
-                    //ログファイル名称
-                    string LogFileName = BeforeFileName.Replace(FileExtension, "ログ" + ".log");
-
-                    //ログテーブルにデータを挿入
-                    //変数に格納
-                    ConversionLog conversionlog = new ConversionLog();
-
-                    conversionlog.ConversionLogId = conversionlogMaxNum + 1;
-                    conversionlog.ConvDate = DateTime.Now;
-                    conversionlog.ConvInputFile = BeforeFileName;
-                    conversionlog.ConvOutputFile = AfterFileName;
-                    conversionlog.ConvErrorFile = LogFileName;
-                    
-                    if (ModelState.IsValid)
-                    {
-                        //ログテーブル更新
-                        db.ConversionLogs.Add(conversionlog);
-                        db.SaveChanges();
-                    }
-
-                    //ログファイル格納
-                    StreamWriter LogWriter = new StreamWriter(SaveFilePath + (conversionlogMaxNum + 1).ToString() + "/" + LogFileName, false, System.Text.Encoding.GetEncoding("utf-8"));
-
-                    //ログファイル出力処理
-                    if (NotConversionStr == "")
-                    {
-                        //変換エラー文字なし
-                        //ファイル処理結果
-                        LogWriter.WriteLine("ファイル変換処理結果：成功");
-                        //文字数出力
-                        LogWriter.WriteLine("ファイル格納文字数：" + StrCount.ToString());
-                        LogWriter.Close();
-
-                        //メッセージ表示
-                        ViewBag.OperationMessage = "ファイルの変換処理が終了しました。";
-                    }
-                    else
-                    {
-                        //変換エラー文字あり
-                        //ファイル処理結果
-                        LogWriter.WriteLine("ファイル変換処理結果：一部変換不可");                        
-                        //文字数出力
-                        LogWriter.WriteLine("ファイル格納文字数：" + StrCount.ToString());
-                        //変換エラー文字数
-                        LogWriter.WriteLine("変換不可文字数：" + NotConversionCount.ToString());
-                        //変換不可文字
-                        LogWriter.WriteLine("変換不可文字：" + NotConversionStr);
-                        LogWriter.Close();
-
-                        //メッセージ表示
-                        ViewBag.OperationMessage = "ファイルの変換処理が終了しました。";
-                        ViewBag.OperationMessage2 = "変換できない外字が存在しましたので、ログを確認し、文字コードを新たに登録してください。";
-                    }
-
-                    ViewBag.BeforeFileNameLabel = "変換ファイル：";
-                    ViewBag.AfterFileNameLabel = "変換後ファイル：";
-                
-                    ViewBag.BeforeFileName = BeforeFileName;
-                    ViewBag.AfterFileName = AfterFileName;
-                    ViewBag.ConversionNoLabel = "変換番号：";
-                    ViewBag.ConversionNo = (conversionlogMaxNum + 1).ToString();
-
-                    ViewBag.LogFileNameLabel = "ログファイル：";
-                    ViewBag.LogFileName = LogFileName;
-
                     //エクスプローラー表示
                     //System.Diagnostics.Process.Start("EXPLORER.EXE", @"/select," + AfterFilePathName);
                 }
-                else
-                {
-                    //ファイルに文字が存在しない場合
-                    ViewBag.OperationMessage = "選択されたファイルには、文字列が存在しません。";
-                }
+
                 stream.Close();
                 reader.Close();
             }
@@ -228,84 +125,7 @@ namespace Basumaru.Controllers
             return View("ConversionExecute");
         }
 
-        /// <summary>
-        /// 変換後ファイルダウンロード処理
-        /// </summary>
-        /// <param name="No">変換ログ番号</param>
-        /// <param name="FileName">変換後ファイル名</param>
-        /// <returns></returns>
-        [HttpPost]
-        public ActionResult AfterFileDownLoad(string No,string FileName)
-        {
-            if (No != "" && FileName != "")
-            {
-                //サーバーに格納するフォルダのパスをWebConfigから取得
-                string SaveFilePath = ConfigurationManager.AppSettings["ServerFileSavePath"];
-                //FilePathResult DownloadFile = new FilePathResult("D:/Data/" + No + "/" + FileName, "text/csv");
-
-
-                //FilePathResult DownloadFile = new FilePathResult(SaveFilePath + No + "/" + FileName, "text/csv");
-                var result = new FilePathResult(SaveFilePath + No + "\\" + FileName, "text/csv");
-
-                if (Request.Browser.Browser == "IE")
-                {
-                    result.FileDownloadName = HttpUtility.UrlEncode(FileName);
-                }
-                else
-                {
-                    result.FileDownloadName = FileName;
-                }
-
-                return result;
-            }
-            else
-            {
-                //uploadファイルがない場合
-                ViewBag.OperationMessage = "変換を行うファイルがアップロードされていません。";
-                return View("ConversionExecute");
-            }
-        }
-
-        /// <summary>
-        /// ログファイルダウンロード処理
-        /// </summary>
-        /// <param name="No">変換ログ番号</param>
-        /// <param name="FileName">ログファイル名</param>
-        /// <returns></returns>
-        [HttpPost]
-        public ActionResult LogFileDownLoad(string No, string FileName)
-        {
-            if (FileName != "" && No == "")
-            {
-                //uploadファイルがない場合
-                ViewBag.OperationMessage = "変換を行うファイルがアップロードされていません。";
-                return View("ConversionExecute");
-            }
-            else if (No != "")
-            {
-                //ログファイル、番号が存在する場合
-                //サーバーに格納するフォルダのパスをWebConfigから取得
-                string SaveFilePath = ConfigurationManager.AppSettings["ServerFileSavePath"];
-                //FilePathResult DownloadFile = new FilePathResult("D:/Data/" + No + "/" + FileName, "text/csv");
-                FilePathResult DownloadFile = new FilePathResult(SaveFilePath + No + "/" + FileName, "text/csv");
-
-                if (Request.Browser.Browser == "IE")
-                {
-                    DownloadFile.FileDownloadName = HttpUtility.UrlEncode(FileName);
-                }
-                else
-                {
-                    DownloadFile.FileDownloadName = FileName;
-                }
-                
-                //DownloadFile.FileDownloadName = FileName;
-                return DownloadFile;
-            }
-            else
-            {
-                return View("ConversionExecute");
-            }
-        }
+      
 
         /// <summary>
         /// ファイル文字コード判定処理

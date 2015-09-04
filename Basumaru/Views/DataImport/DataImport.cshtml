@@ -1,31 +1,4 @@
-﻿@model IEnumerable<Basumaru.Models.ConversionTable>
-@{
-    ViewBag.Title = "データ取り込み処理画面";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    <link href="~/Content/CSS/ConversionExecuteCss.css"rel="stylesheet" type="text/css" />
-}
-
-<script type="text/javascript">
-    window.onload = function () {
-        $(function () {
-            $("#loading").fadeOut();
-            $("#container").fadeIn();
-
-            //alert(ConversionNo);
-            var ConversionNo = "@ViewBag.ConversionNo";
-            if (ConversionNo != "") {
-                $("#container2").fadeIn();
-            }
-
-            var LogFileName = "@ViewBag.LogFileName";
-            if (LogFileName != "") {
-                $("#container3").fadeIn();
-            }
-        });
-    }
-
-</script>
-
+﻿
 <h2>データ取り込み処理画面</h2>
 
 <div id="loading"><img src="img/loading/loading.gif" /></div>
