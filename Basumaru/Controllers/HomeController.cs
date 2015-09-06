@@ -27,5 +27,15 @@ namespace Basumaru.Controllers
         {
             return View();
         }
+
+        public ActionResult Busstop()
+        {
+            return View();
+        }
+
+        public ActionResult Route()
+        {
+            return View();
+        }
     }
 }
