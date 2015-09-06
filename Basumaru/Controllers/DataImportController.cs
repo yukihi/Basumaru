@@ -16,29 +16,29 @@ using System.Data.Entity;
 namespace Basumaru.Controllers
 
 {
-    public class DataImport : Controller
+    public class DataImportController : Controller
     {
         private BasumaruDBContext db = new BasumaruDBContext();
         DateTime dt = DateTime.Now;
 
 
         /// <summary>   
-        /// ConversionExecute ビュー初期表示用
+        /// DataImport ビュー初期表示用
         /// </summary>
         /// <returns></returns>
-        public ActionResult ConversionExecute()
+        public ActionResult DataImport()
         {
             //View読み込み            
-            return View("ConversionExecute");
+            return View("DataImport");
         }
 
         /// <summary>
-        /// ConversionExecute ビュー　外字変換処理
+        /// DataImport ビュー　外字変換処理
         /// </summary>
         /// <param name="uploadFile">クライアントからUploadされたファイル</param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult ConversionExecute(HttpPostedFileWrapper uploadFile)
+        public ActionResult DataImport(HttpPostedFileWrapper uploadFile)
         {
             //アップロードファイルが存在する場合のみ処理を実行
             if (uploadFile != null)
@@ -60,7 +60,7 @@ namespace Basumaru.Controllers
                         //テキストファイルでない場合
                         ViewBag.OperationMessage = "選択されたファイルの拡張子が、テキストファイルではありません。";
                         ViewBag.OperationMessage2 = "テキストファイルを選択してください。";
-                        return View("ConversionExecute");
+                        return View("DataImport");
                 }
 
 
@@ -93,7 +93,7 @@ namespace Basumaru.Controllers
                     //ファイルがUnicodeでない場合
                     ViewBag.OperationMessage = "指定されたファイルの文字コードがUnicodeではありません。";
                     ViewBag.OperationMessage2 = "変換できるファイルは、文字コードがUnicodeのファイルのみです。";
-                    return View("ConversionExecute");
+                    return View("DataImport");
                 }
 
                 StreamReader reader = new StreamReader(stream, System.Text.Encoding.GetEncoding("utf-8"));
@@ -120,8 +120,8 @@ namespace Basumaru.Controllers
             }
 
             //View再読み込み            
-            //return RedirectToAction("ConversionExecute");
-            return View("ConversionExecute");
+            //return RedirectToAction("DataImport");
+            return View("DataImport");
         }
 
       

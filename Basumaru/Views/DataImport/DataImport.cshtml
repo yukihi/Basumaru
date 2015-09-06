@@ -16,7 +16,7 @@
     <h3>時刻表テーブル</h3>
 
     <p>
-        @using (Html.BeginForm("ConversionExecute", "ConversionExecute", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("DataImport", "DataImport", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <input type="file" name="uploadFile" />
             <input class="up" type="submit" value="アップロード" />
