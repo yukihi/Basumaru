@@ -67,7 +67,7 @@ namespace Basumaru.Controllers
                 }
 
                 //現在の日付時間を取得
-                string dt = DateTime.Now.ToString("yyyyMMddhhmmss");
+                string dt = DateTime.Now.ToString("yyyyMMddHHmmss");
 
                 //サーバーに格納するフォルダのパスをWebConfigから取得
                 string SaveFilePath = ConfigurationManager.AppSettings["ServerFileSavePath"];
@@ -80,7 +80,7 @@ namespace Basumaru.Controllers
                 //Uploadされたファイルをサーバーにコピー
                 //変換前ファイル格納
                 System.IO.File.Copy(uploadFile.FileName, newfol + "/" + BeforeFileName);
-                uploadFile.SaveAs(newfol + "/" + BeforeFileName);
+                //uploadFile.SaveAs(newfol + "/" + BeforeFileName);
 
                 //Viewから指定されたファイルを取得
                 FileStream stream = new FileStream(newfol + "/" + BeforeFileName, FileMode.Open, FileAccess.Read);
@@ -96,7 +96,7 @@ namespace Basumaru.Controllers
                     //ファイルがUnicodeの場合
                     //FileStreamを一度読み込んだので、再度読み込みを行う
                     //stream = new FileStream(uploadFile.FileName, FileMode.Open, FileAccess.Read);
-                    stream = new FileStream(SaveFilePath + "/" + BeforeFileName, FileMode.Open, FileAccess.Read);
+                    stream = new FileStream(newfol + "/" + BeforeFileName, FileMode.Open, FileAccess.Read);
                 }
                 else
                 {
@@ -108,15 +108,26 @@ namespace Basumaru.Controllers
 
                 StreamReader reader = new StreamReader(stream, System.Text.Encoding.GetEncoding("utf-8"));
 
-                
-
-                //データベースから取得した、変換文字をReplaceする
-                if ((reader.Peek() > 0))
+                while (reader.EndOfStream == false)
                 {
-                        //ファイルから取得した文字列を格納する変数を定義
-                        System.Text.StringBuilder FileStr = new System.Text.StringBuilder(reader.ReadToEnd());
-                    //ここにチェックの処理を書き込む
+                    //一行ずつ格納する
+                    string line = reader.ReadLine();
+                    //カンマごとに格納する
+                    string[] fields = line.Split(',');
+
+                    for (int i = 0; i < fields.Length; i++)
+                    {
+                        if (fields[i] == "") {
+                            //ファイルがUnicodeでない場合
+                            ViewBag.OperationMessage = "指定されたファイルの文字コードがUnicodeではありません。";
+                            ViewBag.OperationMessage2 = "変換できるファイルは、文字コードがUnicodeのファイルのみです。";
+                            return View("DataImport");
+                        }
+                    }
+
+
                 }
+
 
                 stream.Close();
                 reader.Close();
