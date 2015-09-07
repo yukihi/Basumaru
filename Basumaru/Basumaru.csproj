@@ -173,6 +173,7 @@
     <Compile Include="Controllers\BasuteisController.cs" />
     <Compile Include="Controllers\DataImportController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JinController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SerthExpressionController.cs" />
     <Compile Include="Global.asax.cs">
@@ -270,6 +271,7 @@
     <Content Include="Views\Home\Busstop.cshtml" />
     <Content Include="Views\Home\Route.cshtml" />
     <Content Include="Views\SerthExpression\SerthExpression.cshtml" />
+    <Content Include="Views\Jin\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
