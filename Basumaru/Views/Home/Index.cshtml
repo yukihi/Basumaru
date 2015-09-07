@@ -8,27 +8,24 @@
 
 
 <CENTER>
-
-    <form action="http://localhost:49834/Home/About" method="post">
+    <br><br><br><br>
+    <form name="myform" action="http://localhost:49834/Home/About" method="post">
         <span class="hacchaku"><img src="~/Image/shuppatsu.png"></img></span>
         <input type="text" id="q1" name="start" />
-&nbsp;&nbsp;&nbsp;
         <button type="image" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>
 
         <br><br>
 
         <span class="hacchaku"><img src="~/Image/touchaku.png"></img></span>
         <input type="text" name="goal" />
-&nbsp;&nbsp;&nbsp;
         <button type="image" value="ボタン"><img src="~/Image/chizu.png" border="0"></button>
 <br></br>
-        <input type="submit" />
-    </form>
+
+ 
 
         <br><br>
-        <input type="radio" name="q1" value="出発時刻" checked="checked"> 出発時刻
-&nbsp;&nbsp;&nbsp;
-        <input type="radio" name="q1" value="到着時刻"> 到着時刻
+    <input type="radio" name="kijun" value="出発時刻" checked="checked"> 出発時刻
+    <input type="radio" name="kijun" value="到着時刻"> 到着時刻
 
 
         <datalist id="codeType">
@@ -38,23 +35,21 @@
         </datalist>
         <br><br>
 
-        <form name="myform">
 
             <!-------- セレクトボックス -------->
 
             <select name="month"></select>
-            月&nbsp;&nbsp;&nbsp;
+            月
             <select name="day"></select>
             日
             <br>
             <br>
             <select name="hour"></select>
-            時&nbsp;&nbsp;&nbsp;
+            時
             <select name="minute"></select>
             分
 
 
-        </form>
 
         <!-------- スクリプト -------->
 
@@ -72,7 +67,7 @@
 
             var D = new Object();
             D.month = (new Date()).getMonth() + 1;
-            D.day = (new Date()).getDay();
+            D.day = (new Date()).getDate();
             D.hour = (new Date()).getHours();
             D.minute = (new Date()).getMinutes();
 
@@ -125,8 +120,8 @@
         </script>
 
         <br><br><br>
-    <button type="image" typeof="submit" value="ボタン"><img src="~/Image/kensaku.png" width="60%"></img></button>
-
+    <button ="image" type="submit" value="ボタン"><img src="~/Image/kensaku.png" width="60%"></img></button>
+    </form>
 
 
 </CENTER>

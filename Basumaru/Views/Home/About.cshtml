@@ -1,16 +1,27 @@
 ﻿
+
 @{
     string start = "";
     string goal = "";
     string name = "";
     string sex = "";
+    string kijun = "";
     bool isAgree = false;
+    string month = "";
+    string day = "";
+    string hour = "";
+    string minute = "";
     if (IsPost)
     {
         start = Request.Form["start"];
         goal = Request.Form["goal"];
         name = Request.Form["name"];
         sex = Request.Form["sex"];
+        kijun = Request.Form["kijun"];
+        month = Request.Form["month"];
+        day = Request.Form["day"];
+        hour = Request.Form["hour"];
+        minute = Request.Form["minute"];
         if (Request.Form["checkAgree"] == "on")
         {
             isAgree = true;
@@ -43,6 +54,14 @@
 <body>
     <p>@("出発 " + start)</p>
     <p>@("到着 " + goal)</p>
+    <p>@("基準 " + kijun)</p>
+    <p>@(month + "月")</p>
+    <p>@(day + "日")</p>
+    <p>@(hour + "時")</p>
+    <p>@(minute + "分")</p>
+
+
+
 
 
 
