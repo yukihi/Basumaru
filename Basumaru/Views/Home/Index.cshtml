@@ -23,8 +23,9 @@
     </form>
 
     <br><br>
-    <input type="radio" name="q1" value="出発時刻"> 出発時刻
-    　<input type="radio" name="q1" value="到着時刻"> 到着時刻
+    <input type="radio" name="q1" value="出発時刻" checked="checked"> 出発時刻
+    <input type="radio" name="q1" value="到着時刻"> 到着時刻
+
 
     <datalist id="codeType">
         <option value="AAA-"></option>
@@ -33,62 +34,93 @@
     </datalist>
     <br><br>
 
-    年：
-    <span name="ComboBox">
-        <select id="pulldownList" name="pulldownList">
-            <option>　</option>
-            <option>1995</option>
-            <option>2000</option>
-            <option>2005</option>
-            <option>2010</option>
-        </select>
-    </span>
-    　月：
-    <span name="ComboBox">
-        <select id="pulldownList" name="pulldownList">
+    <form name="myform">
 
-            <option>　</option>
-            <option>1月</option>
-            <option>4月</option>
-            <option>8月</option>
-            <option>12月</option>
-        </select>
-    </span>
-    　日：
-    <span name="ComboBox">
-        <select id="pulldownList" name="pulldownList">
+        <!-------- セレクトボックス -------->
 
-            <option>　</option>
-            <option>1日</option>
-            <option>8日</option>
-            <option>15日</option>
-            <option>22日</option>
-        </select>
-    </span>
+        <select name="month"></select>
+        月
+        <select name="day"></select>
+        日
+        <br>
+        <br>
+        <select name="hour"></select>
+        時
+        <select name="minute"></select>
+        分
 
-    <br><br>
 
-    時：
-    <span name="ComboBox">
-        <select id="pulldownList" name="pulldownList">
-            <option>　</option>
-            <option>1時</option>
-            <option>6時</option>
-            <option>12時</option>
-            <option>18時</option>
-        </select>
-    </span>
-    　分：
-    <span name="ComboBox">
-        <select id="pulldownList" name="pulldownList">
-            <option>　</option>
-            <option>00分</option>
-            <option>12分</option>
-            <option>24分</option>
-            <option>36分</option>
-        </select>
-    </span>
+    </form>
 
+    <!-------- スクリプト -------->
+
+    <script type="text/javascript">
+
+     /*====[ <select> 要素 ]====*/
+
+    var select = new Object()
+    select.month = document.myform.month;
+    select.day = document.myform.day;
+    select.hour = document.myform.hour;
+    select.minute = document.myform.minute;
+
+    /*====[ 日付データ ]====*/
+
+    var D = new Object();
+    D.month = (new Date()).getMonth() + 1;
+     D.day = (new Date()).getDay();
+     D.hour = (new Date()).getHours();
+     D.minute = (new Date()).getMinutes();
+
+    /*====[ 月の <option> を追加 ]====*/
+
+    for(var i=1;i<=12;i++){
+    var option =
+    select.month.appendChild( document.createElement('option') );
+    option.text = i;
+    option.value = i;
+    }
+
+
+    /*====[ 日の <option> を追加 ]====*/
+
+    for (var i = 1; i <= 31; i++) {
+        var option =
+        select.day.appendChild(document.createElement('option'));
+        option.text = i;
+        option.value = i;
+    }
+
+    /*====[ 時の <option> を追加 ]====*/
+
+    for (var i = 0; i <= 23; i++) {
+        var option =
+        select.hour.appendChild(document.createElement('option'));
+        option.text = i;
+        option.value = i;
+    }
+
+    /*====[ 分の <option> を追加 ]====*/
+
+    for (var i = 0; i <= 59; i++) {
+        var option =
+        select.minute.appendChild(document.createElement('option'));
+        option.text = i;
+        option.value = i;
+    }
+
+
+    /*====[ 初期状態をセット ]====*/
+
+    for(var key in select){
+        var option = select[key].options;
+        for(var i=0;i<option.length;i++){
+            option[i].selected = ( option[i].value==D[key] ) ? true : false;
+        }
+    }
+    </script>
+
+    <br><br><br>
     <br><br><br>
     <button type="image" value="ボタン"><img src="~/Image/kensaku.png" width="60%"></img></button>
 
