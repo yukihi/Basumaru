@@ -11,6 +11,9 @@ using System.Configuration;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using System.Text;
+using System.Threading.Tasks;
+
 
 
 namespace Basumaru.Controllers
@@ -57,23 +60,30 @@ namespace Basumaru.Controllers
                         //Do Nothing
                         break;
                     default:
-                        //テキストファイルでない場合
+                        //CSVファイルでない場合
                         ViewBag.OperationMessage = "選択されたファイルの拡張子が、テキストファイルではありません。";
-                        ViewBag.OperationMessage2 = "テキストファイルを選択してください。";
+                        ViewBag.OperationMessage2 = "CSVファイルを選択してください。";
                         return View("DataImport");
                 }
 
+                //現在の日付時間を取得
+                string dt = DateTime.Now.ToString("yyyyMMddhhmmss");
 
                 //サーバーに格納するフォルダのパスをWebConfigから取得
                 string SaveFilePath = ConfigurationManager.AppSettings["ServerFileSavePath"];
 
+                //フォルダの作成
+                string newfol = SaveFilePath + "/" + dt;
+
+                System.IO.DirectoryInfo di = System.IO.Directory.CreateDirectory(newfol);
+
                 //Uploadされたファイルをサーバーにコピー
                 //変換前ファイル格納
-                //System.IO.File.Copy(uploadFile.FileName, SaveFilePath + (conversionlogMaxNum + 1).ToString() + "/" + BeforeFileName);
-                uploadFile.SaveAs(SaveFilePath + (dt.ToString("yyyy年MM月dd日 HH時mm分ss秒")).ToString() + "/" + BeforeFileName);
+                System.IO.File.Copy(uploadFile.FileName, newfol + "/" + BeforeFileName);
+                uploadFile.SaveAs(newfol + "/" + BeforeFileName);
 
                 //Viewから指定されたファイルを取得
-                FileStream stream = new FileStream(SaveFilePath + (dt.ToString("yyyy年MM月dd日 HH時mm分ss秒")).ToString() + "/" + BeforeFileName, FileMode.Open, FileAccess.Read);
+                FileStream stream = new FileStream(newfol + "/" + BeforeFileName, FileMode.Open, FileAccess.Read);
                 byte[] bs = new byte[stream.Length];
                 //byte配列に読み込む
                 stream.Read(bs, 0, bs.Length);
@@ -86,7 +96,7 @@ namespace Basumaru.Controllers
                     //ファイルがUnicodeの場合
                     //FileStreamを一度読み込んだので、再度読み込みを行う
                     //stream = new FileStream(uploadFile.FileName, FileMode.Open, FileAccess.Read);
-                    stream = new FileStream(SaveFilePath + (dt.ToString("yyyy年MM月dd日 HH時mm分ss秒")).ToString() + "/" + BeforeFileName, FileMode.Open, FileAccess.Read);
+                    stream = new FileStream(SaveFilePath + "/" + BeforeFileName, FileMode.Open, FileAccess.Read);
                 }
                 else
                 {
@@ -103,11 +113,9 @@ namespace Basumaru.Controllers
                 //データベースから取得した、変換文字をReplaceする
                 if ((reader.Peek() > 0))
                 {
-                    //ファイルから取得した文字列を格納する変数を定義
-                    System.Text.StringBuilder FileStr = new System.Text.StringBuilder(reader.ReadToEnd());
-
-                    //エクスプローラー表示
-                    //System.Diagnostics.Process.Start("EXPLORER.EXE", @"/select," + AfterFilePathName);
+                        //ファイルから取得した文字列を格納する変数を定義
+                        System.Text.StringBuilder FileStr = new System.Text.StringBuilder(reader.ReadToEnd());
+                    //ここにチェックの処理を書き込む
                 }
 
                 stream.Close();
