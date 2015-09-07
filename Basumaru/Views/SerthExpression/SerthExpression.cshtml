@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "SerthExpression";
+}
+
+<h2>SerthExpression</h2>
+
+@{
+    string start = "";//出発
+    string goal = "";//到着
+    string month = "6";//月情報
+    string day = "6";//日情報
+    string hour = "6";//時間情報
+    string minute = "6";//分情報
+    start = Request.Form["start"];//メインページからデータ受け取り
+    goal = Request.Form["goal"];
+    month = Request.Form["month"];
+    day = Request.Form["day"];
+    hour = Request.Form["start"];
+    minute = Request.Form["start"];
+
+    month = "6";
+    day = "6";//日情報
+    hour = "6";//時間情報
+    minute = "6";//分情報
+    int monthint = int.Parse(month);//string型をint型に変換
+    int dayint = int.Parse(day);
+    int hourint = int.Parse(hour);
+    int minuteint = int.Parse(minute);
+
+    DateTime dateValue = new DateTime(2015, 9, 6);
+    //Console.WriteLine((int)dateValue.DayOfWeek);
+
+}
+
+
+
+<CENTER>
+    @("出発 " + start)<br />
+    @("到着 " + goal)<br />
+    @("曜日番号" + (int)dateValue.DayOfWeek)
+</CENTER>
