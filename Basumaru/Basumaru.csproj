@@ -199,6 +199,8 @@
     <Content Include="Image\chizu.png" />
     <Content Include="Image\kensaku.png" />
     <Content Include="Image\rogo.png" />
+    <Content Include="Image\shuppatsu.png" />
+    <Content Include="Image\touchaku.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

@@ -1,7 +1,72 @@
-﻿@{
-    ViewBag.Title = "About";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿
 
-<p>Use this area to provide additional information.</p>
+@{
+    string start = "";
+    string goal = "";
+    string name = "";
+    string sex = "";
+    string kijun = "";
+    bool isAgree = false;
+    string month = "";
+    string day = "";
+    string hour = "";
+    string minute = "";
+    if (IsPost)
+    {
+        start = Request.Form["start"];
+        goal = Request.Form["goal"];
+        name = Request.Form["name"];
+        sex = Request.Form["sex"];
+        kijun = Request.Form["kijun"];
+        month = Request.Form["month"];
+        day = Request.Form["day"];
+        hour = Request.Form["hour"];
+        minute = Request.Form["minute"];
+        if (Request.Form["checkAgree"] == "on")
+        {
+            isAgree = true;
+        }
+        else
+        {
+            isAgree = false;
+        }
+
+    }
+}
+
+
+<h2>JavaScript を直接記述する</h2>
+<script type="text/javascript">
+    document.write("<p>ここにJavaScriptで書きます</p>");
+    document.write("<ul>");
+    for (i = 0; i < 10; i++) {
+        document.write("<li>商品 " + i);
+    }
+    document.write("</ul>");
+</script>
+</asp:Content>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <p>@("出発 " + start)</p>
+    <p>@("到着 " + goal)</p>
+    <p>@("基準 " + kijun)</p>
+    <p>@(month + "月")</p>
+    <p>@(day + "日")</p>
+    <p>@(hour + "時")</p>
+    <p>@(minute + "分")</p>
+
+
+
+
+
+
+</body>
+
+
+</html>
+

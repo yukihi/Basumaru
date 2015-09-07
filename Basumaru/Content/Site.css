@@ -30,4 +30,11 @@ button {
     border:0;
     line-height:0;
     cursor:pointer;
+    position: relative;
+    bottom: 5px;
+}
+
+.hacchaku {
+position: relative;
+bottom :3.5px;
 }
