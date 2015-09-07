@@ -5,6 +5,8 @@
 
 <h2>SerthExpression</h2>
 
+
+
 @{
     string start = "";//出発
     string goal = "";//到着
@@ -27,6 +29,9 @@
     int dayint = int.Parse(day);
     int hourint = int.Parse(hour);
     int minuteint = int.Parse(minute);
+    int starttime = 1000;
+    int goaltime = 1100;
+    string rosen = "小野町行き";
 
     DateTime dateValue = new DateTime(2015, 9, 6);
     //Console.WriteLine((int)dateValue.DayOfWeek);
@@ -36,7 +41,19 @@
 
 
 <CENTER>
-    @("出発 " + start)<br />
-    @("到着 " + goal)<br />
-    @("曜日番号" + (int)dateValue.DayOfWeek)
+    <button ="image" typeof="submit" value="ボタン"><img src="~/Image/kensaku.png" width="60%"></img></button>
+    <button ="image" typeof="submit" value="ボタン"><img src="~/Image/kensaku.png" width="60%"></img></button>
+    <button ="image" typeof="submit" value="ボタン"><img src="~/Image/kensaku.png" width="60%"></img></button><br/>
+    @("出発時刻:" + starttime)@("出発バス停:" + start)<br />
+    |<br />
+    |<br />
+    |<br />
+    |<br />
+    @("路線:" + rosen)<br />
+    |<br />
+    |<br />
+    |<br />
+    |<br />
+    @("到着時刻:" + goaltime)@("到着バス停:" + goal)<br />
+    <button ="image" typeof="submit" value="ボタン"><img src="~/Image/kensaku.png" width="60%"></img></button><br />
 </CENTER>
