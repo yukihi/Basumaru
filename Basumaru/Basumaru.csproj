@@ -173,6 +173,7 @@
     <Compile Include="Controllers\BasuteisController.cs" />
     <Compile Include="Controllers\DataImport.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JinController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -189,6 +190,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\BasumaruDB.mdf" />
+    <Content Include="App_Data\BasumaruDB_log.ldf">
+      <DependentUpon>BasumaruDB.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -259,9 +264,9 @@
     <Content Include="Views\Jikokuhyous\Edit.cshtml" />
     <Content Include="Views\Jikokuhyous\Index.cshtml" />
     <Content Include="Views\Home\DataImport.cshtml" />
+    <Content Include="Views\Jin\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Views\BussInfoEntry\" />
   </ItemGroup>
   <ItemGroup>
