@@ -171,10 +171,10 @@
     <Compile Include="BasumaruInitializer.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BasuteisController.cs" />
-    <Compile Include="Controllers\DataImport.cs" />
+    <Compile Include="Controllers\DataImportController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\JinController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SerthExpressionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -190,19 +190,22 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\BasumaruDB.mdf" />
-    <Content Include="App_Data\BasumaruDB_log.ldf">
-      <DependentUpon>BasumaruDB.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Image\basu_aka.png" />
+    <Content Include="Image\chizu.png" />
+    <Content Include="Image\kensaku.png" />
+    <Content Include="Image\rogo.png" />
+    <Content Include="Image\shuppatsu.png" />
+    <Content Include="Image\touchaku.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\gmaps.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -263,11 +266,13 @@
     <Content Include="Views\Jikokuhyous\Details.cshtml" />
     <Content Include="Views\Jikokuhyous\Edit.cshtml" />
     <Content Include="Views\Jikokuhyous\Index.cshtml" />
-    <Content Include="Views\Home\DataImport.cshtml" />
-    <Content Include="Views\Jin\Delete.cshtml" />
+    <Content Include="Views\DataImport\DataImport.cshtml" />
+    <Content Include="Views\Home\Busstop.cshtml" />
+    <Content Include="Views\Home\Route.cshtml" />
+    <Content Include="Views\SerthExpression\SerthExpression.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\BussInfoEntry\" />
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

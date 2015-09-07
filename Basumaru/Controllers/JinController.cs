@@ -14,7 +14,7 @@ namespace Basumaru.Controllers
         // GET: Jin/Index
         public ActionResult Delete()
         {
-            ViewBag.msg = "すべてのデータを削除する場合は、「削除」ボタンをクリックしてください";
+            ViewBag.msg = "すべてのデータを削除する場合は「削除」ボタンをクリックしてください";
             return View();
         }
 
