@@ -262,11 +262,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Basuteis\Create.cshtml" />
-    <Content Include="Views\Basuteis\Delete.cshtml" />
-    <Content Include="Views\Basuteis\Details.cshtml" />
-    <Content Include="Views\Basuteis\Edit.cshtml" />
-    <Content Include="Views\Basuteis\Index.cshtml" />
     <Content Include="Views\Rosens\Create.cshtml" />
     <Content Include="Views\Rosens\Delete.cshtml" />
     <Content Include="Views\Rosens\Details.cshtml" />
@@ -281,6 +276,11 @@
     <Content Include="Views\Jin\Delete.cshtml" />
     <Content Include="Views\Home\Route.cshtml" />
     <Content Include="Views\SearchExpression\SearchExpression.cshtml" />
+    <Content Include="Views\Basuteis\Create.cshtml" />
+    <Content Include="Views\Basuteis\Delete.cshtml" />
+    <Content Include="Views\Basuteis\Details.cshtml" />
+    <Content Include="Views\Basuteis\Edit.cshtml" />
+    <Content Include="Views\Basuteis\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

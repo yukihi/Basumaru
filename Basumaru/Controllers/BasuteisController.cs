@@ -47,7 +47,7 @@ namespace Basumaru.Controllers
         // 詳細については、http://go.microsoft.com/fwlink/?LinkId=317598 を参照してください。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BasuteiId,kigyou,rosenmei,basuteimei,ido,keido")] Basutei basutei)
+        public ActionResult Create([Bind(Include = "BasuteiId,kigyou,rosenmei,basuteimei,ido,keido,yaneFlg,benchiFlg,noriba")] Basutei basutei)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace Basumaru.Controllers
         // 詳細については、http://go.microsoft.com/fwlink/?LinkId=317598 を参照してください。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BasuteiId,kigyou,rosenmei,basuteimei,ido,keido")] Basutei basutei)
+        public ActionResult Edit([Bind(Include = "BasuteiId,kigyou,rosenmei,basuteimei,ido,keido,yaneFlg,benchiFlg,noriba")] Basutei basutei)
         {
             if (ModelState.IsValid)
             {

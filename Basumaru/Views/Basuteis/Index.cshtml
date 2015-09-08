@@ -26,6 +26,15 @@
         <th>
             @Html.DisplayNameFor(model => model.keido)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.yaneFlg)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.benchiFlg)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.noriba)
+        </th>
         <th></th>
     </tr>
 
@@ -45,6 +54,15 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.keido)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.yaneFlg)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.benchiFlg)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.noriba)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.BasuteiId }) |
