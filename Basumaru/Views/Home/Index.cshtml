@@ -14,18 +14,18 @@
           enctype="multipart/form-data" id="fm" method="post" name="myform">
 
         <span class="hacchaku"><img src="~/Image/shuppatsu.png"></img></span>
-        @Html.TextBox("start")
+        <input type="text" name="start" value="">
         <br />
         <span class="chizubutton">
-            <button type="image" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>
+            <button type="button" onClick="location.href = 'http://localhost:49834/Home/Busstop';" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>
         </span>
 
             <br><br>
             <span class="hacchaku"><img src="~/Image/touchaku.png"></img></span>
-            @Html.TextBox("goal")
+        <input type="text" name="goal" value="">
         <br />
         <span class="chizubutton">
-            <button type="image" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>
+            <button type="button" onClick="location.href = 'http://localhost:49834/Home/Busstop';" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>
         </span>
             <br><br><br>
 
