@@ -229,7 +229,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Busstop.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -267,7 +267,6 @@
     <Content Include="Views\Jikokuhyous\Edit.cshtml" />
     <Content Include="Views\Jikokuhyous\Index.cshtml" />
     <Content Include="Views\DataImport\DataImport.cshtml" />
-    <Content Include="Views\Home\Busstop.cshtml" />
     <Content Include="Views\Home\Route.cshtml" />
     <Content Include="Views\Jin\Delete.cshtml" />
   </ItemGroup>
