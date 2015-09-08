@@ -199,9 +199,11 @@
     <Content Include="Content\Site.css" />
     <Content Include="Image\basu.png" />
     <Content Include="Image\basu_aka.png" />
+    <Content Include="Image\benchi.png" />
     <Content Include="Image\chizu.png" />
     <Content Include="Image\kensaku.png" />
     <Content Include="Image\rogo.png" />
+    <Content Include="Image\ruto.png" />
     <Content Include="Image\ruto1.png" />
     <Content Include="Image\ruto2.png" />
     <Content Include="Image\ruto3.png" />
@@ -209,6 +211,7 @@
     <Content Include="Image\shuppatsuzikoku.png" />
     <Content Include="Image\touchaku.png" />
     <Content Include="Image\touchakuzikoku.png" />
+    <Content Include="Image\yane.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
