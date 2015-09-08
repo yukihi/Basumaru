@@ -15,29 +15,35 @@
 
         <span class="hacchaku"><img src="~/Image/shuppatsu.png"></img></span>
         @Html.TextBox("start")
-        <button type="image" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>
+        <br />
+        <span class="chizubutton">
+            <button type="image" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>
+        </span>
 
-        <br><br>
-        <span class="hacchaku"><img src="~/Image/touchaku.png"></img></span>
-        @Html.TextBox("goal")
-        <button type="image" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>
+            <br><br>
+            <span class="hacchaku"><img src="~/Image/touchaku.png"></img></span>
+            @Html.TextBox("goal")
+        <br />
+        <span class="chizubutton">
+            <button type="image" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>
+        </span>
+            <br><br><br>
 
-        <br><br><br>
+            <input type="radio" name="kijun" value="出発時刻" checked="checked">
+            出発時刻　　　
+            <input type="radio" name="kijun" value="到着時刻">
+            到着時刻
 
-        <input type="radio" name="kijun" value="出発時刻" checked="checked">
-        出発時刻　　　
-        <input type="radio" name="kijun" value="到着時刻">
-        到着時刻
+            <br><br>
 
-        <br><br>
-
-        <select name="month"></select>
-        <select name="day"></select>
-        <br> <br>
-        <select name="hour"></select>
-        <select name="minute"></select>
-
-        <script type="text/javascript">
+            <select name="month"></select>月
+        &nbsp; &nbsp;
+            <select name="day"></select>日
+            <br> <br>
+            <select name="hour"></select>時
+        &nbsp; &nbsp;
+            <select name="minute"></select>分
+            <script type="text/javascript">
 
                 /*====[ <select> 要素 ]====*/
 
@@ -101,27 +107,27 @@
                         option[i].selected = (option[i].value == D[key]) ? true : false;
                     }
                 }
-        </script>
+            </script>
 
 
-        <br><br>
+            <br><br>
 
 
 
 
 
-        <h2> @Html.Encode(ViewData["start"]) </h2>
-        <h2> @Html.Encode(ViewData["goal"]) </h2>
-        <h2> @Html.Encode(ViewData["kijun"]) </h2>
-        <h2> @Html.Encode(ViewData["month"]) </h2>
-        <h2> @Html.Encode(ViewData["day"]) </h2>
-        <h2> @Html.Encode(ViewData["hour"]) </h2>
-        <h2> @Html.Encode(ViewData["minute"]) </h2>
+            <h2> @Html.Encode(ViewData["start"]) </h2>
+            <h2> @Html.Encode(ViewData["goal"]) </h2>
+            <h2> @Html.Encode(ViewData["kijun"]) </h2>
+            <h2> @Html.Encode(ViewData["month"]) </h2>
+            <h2> @Html.Encode(ViewData["day"]) </h2>
+            <h2> @Html.Encode(ViewData["hour"]) </h2>
+            <h2> @Html.Encode(ViewData["minute"]) </h2>
 
-        <button ="image" type="submit" value="ボタン"><img src="~/Image/kensaku.png" width="60%"></img></button>
+            <button ="image" type="submit" value="ボタン"><img src="~/Image/kensaku.png" width="60%"></img></button>
 
-    </form>
-    <</CENTER>>
+</form>
+    </CENTER>
     <p>
         @ViewData["msg"]
     </p>

@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 130px;
     padding-bottom: 20px;
 }
 
@@ -21,4 +21,42 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+button {
+    width: auto;
+    padding:0;
+    margin:0;
+    background:none;
+    border:0;
+    line-height:0;
+    cursor:pointer;
+}
+.chizubutton {
+position: relative;
+left:85px;
+}
+
+.hacchaku {
+position: relative;
+bottom :3.5px;
+}
+
+.mozi{
+font-size:18pt;
+font-weight:bold;
+}
+.rosenmozi {
+font-size: 14pt;
+font-weight: bold;
+}
+table {
+border-spacing: 0px 15px;
+border-collapse: separate;
+white-space:normal;
+width:300px;
+}
+
+.basu {
+position: relative;
+left: 12px;
 }

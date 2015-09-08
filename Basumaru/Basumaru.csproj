@@ -175,6 +175,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JinController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SearchExpressionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -196,12 +197,18 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Image\basu.png" />
     <Content Include="Image\basu_aka.png" />
     <Content Include="Image\chizu.png" />
     <Content Include="Image\kensaku.png" />
     <Content Include="Image\rogo.png" />
+    <Content Include="Image\ruto1.png" />
+    <Content Include="Image\ruto2.png" />
+    <Content Include="Image\ruto3.png" />
     <Content Include="Image\shuppatsu.png" />
+    <Content Include="Image\shuppatsuzikoku.png" />
     <Content Include="Image\touchaku.png" />
+    <Content Include="Image\touchakuzikoku.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -270,6 +277,7 @@
     <Content Include="Views\DataImport\DataImport.cshtml" />
     <Content Include="Views\Jin\Delete.cshtml" />
     <Content Include="Views\Home\Route.cshtml" />
+    <Content Include="Views\SearchExpression\SearchExpression.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
