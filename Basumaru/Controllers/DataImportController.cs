@@ -25,6 +25,7 @@ namespace Basumaru.Controllers
         DateTime dt = DateTime.Now;
 
 
+
         /// <summary>   
         /// DataImport ビュー初期表示用
         /// </summary>
@@ -41,8 +42,10 @@ namespace Basumaru.Controllers
         /// <param name="uploadFile">クライアントからUploadされたファイル</param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult DataImport(HttpPostedFileWrapper uploadFile)
+        public ActionResult DataImport(HttpPostedFileWrapper uploadFile,string id)
         {
+
+            string bname = id;
 
                 //アップロードファイルが存在する場合のみ処理を実行
                 if (uploadFile != null)
@@ -131,85 +134,190 @@ namespace Basumaru.Controllers
                 stream.Close();
 
                 //ここから分岐処理
-
-
-
-                //データベースの全件削除
-                foreach (Jikokuhyou jh in db.jikokuhyou.ToList())
+                switch (bname)
                 {
-                    db.jikokuhyou.Remove(jh);
+                    //バス停のボタンが押されたときの処理
+                    case "basuteiupload":
+                        //データベースの全件削除
+                        foreach (Basutei bt in db.basutei.ToList())
+                        {
+                            db.basutei.Remove(bt);
+                        }
+                        db.SaveChanges();
+                        // ViewBag.OperationMessage = "削除完了";
+
+                        stream = new FileStream(newfol + "/" + BeforeFileName, FileMode.Open, FileAccess.Read);
+                        reader = new StreamReader(stream, System.Text.Encoding.GetEncoding("utf-8"));
+
+                        while (reader.EndOfStream == false)
+                        {
+                            //一行ずつ格納する
+                            string line = reader.ReadLine();
+                            //カンマごとに格納する
+                            string[] fields = line.Split(',');
+
+                            Basutei bt = new Basutei();
+                            bt.kigyou = fields[0];
+                            bt.rosenmei = fields[1];
+                            bt.basuteimei = fields[2];
+                            bt.ido = double.Parse(fields[3]);
+                            bt.keido = double.Parse(fields[4]);
+                            //bs.yaneFlg = fields[5];
+                            if (fields[5].ToString() == "なし")
+                            {
+                                bt.yaneFlg = "0";
+                            }
+                            else
+                            {
+                                bt.yaneFlg = "1";
+                            }
+                            //bs.enchiFlg = fields[6];
+                            if (fields[6].ToString() == "なし")
+                            {
+                                bt.benchiFlg = "0";
+                            }
+                            else
+                            {
+                                bt.benchiFlg = "1";
+                            }
+                            //bs.noriba = fields[7];
+                            if (fields[7].ToString() == "なし")
+                            {
+                                bt.noriba = "";
+                            }
+                            else
+                            {
+                                bt.noriba = fields[7];
+                            }
+
+                            db.basutei.Add(bt);
+                        }
+                        db.SaveChanges();
+                        break;
+
+                    //時刻表のボタンが押されたときの処理
+                    case "jikokuhyouupload":
+                        //データベースの全件削除
+                        foreach (Jikokuhyou jh in db.jikokuhyou.ToList())
+                        {
+                            db.jikokuhyou.Remove(jh);
+                        }
+                        db.SaveChanges();
+                        // ViewBag.OperationMessage = "削除完了";
+
+                        stream = new FileStream(newfol + "/" + BeforeFileName, FileMode.Open, FileAccess.Read);
+                        reader = new StreamReader(stream, System.Text.Encoding.GetEncoding("utf-8"));
+
+                        while (reader.EndOfStream == false)
+                        {
+                            //一行ずつ格納する
+                            string line = reader.ReadLine();
+                            //カンマごとに格納する
+                            string[] fields = line.Split(',');
+
+                            Jikokuhyou jk = new Jikokuhyou();
+                            jk.kigyou = fields[0];
+                            jk.rosenmei = fields[1];
+                            jk.ikisaki = fields[2];
+                            //jk.hidukebunrui = fields[3];
+                            switch (fields[3])
+                            {
+                                case "平日":
+                                    jk.hidukebunrui = "0";
+                                    break;
+                                case "土":
+                                    jk.hidukebunrui = "1";
+                                    break;
+                                case "日":
+                                    jk.hidukebunrui = "2";
+                                    break;
+                                case "土日":
+                                    jk.hidukebunrui = "3";
+                                    break;
+                                case "日祝":
+                                    jk.hidukebunrui = "4";
+                                    break;
+                                case "土日祝":
+                                    jk.hidukebunrui = "5";
+                                    break;
+                                default:
+                                    jk.hidukebunrui = "エラー";
+                                    break;
+                            }
+                            jk.basuteimei = fields[4];
+                            jk.zikoku = fields[5].ToString().Substring(0, 2) + fields[5].ToString().Substring(3, 2);
+                            if (fields[5].ToString().Substring(fields[5].Length - 1) == "発")
+                            {
+                                jk.hachakuKubun = "1";
+                            }
+                            else
+                            {
+                                jk.hachakuKubun = "0";
+                            }
+                            db.jikokuhyou.Add(jk);
+
+                        }
+                        db.SaveChanges();
+                        break;
+
+
+                    //路線のボタンが押されたときの処理
+                    case "rosenupload":
+                        //データベースの全件削除
+                        foreach (Rosen rs in db.rosen.ToList())
+                        {
+                            db.rosen.Remove(rs);
+                        }
+                        db.SaveChanges();
+                        // ViewBag.OperationMessage = "削除完了";
+
+                        stream = new FileStream(newfol + "/" + BeforeFileName, FileMode.Open, FileAccess.Read);
+                        reader = new StreamReader(stream, System.Text.Encoding.GetEncoding("utf-8"));
+
+                        while (reader.EndOfStream == false)
+                        {
+                            //一行ずつ格納する
+                            string line = reader.ReadLine();
+                            //カンマごとに格納する
+                            string[] fields = line.Split(',');
+
+                            Rosen rs = new Rosen();
+                            rs.kigyou = fields[0];
+                            rs.rosenmei = fields[1];
+                            rs.hidukebunrui = fields[2];
+
+                            switch (FileExtension)
+                            {
+                                case "平日":
+                                    rs.hidukebunrui = "0";
+                                    break;
+                                case "土":
+                                    rs.hidukebunrui = "1";
+                                    break;
+                                case "日":
+                                    rs.hidukebunrui = "2";
+                                    break;
+                                case "土日":
+                                    rs.hidukebunrui = "3";
+                                    break;
+                                case "日祝":
+                                    rs.hidukebunrui = "4";
+                                    break;
+                                case "土日祝":
+                                    rs.hidukebunrui = "5";
+                                    break;
+                            }
+                            rs.kigoui = fields[3];
+                            rs.komento = fields[4];
+                            db.rosen.Add(rs);
+                        }
+                        db.SaveChanges();
+                        break;
                 }
-                db.SaveChanges();
-                // ViewBag.OperationMessage = "削除完了";
-
-                stream = new FileStream(newfol + "/" + BeforeFileName, FileMode.Open, FileAccess.Read);
-                reader = new StreamReader(stream, System.Text.Encoding.GetEncoding("utf-8"));
-
-                while (reader.EndOfStream == false)
-                {
-                    //一行ずつ格納する
-                    string line = reader.ReadLine();
-                    //カンマごとに格納する
-                    string[] fields = line.Split(',');
-
-                    Jikokuhyou jk = new Jikokuhyou();
-                    jk.kigyou = fields[0];
-                    jk.rosenmei = fields[1];
-                    jk.ikisaki = fields[2];
-                    //jk.hidukebunrui = fields[3];
-                    switch (fields[3])
-                    {
-                        case "平日":
-                            jk.hidukebunrui = "0";
-                            break;
-                        case "土":
-                            jk.hidukebunrui = "1";
-                            break;
-                        case "日":
-                            jk.hidukebunrui = "2";
-                            break;
-                        case "土日":
-                            jk.hidukebunrui = "3";
-                            break;
-                        case "日祝":
-                            jk.hidukebunrui = "4";
-                            break;
-                        case "土日祝":
-                            jk.hidukebunrui = "5";
-                            break;
-                        default:
-                            jk.hidukebunrui = "エラー";
-                            break;
-                    }
-                    jk.basuteimei = fields[4];
-                    jk.zikoku = fields[5].ToString().Substring(0,2) + fields[5].ToString().Substring(3, 2);
-                    if (fields[5].ToString().Substring(fields[5].Length - 1) == "発")
-                    {
-                        jk.hachakuKubun = "1";
-                    }
-                    else {
-                        jk.hachakuKubun = "0";
-                    }
-                    db.jikokuhyou.Add(jk);
-
-                }
-                db.SaveChanges();
 
                 reader.Close();
                 stream.Close();
 
-                ////データをインサート
-                //while (reader.EndOfStream == false)
-                //  {
-                //      string lines = reader.ReadLine();
-                //      string[] fieldss = lines.Split(',');
-                //      for (int i = 0; i < fieldss.Length; i++)
-                //      {
-                //        db.jikokuhyou.Add((Jikokuhyou)fieldss[i]);
-                //      }
-
-                //  }
-                //db.SaveChanges();
                 ViewBag.OperationMessage = "取り込み完了";
 
             }
