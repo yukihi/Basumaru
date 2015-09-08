@@ -11,37 +11,41 @@ using System.Configuration;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using System.Text;
+using System.Threading.Tasks;
+
 
 
 namespace Basumaru.Controllers
 
 {
-    public class DataImport : Controller
+    public class DataImportController : Controller
     {
         private BasumaruDBContext db = new BasumaruDBContext();
         DateTime dt = DateTime.Now;
 
 
         /// <summary>   
-        /// ConversionExecute ビュー初期表示用
+        /// DataImport ビュー初期表示用
         /// </summary>
         /// <returns></returns>
-        public ActionResult ConversionExecute()
+        public ActionResult DataImport()
         {
             //View読み込み            
-            return View("ConversionExecute");
+            return View("DataImport");
         }
 
         /// <summary>
-        /// ConversionExecute ビュー　外字変換処理
+        /// DataImport ビュー　外字変換処理
         /// </summary>
         /// <param name="uploadFile">クライアントからUploadされたファイル</param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult ConversionExecute(HttpPostedFileWrapper uploadFile)
+        public ActionResult DataImport(HttpPostedFileWrapper uploadFile)
         {
-            //アップロードファイルが存在する場合のみ処理を実行
-            if (uploadFile != null)
+
+                //アップロードファイルが存在する場合のみ処理を実行
+                if (uploadFile != null)
             {    
 
                 //uploadされたファイルの拡張子を取得
@@ -57,23 +61,30 @@ namespace Basumaru.Controllers
                         //Do Nothing
                         break;
                     default:
-                        //テキストファイルでない場合
+                        //CSVファイルでない場合
                         ViewBag.OperationMessage = "選択されたファイルの拡張子が、テキストファイルではありません。";
-                        ViewBag.OperationMessage2 = "テキストファイルを選択してください。";
-                        return View("ConversionExecute");
+                        ViewBag.OperationMessage2 = "CSVファイルを選択してください。";
+                        return View("DataImport");
                 }
 
+                //現在の日付時間を取得
+                string dt = DateTime.Now.ToString("yyyyMMddHHmmss");
 
                 //サーバーに格納するフォルダのパスをWebConfigから取得
                 string SaveFilePath = ConfigurationManager.AppSettings["ServerFileSavePath"];
 
+                //フォルダの作成
+                string newfol = SaveFilePath + "/" + dt;
+
+                System.IO.DirectoryInfo di = System.IO.Directory.CreateDirectory(newfol);
+
                 //Uploadされたファイルをサーバーにコピー
                 //変換前ファイル格納
-                //System.IO.File.Copy(uploadFile.FileName, SaveFilePath + (conversionlogMaxNum + 1).ToString() + "/" + BeforeFileName);
-                uploadFile.SaveAs(SaveFilePath + (dt.ToString("yyyy年MM月dd日 HH時mm分ss秒")).ToString() + "/" + BeforeFileName);
+                System.IO.File.Copy(uploadFile.FileName, newfol + "/" + BeforeFileName);
+                //uploadFile.SaveAs(newfol + "/" + BeforeFileName);
 
                 //Viewから指定されたファイルを取得
-                FileStream stream = new FileStream(SaveFilePath + (dt.ToString("yyyy年MM月dd日 HH時mm分ss秒")).ToString() + "/" + BeforeFileName, FileMode.Open, FileAccess.Read);
+                FileStream stream = new FileStream(newfol + "/" + BeforeFileName, FileMode.Open, FileAccess.Read);
                 byte[] bs = new byte[stream.Length];
                 //byte配列に読み込む
                 stream.Read(bs, 0, bs.Length);
@@ -86,32 +97,121 @@ namespace Basumaru.Controllers
                     //ファイルがUnicodeの場合
                     //FileStreamを一度読み込んだので、再度読み込みを行う
                     //stream = new FileStream(uploadFile.FileName, FileMode.Open, FileAccess.Read);
-                    stream = new FileStream(SaveFilePath + (dt.ToString("yyyy年MM月dd日 HH時mm分ss秒")).ToString() + "/" + BeforeFileName, FileMode.Open, FileAccess.Read);
+                    stream = new FileStream(newfol + "/" + BeforeFileName, FileMode.Open, FileAccess.Read);
                 }
                 else
                 {
                     //ファイルがUnicodeでない場合
                     ViewBag.OperationMessage = "指定されたファイルの文字コードがUnicodeではありません。";
                     ViewBag.OperationMessage2 = "変換できるファイルは、文字コードがUnicodeのファイルのみです。";
-                    return View("ConversionExecute");
+                    return View("DataImport");
                 }
 
                 StreamReader reader = new StreamReader(stream, System.Text.Encoding.GetEncoding("utf-8"));
 
-                
-
-                //データベースから取得した、変換文字をReplaceする
-                if ((reader.Peek() > 0))
+                while (reader.EndOfStream == false)
                 {
-                    //ファイルから取得した文字列を格納する変数を定義
-                    System.Text.StringBuilder FileStr = new System.Text.StringBuilder(reader.ReadToEnd());
+                    //一行ずつ格納する
+                    string line = reader.ReadLine();
+                    //カンマごとに格納する
+                    string[] fields = line.Split(',');
 
-                    //エクスプローラー表示
-                    //System.Diagnostics.Process.Start("EXPLORER.EXE", @"/select," + AfterFilePathName);
+                    for (int i = 0; i < fields.Length; i++)
+                    {
+                        if (fields[i] == "") {
+                            //ファイルがUnicodeでない場合
+                            ViewBag.OperationMessage = "指定されたCSVファイルにデータの欠落があります";
+                            return View("DataImport");
+                        }
+                    }
+
                 }
 
-                stream.Close();
                 reader.Close();
+                stream.Close();
+
+                //ここから分岐処理
+
+
+
+                //データベースの全件削除
+                foreach (Jikokuhyou jh in db.jikokuhyou.ToList())
+                {
+                    db.jikokuhyou.Remove(jh);
+                }
+                db.SaveChanges();
+                // ViewBag.OperationMessage = "削除完了";
+
+                stream = new FileStream(newfol + "/" + BeforeFileName, FileMode.Open, FileAccess.Read);
+                reader = new StreamReader(stream, System.Text.Encoding.GetEncoding("utf-8"));
+
+                while (reader.EndOfStream == false)
+                {
+                    //一行ずつ格納する
+                    string line = reader.ReadLine();
+                    //カンマごとに格納する
+                    string[] fields = line.Split(',');
+
+                    Jikokuhyou jk = new Jikokuhyou();
+                    jk.kigyou = fields[0];
+                    jk.rosenmei = fields[1];
+                    jk.ikisaki = fields[2];
+                    //jk.hidukebunrui = fields[3];
+                    switch (fields[3])
+                    {
+                        case "平日":
+                            jk.hidukebunrui = "0";
+                            break;
+                        case "土":
+                            jk.hidukebunrui = "1";
+                            break;
+                        case "日":
+                            jk.hidukebunrui = "2";
+                            break;
+                        case "土日":
+                            jk.hidukebunrui = "3";
+                            break;
+                        case "日祝":
+                            jk.hidukebunrui = "4";
+                            break;
+                        case "土日祝":
+                            jk.hidukebunrui = "5";
+                            break;
+                        default:
+                            jk.hidukebunrui = "エラー";
+                            break;
+                    }
+                    jk.basuteimei = fields[4];
+                    jk.zikoku = fields[5].ToString().Substring(0,2) + fields[5].ToString().Substring(3, 2);
+                    if (fields[5].ToString().Substring(fields[5].Length - 1) == "発")
+                    {
+                        jk.hachakuKubun = "1";
+                    }
+                    else {
+                        jk.hachakuKubun = "0";
+                    }
+                    db.jikokuhyou.Add(jk);
+
+                }
+                db.SaveChanges();
+
+                reader.Close();
+                stream.Close();
+
+                ////データをインサート
+                //while (reader.EndOfStream == false)
+                //  {
+                //      string lines = reader.ReadLine();
+                //      string[] fieldss = lines.Split(',');
+                //      for (int i = 0; i < fieldss.Length; i++)
+                //      {
+                //        db.jikokuhyou.Add((Jikokuhyou)fieldss[i]);
+                //      }
+
+                //  }
+                //db.SaveChanges();
+                ViewBag.OperationMessage = "取り込み完了";
+
             }
             else
             {
@@ -120,8 +220,8 @@ namespace Basumaru.Controllers
             }
 
             //View再読み込み            
-            //return RedirectToAction("ConversionExecute");
-            return View("ConversionExecute");
+            //return RedirectToAction("DataImport");
+            return View("DataImport");
         }
 
       

@@ -175,7 +175,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JinController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\SerthExpressionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -270,7 +269,6 @@
     <Content Include="Views\DataImport\DataImport.cshtml" />
     <Content Include="Views\Home\Busstop.cshtml" />
     <Content Include="Views\Home\Route.cshtml" />
-    <Content Include="Views\SerthExpression\SerthExpression.cshtml" />
     <Content Include="Views\Jin\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
