@@ -136,30 +136,30 @@
 
         // a sample list of JSON encoded data of places to visit in Liverpool, UK
         // you can either make up a JSON list server side, or call it from a controller using JSONResult
-        //var data = [
-        //          { "Id": 1, "PlaceName": "郡山駅", "Roof":"有り", "Bench":"有り", "GeoLong": "37.398924", "GeoLat": "140.388131" },
-        //          { "Id": 2, "PlaceName": "中央大町", "Roof": "無し", "Bench":"無し", "GeoLong": "37.398167", "GeoLat": "140.384804" },
-        //          { "Id": 3, "PlaceName": "清水台二丁目", "Roof": "有り", "Bench":"無し", "GeoLong": "37.399557", "GeoLat": "140.383846" },
-        //          { "Id": 4, "PlaceName": "赤木町", "Roof": "無し", "Bench":"無し", "GeoLong": "37.401292", "GeoLat": "140.384841" },
-        //          { "Id": 5, "PlaceName": "大町二丁目", "Roof": "無し", "Bench":"無し", "GeoLong": "37.405232", "GeoLat": "140.383991"},
-        //          { "Id": 6, "PlaceName": "赤木小学校", "Roof": "無し", "Bench":"無し", "GeoLong": "37.405905", "GeoLat": "140.380334"},
-        //          { "Id": 7, "PlaceName": "咲田二丁目", "Roof": "無し", "Bench":"無し", "GeoLong": "37.406276", "GeoLat": "140.378312"},
-        //          { "Id": 8, "PlaceName": "西の内一丁目", "Roof": "無し", "Bench":"無し", "GeoLong": "37.407837", "GeoLat": "140.371381"},
-        //          { "Id": 9, "PlaceName": "第五中学校", "Roof": "無し", "Bench":"無し", "GeoLong": "37.408129", "GeoLat": "140.368339"},
-        //          { "Id": 10, "PlaceName": "太田西の内病院前", "Roof": "無し", "Bench":"無し", "GeoLong": "37.408404", "GeoLat": "140.365194"},
-        //          { "Id": 11, "PlaceName": "西の内二丁目", "Roof": "無し", "Bench":"無し", "GeoLong": "37.408200", "GeoLat": "140.362453"},
-        //          { "Id": 12, "PlaceName": "朝日三丁目", "Roof": "無し", "Bench":"無し", "GeoLong": "37.407708", "GeoLat": "140.358652"},
-        //          { "Id": 13, "PlaceName": "福島放送前", "Roof": "無し", "Bench":"無し", "GeoLong": "37.407411", "GeoLat": "140.356281"},
-        //          { "Id": 14, "PlaceName": "桑野三丁目", "Roof": "無し", "Bench":"無し", "GeoLong": "37.407027", "GeoLat": "140.353293"}
-        //];
+        var data = [
+                  { "Id": 1, "PlaceName": "郡山駅", "Roof":"有り", "Bench":"有り", "GeoLong": "37.398924", "GeoLat": "140.388131" },
+                  { "Id": 2, "PlaceName": "中央大町", "Roof": "無し", "Bench":"無し", "GeoLong": "37.398167", "GeoLat": "140.384804" },
+                  { "Id": 3, "PlaceName": "清水台二丁目", "Roof": "有り", "Bench":"無し", "GeoLong": "37.399557", "GeoLat": "140.383846" },
+                  { "Id": 4, "PlaceName": "赤木町", "Roof": "無し", "Bench":"無し", "GeoLong": "37.401292", "GeoLat": "140.384841" },
+                  { "Id": 5, "PlaceName": "大町二丁目", "Roof": "無し", "Bench":"無し", "GeoLong": "37.405232", "GeoLat": "140.383991"},
+                  { "Id": 6, "PlaceName": "赤木小学校", "Roof": "無し", "Bench":"無し", "GeoLong": "37.405905", "GeoLat": "140.380334"},
+                  { "Id": 7, "PlaceName": "咲田二丁目", "Roof": "無し", "Bench":"無し", "GeoLong": "37.406276", "GeoLat": "140.378312"},
+                  { "Id": 8, "PlaceName": "西の内一丁目", "Roof": "無し", "Bench":"無し", "GeoLong": "37.407837", "GeoLat": "140.371381"},
+                  { "Id": 9, "PlaceName": "第五中学校", "Roof": "無し", "Bench":"無し", "GeoLong": "37.408129", "GeoLat": "140.368339"},
+                  { "Id": 10, "PlaceName": "太田西の内病院前", "Roof": "無し", "Bench":"無し", "GeoLong": "37.408404", "GeoLat": "140.365194"},
+                  { "Id": 11, "PlaceName": "西の内二丁目", "Roof": "無し", "Bench":"無し", "GeoLong": "37.408200", "GeoLat": "140.362453"},
+                  { "Id": 12, "PlaceName": "朝日三丁目", "Roof": "無し", "Bench":"無し", "GeoLong": "37.407708", "GeoLat": "140.358652"},
+                  { "Id": 13, "PlaceName": "福島放送前", "Roof": "無し", "Bench":"無し", "GeoLong": "37.407411", "GeoLat": "140.356281"},
+                  { "Id": 14, "PlaceName": "桑野三丁目", "Roof": "無し", "Bench":"無し", "GeoLong": "37.407027", "GeoLat": "140.353293"}
+        ];
 
-        (function() {
-            $.getJSON("http://localhost:50991/api/Basuteis?format=json&callback=?", function( data ) {
+       // (function() {
+            //$.getJSON("http://localhost:50991/api/Basuteis?format=json&callback=?", function( data ) {
             //$.getJSON("/Scripts/Basuteis.json", function( data ) {
                   // Using the JQuery "each" selector to iterate through the JSON list and drop marker pins
                   $.each(data, function (i, item) {
                       var marker = new google.maps.Marker({
-                          'position': new google.maps.LatLng(item.ido, item.keido),
+                          'position': new google.maps.LatLng(item.GeoLong, item.GeoLat),
                           'map': map,
                           'title': item.basuteimei
                       });
@@ -184,8 +184,8 @@
                       });
 
                   });
-              });
-        })();
+             // });
+       // })();
 
         //// Using the JQuery "each" selector to iterate through the JSON list and drop marker pins
         //$.each(data, function (i, item) {
