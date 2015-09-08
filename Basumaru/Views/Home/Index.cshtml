@@ -2,106 +2,126 @@
     ViewBag.Title = "Index";
 }
 
-<h2>ばす丸</h2>
+
+
 
 
 
 <CENTER>
 
-    <form id="colors" action="#">
-        出発地点：
-        <input id="result" type="text" value="" />
-        <button type="button" value="ボタン">地図で選択</button>
+    <!--{Html.BeginForm("myform"); -->
+    <form action="http://localhost:49834/Home/Index"
+          enctype="multipart/form-data" id="fm" method="post" name="myform">
 
-        <br>
+        <span class="hacchaku"><img src="~/Image/shuppatsu.png"></img></span>
+        @Html.TextBox("start")
+        <button type="image" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>
 
-        到着地点：
-        <input id="result" type="text" value="" />
-        <button type="button" value="ボタン">地図で選択</button>
+        <br><br>
+        <span class="hacchaku"><img src="~/Image/touchaku.png"></img></span>
+        @Html.TextBox("goal")
+        <button type="image" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>
+
+        <br><br><br>
+
+        <input type="radio" name="kijun" value="出発時刻" checked="checked">
+        出発時刻　　　
+        <input type="radio" name="kijun" value="到着時刻">
+        到着時刻
+
+        <br><br>
+
+        <select name="month"></select>
+        <select name="day"></select>
+        <br> <br>
+        <select name="hour"></select>
+        <select name="minute"></select>
+
+        <script type="text/javascript">
+
+                /*====[ <select> 要素 ]====*/
+
+                var select = new Object()
+                select.month = document.myform.month;
+                select.day = document.myform.day;
+                select.hour = document.myform.hour;
+                select.minute = document.myform.minute;
+
+                /*====[ 日付データ ]====*/
+
+                var D = new Object();
+                D.month = (new Date()).getMonth() + 1;
+                D.day = (new Date()).getDate();
+                D.hour = (new Date()).getHours();
+                D.minute = (new Date()).getMinutes();
+
+                /*====[ 月の <option> を追加 ]====*/
+
+                for (var i = 1; i <= 12; i++) {
+                    var option =
+                    select.month.appendChild(document.createElement('option'));
+                    option.text = i;
+                    option.value = i;
+                }
+
+
+                /*====[ 日の <option> を追加 ]====*/
+
+                for (var i = 1; i <= 31; i++) {
+                    var option =
+                    select.day.appendChild(document.createElement('option'));
+                    option.text = i;
+                    option.value = i;
+                }
+
+                /*====[ 時の <option> を追加 ]====*/
+
+                for (var i = 0; i <= 23; i++) {
+                    var option =
+                    select.hour.appendChild(document.createElement('option'));
+                    option.text = i;
+                    option.value = i;
+                }
+
+                /*====[ 分の <option> を追加 ]====*/
+
+                for (var i = 0; i <= 59; i++) {
+                    var option =
+                    select.minute.appendChild(document.createElement('option'));
+                    option.text = i;
+                    option.value = i;
+                }
+
+
+                /*====[ 初期状態をセット ]====*/
+
+                for (var key in select) {
+                    var option = select[key].options;
+                    for (var i = 0; i < option.length; i++) {
+                        option[i].selected = (option[i].value == D[key]) ? true : false;
+                    }
+                }
+        </script>
+
+
+        <br><br>
+
+
+
+
+
+        <h2> @Html.Encode(ViewData["start"]) </h2>
+        <h2> @Html.Encode(ViewData["goal"]) </h2>
+        <h2> @Html.Encode(ViewData["kijun"]) </h2>
+        <h2> @Html.Encode(ViewData["month"]) </h2>
+        <h2> @Html.Encode(ViewData["day"]) </h2>
+        <h2> @Html.Encode(ViewData["hour"]) </h2>
+        <h2> @Html.Encode(ViewData["minute"]) </h2>
+
+        <button ="image" type="submit" value="ボタン"><img src="~/Image/kensaku.png" width="60%"></img></button>
 
     </form>
-
-    <br><br>
-    <input type="radio" name="q1" value="出発時刻"> 出発時刻
-    <input type="radio" name="q1" value="到着時刻"> 到着時刻
-
-    <datalist id="codeType">
-        <option value="AAA-"></option>
-        <option value="BBB-"></option>
-        <option value="CCC-"></option>
-    </datalist>
-    <br>
-
-    年：
-    <span name="ComboBox">
-        <select id="pulldownList" name="pulldownList">
-            <option>　</option>
-            <option>1995</option>
-            <option>2000</option>
-            <option>2005</option>
-            <option>2010</option>
-        </select>
-    </span>
-    月：
-    <span name="ComboBox">
-        <select id="pulldownList" name="pulldownList">
-
-            <option>　</option>
-            <option>1月</option>
-            <option>4月</option>
-            <option>8月</option>
-            <option>12月</option>
-        </select>
-    </span>
-    日：
-    <span name="ComboBox">
-        <select id="pulldownList" name="pulldownList">
-
-            <option>　</option>
-            <option>1日</option>
-            <option>8日</option>
-            <option>15日</option>
-            <option>22日</option>
-        </select>
-    </span>
-
-    <br><br>
-
-    時：
-    <span name="ComboBox">
-        <select id="pulldownList" name="pulldownList">
-            <option>　</option>
-            <option>1時</option>
-            <option>6時</option>
-            <option>12時</option>
-            <option>18時</option>
-        </select>
-    </span>
-    分：
-    <span name="ComboBox">
-        <select id="pulldownList" name="pulldownList">
-            <option>　</option>
-            <option>00分</option>
-            <option>12分</option>
-            <option>24分</option>
-            <option>36分</option>
-        </select>
-    </span>
-
-    <br><br><br>
-
-    <button type="button"><big>検索</big></button>
-
-
-
-    </form>
-
-</CENTER>
-
-
-
-
-
-<p>
-    @ViewData["msg"]
-</p>
+    <</CENTER>>
+    <p>
+        @ViewData["msg"]
+    </p>
