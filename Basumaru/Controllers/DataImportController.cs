@@ -137,7 +137,7 @@ namespace Basumaru.Controllers
                 switch (bname)
                 {
                     //バス停のボタンが押されたときの処理
-                    case "basuteiupload":
+                    case "basutei":
                         //データベースの全件削除
                         foreach (Basutei bt in db.basutei.ToList())
                         {
@@ -196,7 +196,7 @@ namespace Basumaru.Controllers
                         break;
 
                     //時刻表のボタンが押されたときの処理
-                    case "jikokuhyouupload":
+                    case "jikokuhyou":
                         //データベースの全件削除
                         foreach (Jikokuhyou jh in db.jikokuhyou.ToList())
                         {
@@ -258,11 +258,12 @@ namespace Basumaru.Controllers
 
                         }
                         db.SaveChanges();
+                        ViewBag.OperationMessage = "削除完了";
                         break;
 
 
                     //路線のボタンが押されたときの処理
-                    case "rosenupload":
+                    case "rosen":
                         //データベースの全件削除
                         foreach (Rosen rs in db.rosen.ToList())
                         {
@@ -307,13 +308,30 @@ namespace Basumaru.Controllers
                                     rs.hidukebunrui = "5";
                                     break;
                             }
-                            rs.kigoui = fields[3];
-                            rs.komento = fields[4];
+                            //rs.kigoui = fields[3];
+                            if (fields[3].ToString() == "なし")
+                            {
+                                rs.kigoui = "";
+                            }
+                            else
+                            {
+                                rs.kigoui = fields[3];
+                            }
+                            //rs.komento = fields[4];
+                            if (fields[4].ToString() == "なし")
+                            {
+                                rs.kigoui = "";
+                            }
+                            else
+                            {
+                                rs.komento = fields[4];
+                            }
                             db.rosen.Add(rs);
                         }
                         db.SaveChanges();
                         break;
                 }
+
 
                 reader.Close();
                 stream.Close();
