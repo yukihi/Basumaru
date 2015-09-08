@@ -206,6 +206,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\gmaps.js" />
+    <Content Include="Scripts\jquery.xdomainajax.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -267,8 +268,8 @@
     <Content Include="Views\Jikokuhyous\Edit.cshtml" />
     <Content Include="Views\Jikokuhyous\Index.cshtml" />
     <Content Include="Views\DataImport\DataImport.cshtml" />
-    <Content Include="Views\Home\Route.cshtml" />
     <Content Include="Views\Jin\Delete.cshtml" />
+    <Content Include="Views\Home\Route.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
