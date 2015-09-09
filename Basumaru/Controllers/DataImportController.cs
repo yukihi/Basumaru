@@ -241,6 +241,10 @@ namespace Basumaru.Controllers
                 reader.Close();
                 stream.Close();
 
+                //作業用変数
+                double number;
+                int inumber;
+
                 //ここから分岐処理
                 switch (bname)
                 {
@@ -270,10 +274,27 @@ namespace Basumaru.Controllers
                             bt.rosenmei = fields[1];
                             //バス停名
                             bt.basuteimei = fields[2];
+
                             //緯度
-                            bt.ido = double.Parse(fields[3]);
+                            if (Double.TryParse(fields[3], out number))
+                            {
+                                bt.ido = double.Parse(fields[3]);
+                            }
+                            else
+                            {
+                                ViewBag.OperationMessage = "緯度または経度が数値ではありません";
+                                return View("DataImport");
+                            }
                             //経度
-                            bt.keido = double.Parse(fields[4]);
+                            if (Double.TryParse(fields[4], out number))
+                            {
+                                bt.keido = double.Parse(fields[4]);
+                            }
+                            else
+                            {
+                                ViewBag.OperationMessage = "緯度または経度が数値ではありません";
+                                return View("DataImport");
+                            }
                             //屋根のFlg処理
                             if (fields[5].ToString() == "なし")
                             {
@@ -335,7 +356,7 @@ namespace Basumaru.Controllers
                                 case "平日":
                                     jk.hidukebunrui = "0";
                                     break;
-                                case "土曜":
+                                case "土":
                                     jk.hidukebunrui = "1";
                                     break;
                                 case "日":
@@ -344,20 +365,32 @@ namespace Basumaru.Controllers
                                 case "土日":
                                     jk.hidukebunrui = "3";
                                     break;
-                                case "日曜祝日":
+                                case "日祝":
                                     jk.hidukebunrui = "4";
                                     break;
                                 case "土日祝":
                                     jk.hidukebunrui = "5";
                                     break;
                                 default:
-                                    jk.hidukebunrui = "エラー";
+                                    //曜日の表記が違う場合
+                                    ViewBag.OperationMessage = "日付分類の表記が異なっています";
+                                    return View("DataImport");
                                     break;
                             }
                             //バス停名
                             jk.basuteimei = fields[4];
                             //時刻
-                            jk.zikoku = fields[5].ToString().Substring(0, 2) + fields[5].ToString().Substring(3, 2);
+                            string f5 = fields[5].Length.ToString();
+                            if (f5=="6" && int.TryParse(fields[5].ToString().Substring(0, 2), out inumber) && int.TryParse(fields[5].ToString().Substring(3, 2), out inumber))
+                            {
+                                jk.zikoku = fields[5].ToString().Substring(0, 2) + fields[5].ToString().Substring(3, 2);
+                            }
+                            else
+                            {
+                                //正しい表記でない場合
+                                ViewBag.OperationMessage = "時刻の表記が正しくありません";
+                                return View("DataImport");
+                            }
                             //発着区分
                             if (fields[5].ToString().Substring(fields[5].Length - 1) == "発")
                             {

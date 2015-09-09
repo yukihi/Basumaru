@@ -214,7 +214,6 @@
     <Content Include="Image\yane.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\Basuteis.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\gmaps.js" />
     <Content Include="Scripts\jquery.xdomainajax.js" />
@@ -273,7 +272,6 @@
     <Content Include="Views\Jikokuhyous\Details.cshtml" />
     <Content Include="Views\Jikokuhyous\Edit.cshtml" />
     <Content Include="Views\Jikokuhyous\Index.cshtml" />
-    <Content Include="Views\DataImport\DataImport.cshtml" />
     <Content Include="Views\Jin\Delete.cshtml" />
     <Content Include="Views\Home\Route.cshtml" />
     <Content Include="Views\SearchExpression\SearchExpression.cshtml" />
@@ -282,6 +280,7 @@
     <Content Include="Views\Basuteis\Details.cshtml" />
     <Content Include="Views\Basuteis\Edit.cshtml" />
     <Content Include="Views\Basuteis\Index.cshtml" />
+    <Content Include="Views\DataImport\DataImport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

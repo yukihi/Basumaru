@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = "データ取り込み処理画面";
+}
+
+<style>
+    .up {
+        margin: 0 0 0 0;
+    }
+</style>
+
+<CENTER>
+    <h2>～入力フォーム～</h2>
+
+    <h3>バス停テーブル</h3>
+
+    <p>
+        @using (Html.BeginRouteForm(
+                           "Default", // ルート名
+                           new
+                           {
+                               action = "DataImport",       // アクション名
+                               controller = "DataImport",   // コントローラ名
+                               id = "basutei"
+                           }, // ルート・パラメータ
+                           FormMethod.Post, // HTTPメソッド（method属性）
+                           new { enctype = "multipart/form-data" } // そのほかの属性
+                         ))
+        {
+            <input type="file" name="uploadFile" />
+            <input id="basu" name="basuteiupload" class="up" type="submit" value="アップロード" />
+
+        }
+    </p>
+
+    <h3>時刻表テーブル</h3>
+
+    <p>
+        @using (Html.BeginRouteForm(
+                            "Default", // ルート名
+                            new
+                            {
+                                action = "DataImport",       // アクション名
+                                controller = "DataImport",   // コントローラ名
+                                id = "jikokuhyou"
+                            }, // ルート・パラメータ
+                            FormMethod.Post, // HTTPメソッド（method属性）
+                            new { enctype = "multipart/form-data" } // そのほかの属性
+                            ))
+        {
+            <input type="file" name="uploadFile" />
+            <input id="basu" name="jikokuhyouupload" class="up" type="submit" value="アップロード" />
+        }
+    </p>
+
+
+    <h3>路線テーブル</h3>
+
+    <p>
+        @using (Html.BeginRouteForm(
+                            "Default", // ルート名
+                            new
+                            {
+                                action = "DataImport",       // アクション名
+                                controller = "DataImport",   // コントローラ名
+                                id = "rosen"
+                            }, // ルート・パラメータ
+                            FormMethod.Post, // HTTPメソッド（method属性）
+                            new { enctype = "multipart/form-data" } // そのほかの属性
+                            ))
+        {
+            <input type="file" name="uploadFile" />
+            <input id="basu" name="rosenupload" class="up" type="submit" value="アップロード" />
+        }
+    </p>
+
+    <strong>@ViewBag.OperationMessage</strong>
+    <br>
+    <strong>@ViewBag.OperationMessage2</strong>
+
+
+</CENTER>
