@@ -37,37 +37,8 @@ namespace Basumaru.Controllers
 
 
             // 指定したページを呼び出す
-            return RedirectToAction("About");
+            return RedirectToAction("SearchExpression", "SearchExpression");
         }
-
-        public ActionResult SearchExpression()
-        {
-
-            ViewBag.MyMessage0 = (string)Session["start"];
-            ViewBag.MyMessage1 = (string)Session["goal"];
-            ViewBag.MyMessage2 = (string)Session["kijun"];
-            ViewBag.MyMessage3 = (string)Session["month"];
-            ViewBag.MyMessage4 = (string)Session["day"];
-            ViewBag.MyMessage5 = (string)Session["hour"];
-            ViewBag.MyMessage6 = (string)Session["minute"];
-            return View();
-
-        }
-
-        public ActionResult About()
-        {
-
-            ViewBag.MyMessage0 = (string)Session["start"];
-            ViewBag.MyMessage1 = (string)Session["goal"];
-            ViewBag.MyMessage2 = (string)Session["kijun"];
-            ViewBag.MyMessage3 = (string)Session["month"];
-            ViewBag.MyMessage4 = (string)Session["day"];
-            ViewBag.MyMessage5 = (string)Session["hour"];
-            ViewBag.MyMessage6 = (string)Session["minute"];
-            return View();
-
-        }
-
 
 
         public ActionResult Contact()
