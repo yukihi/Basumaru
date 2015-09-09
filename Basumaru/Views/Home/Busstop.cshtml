@@ -183,10 +183,12 @@
                       if(item.benchiFlg==1) {var benchi="有り"}
                       else {var benchi="無し"};
 
+                      var flag = location.search;
+
                       var contentStr = '<div class="infoDiv"><h2>' + item.basuteimei + '</h2>' + 
                                        '<div><h4>屋根: ' + yane + ' &nbsp;&nbsp; ベンチ: ' + benchi  + '</h4>' + 
-                                       '<br><a href="http://localhost:49834/Home/Index?value=item.basuteimei"><img src="/Image/shuppatsu.png"></a>' + 
-                                       '<br><br><a href="http://localhost:49834/Home/Index?value=' + item.basuteimei + '"><img src="/Image/touchaku.png"></a></div></div>'
+                                       //'<br><a href="http://localhost:49834/Home/Index?value=item.basuteimei"><img src="/Image/shuppatsu.png"></a>' + 
+                                       '<br><br><a href="http://localhost:49834/Home/Index' + flag + '&value=' + item.basuteimei + '"><img src="/Image/touchaku.png"></a></div></div>'
                                        //<div class="input"><input type="button" id="btn" onClick="location.href = 'http://localhost:49834/Home/Index';" value="ここからのルート" /><br><br><input type='button' id='btn' value='ここへのルート' /></div></div></div>";
 
                       // put in some information about each json object - in this case, the opening hours.
