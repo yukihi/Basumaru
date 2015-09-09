@@ -165,7 +165,7 @@ namespace Basumaru.Controllers
                     string jl = fields.Length.ToString();
 
                     //時刻表テーブルのデータの場合
-                    if (jl == "7")
+                    if (jl == "6")
                     {
                         while (reader.EndOfStream == false)
                         {
@@ -335,7 +335,7 @@ namespace Basumaru.Controllers
                                 case "平日":
                                     jk.hidukebunrui = "0";
                                     break;
-                                case "土":
+                                case "土曜":
                                     jk.hidukebunrui = "1";
                                     break;
                                 case "日":
@@ -344,7 +344,7 @@ namespace Basumaru.Controllers
                                 case "土日":
                                     jk.hidukebunrui = "3";
                                     break;
-                                case "日祝":
+                                case "日曜祝日":
                                     jk.hidukebunrui = "4";
                                     break;
                                 case "土日祝":
