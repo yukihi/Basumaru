@@ -3,39 +3,6 @@
     ViewBag.Title = "SearchExpression";
 }
 
-@{
-    
-    string start = "小野";//出発
-    string goal = "";//到着
-    //string month = "";//月情報
-    //string day = "";//日情報
-    //string hour = "";//時間情報
-    //string minute = "";//分情報
-    /*
-    start = Request.Form["start"];//メインページからデータ受け取り
-    goal = Request.Form["goal"];
-    month = Request.Form["month"];
-    day = Request.Form["day"];
-    hour = Request.Form["hour"];
-    minute = Request.Form["minute"];
-    */
-    //int monthint = 100;//int.Parse(month);//string型をint型に変換
-    //int dayint = int.Parse(day);
-    //int hourint = int.Parse(hour);
-    //int minuteint = int.Parse(minute);
-    int starttime = 1000;
-    int goaltime = 1100;
-    string rosen = "小野町行き";
-
-
-    DateTime dateValue = new DateTime(2015, 9, 6);
-    
-    //Console.WriteLine((int)dateValue.DayOfWeek);
-
-}
-
-
-
 <CENTER>
     <button ="image" typeof="submit" value="ボタン"><img src="~/Image/ruto1.png"></img></button>
     &nbsp;
@@ -46,30 +13,28 @@
     <table>
         <tr>
             <td><img src="~/Image/shuppatsuzikoku.png"></img></td>
-            <td><span class="mozi">@("" + starttime)</span></td>
+            <td><span class="mozi">@("" + (string)Session["anszikoku"])</span></td>
         </tr>
         <tr>
             <td><img src="~/Image/shuppatsu.png"></img></td>
-            <td><span class="mozi">@("" + start)</span></td>
+            <td><span class="mozi">@("" + (string)Session["ansbasuteimei"])</span></td>
         </tr>
         <tr>
             <td class="basu"><img src="~/Image/basu.png" width="70px"></img></td>
-            <td><span class="rosenmozi">@("" + rosen)</span></td>
+            <td><span class="rosenmozi">@("" + (string)Session["ansrosenmei"])</span></td>
         </tr>
         <tr>
             <td></td>
-            <td><button ="image" value="ボタン"><img src="~/Image/ruto.png"></img></button></td>
+            <td><button type="button" value="ボタン" onClick="location.href = '/Home/Route?kigyou=@Session["kigyou"]&rosenmei=@Session["ansrosenmei"]';"><img src="~/Image/ruto.png"></img></button></td>
         </tr>
         <tr>
             <td><img src="~/Image/touchakuzikoku.png"></img></td>
-            <td><span class="mozi">@("" + goaltime)</span></td>
+            <td><span class="mozi">@("" + (string)Session["ansgzikoku"])</span></td>
         </tr>
         <tr>
             <td><img src="~/Image/touchaku.png"></img></td>
-            <td><span class="mozi">@("" + goal)</span></td>
+            <td><span class="mozi">@("" + (string)Session["ansgbasuteimei"])</span></td>
         </tr>
     </table>
-
-
 </CENTER>
 
