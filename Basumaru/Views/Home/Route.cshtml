@@ -45,9 +45,7 @@
         <form method="post" id="geocoding_form">
             @*   <label for="address">Location:</label>*@
             <div class="input">
-                &nbsp; &nbsp;
-                <input type="text" style="width:350px" id="aname" value="" />
-                <input type="button" id="abtn" value="Go!" />
+             <lavel></lavel>
             </div>
         </form>
         @*<div class="popin">
@@ -160,8 +158,14 @@
         //          { "Id": 14, "PlaceName": "桑野三丁目", "Roof": "無し", "Bench":"無し", "GeoLong": "37.407027", "GeoLat": "140.353293"}
         //];
 
-        (function() {
-            var jqxhr = $.getJSON("http://fic-h24039/basumaruAPI/api/Basuteis?format=json", function() {
+        (function() {            
+            var a = decodeURIComponent(location.search.substring(1));
+            var b = a.split('&');
+
+            a = "福島交通";
+            b = "石川・蓬田";
+
+            var jqxhr = $.getJSON("http://fic-h24039/basumaruAPI/api/Basuteis/" + a + "/" + b +"?format=json", function() {
                 console.log("success");
             }).done(function() {
                 console.log("second success");
@@ -171,7 +175,7 @@
                 console.log("complete");
             });
 
-            $.getJSON("http://fic-h24039/basumaruAPI/api/Basuteis/運営企業/?format=json", function( data ) {
+            $.getJSON("http://fic-h24039/basumaruAPI/api/Basuteis/" + a + "/" + b +"?format=json", function( data ) {
             //$.getJSON("/Scripts/Basuteis.json", function( data ) {
                   // Using the JQuery "each" selector to iterate through the JSON list and drop marker pins
                   $.each(data, function (i, item) {

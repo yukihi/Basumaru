@@ -161,16 +161,17 @@
         //];
 
         (function() {
-            var jqxhr = $.getJSON("http://fic-h24039/basumaruAPI/api/Basuteis?format=json", function() {
-                console.log("success");
-            }).done(function() {
-                console.log("second success");
-            }).fail(function() {
-                console.log("error");
-            }).always(function() {
-                console.log("complete");
-            });
+            //var jqxhr = $.getJSON("http://fic-h24039/basumaruAPI/api/Basuteis?format=json", function() {
+            //    console.log("success");
+            //}).done(function() {
+            //    console.log("second success");
+            //}).fail(function() {
+            //    console.log("error");
+            //}).always(function() {
+            //    console.log("complete");
+            //});
 
+            //$.ajaxSetup({async: false});
             $.getJSON("http://fic-h24039/basumaruAPI/api/Basuteis?format=json", function( data ) {
             //$.getJSON("/Scripts/Basuteis.json", function( data ) {
                   // Using the JQuery "each" selector to iterate through the JSON list and drop marker pins
