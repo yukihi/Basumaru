@@ -108,19 +108,26 @@
     // Where all the fun happens
     function Initialize() {
 
-        // Google has tweaked their interface somewhat - this tells the api to use that new UI
-        google.maps.visualRefresh = true;
-        var Center = new google.maps.LatLng(37.399235, 140.377658);
+        navigator.geolocation.getCurrentPosition(function (pos) {
+            var i = pos.coords.latitude;
+            var k = pos.coords.longitude;
 
-        // These are options that set initial zoom level, where the map is centered globally to start, and the type of map to show
-        var mapOptions = {
-            zoom: 14,
-            center: Center,
-            mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
-        };
+            // Google has tweaked their interface somewhat - this tells the api to use that new UI
+            google.maps.visualRefresh = true;
+            //var Center = new google.maps.LatLng(i, k);
+            var Center = new google.maps.LatLng(37.215629, 140.567835);
 
-        // This makes the div with id "map_canvas" a google map
-        map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+            // These are options that set initial zoom level, where the map is centered globally to start, and the type of map to show
+            var mapOptions = {
+                zoom: 14,
+                center: Center,
+                mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+            };
+
+            // This makes the div with id "map_canvas" a google map
+            map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
+        });
 
         // This shows adding a simple pin "marker" - this happens to be the Tate Gallery in Liverpool!
         // var myLatlng = new google.maps.LatLng(53.40091, -2.994464);
