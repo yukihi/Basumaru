@@ -22,6 +22,7 @@ namespace Basumaru.Controllers
     public class DataImportController : Controller
     {
         private BasumaruDBContext db = new BasumaruDBContext();
+        //日付
         DateTime dt = DateTime.Now;
 
 
