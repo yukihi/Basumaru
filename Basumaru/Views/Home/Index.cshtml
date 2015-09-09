@@ -23,14 +23,14 @@
 <CENTER>
 
     <!--{Html.BeginForm("myform"); -->
-    <form action="http://localhost:49834/Home/Index"
+    <form action="/Home/Index"
           enctype="multipart/form-data" id="fm" method="post" name="myform">
 
         <span class="hacchaku"><img src="~/Image/shuppatsu.png"></img></span>
         <input type="text" name="start" value=@Session["start"]>
         <br />
         <span class="chizubutton">
-            <button type="button" onClick="location.href = 'http://localhost:49834/Home/Busstop?flag=0';" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>
+            <button type="button" onClick="location.href = '/Home/Busstop?flag=0';" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>
         </span>
 
             <br><br>
@@ -38,13 +38,13 @@
         <input type="text" name="goal" value="@Session["goal"]">
         <br />
         <span class="chizubutton">
-            <button type="button" onClick="location.href = 'http://localhost:49834/Home/Busstop?flag=1';" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>
+            <button type="button" onClick="location.href = '/Home/Busstop?flag=1';" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>
         </span>
             <br><br><br>
 
-            <input type="radio" name="kijun" value="出発時刻" checked="checked">
+            <input type="radio" name="kijun" value="0" checked="checked">
             出発時刻　　　
-            <input type="radio" name="kijun" value="到着時刻">
+            <input type="radio" name="kijun" value="1">
             到着時刻
 
             <br><br>
@@ -124,18 +124,6 @@
 
 
             <br><br>
-
-
-
-
-
-            <h2> @Html.Encode(ViewData["start"]) </h2>
-            <h2> @Html.Encode(ViewData["goal"]) </h2>
-            <h2> @Html.Encode(ViewData["kijun"]) </h2>
-            <h2> @Html.Encode(ViewData["month"]) </h2>
-            <h2> @Html.Encode(ViewData["day"]) </h2>
-            <h2> @Html.Encode(ViewData["hour"]) </h2>
-            <h2> @Html.Encode(ViewData["minute"]) </h2>
 
             <button ="image" type="submit" value="ボタン"><img src="~/Image/kensaku.png" width="60%"></img></button>
 
