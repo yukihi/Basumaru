@@ -33,7 +33,7 @@ namespace Basumaru.Controllers
         public ActionResult DataImport()
         {
             //View読み込み            
-            return View("DataImport");
+            return View();
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace Basumaru.Controllers
             string bname = id;
 
                 //アップロードファイルが存在する場合のみ処理を実行
-                if (uploadFile != null)
+            if (uploadFile != null)
             {    
 
                 //uploadされたファイルの拡張子を取得
@@ -112,23 +112,131 @@ namespace Basumaru.Controllers
 
                 StreamReader reader = new StreamReader(stream, System.Text.Encoding.GetEncoding("utf-8"));
 
-                while (reader.EndOfStream == false)
+                //バス停のテーブルの確認処理
+                //バス停のCSVファイルの確認
+                if (bname == "basutei")
                 {
                     //一行ずつ格納する
                     string line = reader.ReadLine();
                     //カンマごとに格納する
                     string[] fields = line.Split(',');
 
-                    for (int i = 0; i < fields.Length; i++)
+                    string bl = fields.Length.ToString();
+
+                    //バス停テーブルのデータの場合
+                    if (bl == "8")
                     {
-                        if (fields[i] == "") {
-                            //ファイルがUnicodeでない場合
-                            ViewBag.OperationMessage = "指定されたCSVファイルにデータの欠落があります";
-                            return View("DataImport");
+                        while (reader.EndOfStream == false)
+                        {
+                            //一行ずつ格納する
+                            string bline = reader.ReadLine();
+                            //カンマごとに格納する
+                            string[] bfields = line.Split(',');
+
+                            for (int i = 0; i < fields.Length-1; i++)
+                            {
+                                if (fields[i] == "")
+                                {
+                                    //ファイルがUnicodeでない場合
+                                    ViewBag.OperationMessage = "指定されたCSVファイルにデータの欠落があります";
+                                    return View("DataImport");
+                                }
+                            }
+
                         }
+                    }
+                    //異なったテーブルの場合
+                    else
+                    {
+                        ViewBag.OperationMessage = "バス停のCSVファイルを選択してください";
+                        return View("DataImport");
                     }
 
                 }
+
+                //時刻表のCSVファイルの確認
+                else if (bname == "jikokuhyou")
+                {
+                    //一行ずつ格納する
+                    string line = reader.ReadLine();
+                    //カンマごとに格納する
+                    string[] fields = line.Split(',');
+
+                    string jl = fields.Length.ToString();
+
+                    //時刻表テーブルのデータの場合
+                    if (jl == "7")
+                    {
+                        while (reader.EndOfStream == false)
+                        {
+                            //一行ずつ格納する
+                            string bline = reader.ReadLine();
+                            //カンマごとに格納する
+                            string[] bfields = line.Split(',');
+
+                            for (int i = 0; i < fields.Length; i++)
+                            {
+                                if (fields[i] == "")
+                                {
+                                    //ファイルがUnicodeでない場合
+                                    ViewBag.OperationMessage = "指定されたCSVファイルにデータの欠落があります";
+                                    return View("DataImport");
+                                }
+                            }
+
+                        }
+                    }
+                    //異なったテーブルの場合
+                    else
+                    {
+                        ViewBag.OperationMessage = "時刻表のCSVファイルを選択してください";
+                        return View("DataImport");
+                    }
+
+                }
+
+                //路線のCSVファイルの確認
+                else if (bname == "rosen")
+                {
+                    //一行ずつ格納する
+                    string line = reader.ReadLine();
+                    //カンマごとに格納する
+                    string[] fields = line.Split(',');
+
+                    string rl = fields.Length.ToString();
+
+                    //路線テーブルのデータの場合
+                    if (rl == "5")
+                    {
+                        while (reader.EndOfStream == false)
+                        {
+                            //一行ずつ格納する
+                            string bline = reader.ReadLine();
+                            //カンマごとに格納する
+                            string[] bfields = line.Split(',');
+
+                            for (int i = 0; i < fields.Length-2; i++)
+                            {
+                                if (fields[i] == "")
+                                {
+                                    //ファイルがUnicodeでない場合
+                                    ViewBag.OperationMessage = "指定されたCSVファイルにデータの欠落があります";
+                                    return View("DataImport");
+                                }
+                            }
+
+                        }
+                    }
+                    //異なったテーブルの場合
+                    else
+                    {
+                        ViewBag.OperationMessage = "時刻表のCSVファイルを選択してください";
+                        return View("DataImport");
+                    }
+
+                }
+
+
 
                 reader.Close();
                 stream.Close();
@@ -144,7 +252,6 @@ namespace Basumaru.Controllers
                             db.basutei.Remove(bt);
                         }
                         db.SaveChanges();
-                        // ViewBag.OperationMessage = "削除完了";
 
                         stream = new FileStream(newfol + "/" + BeforeFileName, FileMode.Open, FileAccess.Read);
                         reader = new StreamReader(stream, System.Text.Encoding.GetEncoding("utf-8"));
@@ -157,12 +264,17 @@ namespace Basumaru.Controllers
                             string[] fields = line.Split(',');
 
                             Basutei bt = new Basutei();
+                            //運営企業
                             bt.kigyou = fields[0];
+                            //路線名
                             bt.rosenmei = fields[1];
+                            //バス停名
                             bt.basuteimei = fields[2];
+                            //緯度
                             bt.ido = double.Parse(fields[3]);
+                            //経度
                             bt.keido = double.Parse(fields[4]);
-                            //bs.yaneFlg = fields[5];
+                            //屋根のFlg処理
                             if (fields[5].ToString() == "なし")
                             {
                                 bt.yaneFlg = "0";
@@ -171,7 +283,7 @@ namespace Basumaru.Controllers
                             {
                                 bt.yaneFlg = "1";
                             }
-                            //bs.enchiFlg = fields[6];
+                            //ベンチのFlg処理
                             if (fields[6].ToString() == "なし")
                             {
                                 bt.benchiFlg = "0";
@@ -180,18 +292,13 @@ namespace Basumaru.Controllers
                             {
                                 bt.benchiFlg = "1";
                             }
-                            //bs.noriba = fields[7];
-                            if (fields[7].ToString() == "なし")
-                            {
-                                bt.noriba = "";
-                            }
-                            else
-                            {
-                                bt.noriba = fields[7];
-                            }
+                            //乗り場
+                            bt.noriba = fields[7];
+
 
                             db.basutei.Add(bt);
                         }
+                        //データベースの更新
                         db.SaveChanges();
                         break;
 
@@ -216,10 +323,13 @@ namespace Basumaru.Controllers
                             string[] fields = line.Split(',');
 
                             Jikokuhyou jk = new Jikokuhyou();
+                            //運営企業
                             jk.kigyou = fields[0];
+                            //路線名
                             jk.rosenmei = fields[1];
+                            //行き先
                             jk.ikisaki = fields[2];
-                            //jk.hidukebunrui = fields[3];
+                            //日付分類
                             switch (fields[3])
                             {
                                 case "平日":
@@ -244,15 +354,24 @@ namespace Basumaru.Controllers
                                     jk.hidukebunrui = "エラー";
                                     break;
                             }
+                            //バス停名
                             jk.basuteimei = fields[4];
+                            //時刻
                             jk.zikoku = fields[5].ToString().Substring(0, 2) + fields[5].ToString().Substring(3, 2);
+                            //発着区分
                             if (fields[5].ToString().Substring(fields[5].Length - 1) == "発")
                             {
                                 jk.hachakuKubun = "1";
                             }
-                            else
+                            else if (fields[5].ToString().Substring(fields[5].Length - 1) == "着")
                             {
                                 jk.hachakuKubun = "0";
+                            }
+                            else
+                            {
+                                //発、着以外の文字が含まれていた場合
+                                ViewBag.OperationMessage = "時刻の末尾を「発」、または「着」にして下さい。";
+                                return View("DataImport");
                             }
                             db.jikokuhyou.Add(jk);
 
@@ -270,7 +389,6 @@ namespace Basumaru.Controllers
                             db.rosen.Remove(rs);
                         }
                         db.SaveChanges();
-                        // ViewBag.OperationMessage = "削除完了";
 
                         stream = new FileStream(newfol + "/" + BeforeFileName, FileMode.Open, FileAccess.Read);
                         reader = new StreamReader(stream, System.Text.Encoding.GetEncoding("utf-8"));
@@ -283,11 +401,11 @@ namespace Basumaru.Controllers
                             string[] fields = line.Split(',');
 
                             Rosen rs = new Rosen();
+                            //運営企業
                             rs.kigyou = fields[0];
+                            //路線名
                             rs.rosenmei = fields[1];
-                            rs.hidukebunrui = fields[2];
-
-                            switch (FileExtension)
+                            switch (fields[2])
                             {
                                 case "平日":
                                     rs.hidukebunrui = "0";
@@ -308,24 +426,11 @@ namespace Basumaru.Controllers
                                     rs.hidukebunrui = "5";
                                     break;
                             }
-                            //rs.kigoui = fields[3];
-                            if (fields[3].ToString() == "なし")
-                            {
-                                rs.kigoui = "";
-                            }
-                            else
-                            {
-                                rs.kigoui = fields[3];
-                            }
-                            //rs.komento = fields[4];
-                            if (fields[4].ToString() == "なし")
-                            {
-                                rs.kigoui = "";
-                            }
-                            else
-                            {
-                                rs.komento = fields[4];
-                            }
+                            //記号
+                            rs.kigoui = fields[3];
+                            //コメント
+                            rs.komento = fields[4];
+
                             db.rosen.Add(rs);
                         }
                         db.SaveChanges();
