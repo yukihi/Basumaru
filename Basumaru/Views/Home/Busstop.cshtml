@@ -28,12 +28,12 @@
         background-color: white;
     }
 </style>
-<style>
+@*<style>
     img {
         height: 100px;
         float: left;
     }
-</style>
+</style>*@
 
 <!-- This is the div that will contain the Google Map -->
 <div id="map_canvas" style="height: 600px;"></div>
@@ -164,8 +164,8 @@
                 console.log("complete");
             });
 
-            //$.getJSON("http://fic-h24039/basumaruAPI/api/Basuteis?format=json", function( data ) {
-            $.getJSON("/Scripts/Basuteis.json", function( data ) {
+            $.getJSON("http://fic-h24039/basumaruAPI/api/Basuteis?format=json", function( data ) {
+            //$.getJSON("/Scripts/Basuteis.json", function( data ) {
                   // Using the JQuery "each" selector to iterate through the JSON list and drop marker pins
                   $.each(data, function (i, item) {
                       var marker = new google.maps.Marker({
@@ -183,9 +183,15 @@
                       if(item.benchiFlg==1) {var benchi="有り"}
                       else {var benchi="無し"};
 
+                      var contentStr = '<div class="infoDiv"><h2>' + item.basuteimei + '</h2>' + 
+                                       '<div><h4>屋根: ' + yane + ' &nbsp;&nbsp; ベンチ: ' + benchi  + '</h4>' + 
+                                       '<br><a href="http://localhost:49834/Home/Index?value=item.basuteimei"><img src="/Image/shuppatsu.png"></a>' + 
+                                       '<br><br><a href="http://localhost:49834/Home/Index?value=' + item.basuteimei + '"><img src="/Image/touchaku.png"></a></div></div>'
+                                       //<div class="input"><input type="button" id="btn" onClick="location.href = 'http://localhost:49834/Home/Index';" value="ここからのルート" /><br><br><input type='button' id='btn' value='ここへのルート' /></div></div></div>";
+
                       // put in some information about each json object - in this case, the opening hours.
                       var infowindow = new google.maps.InfoWindow({
-                          content: "<div class='infoDiv'><h2>" + item.basuteimei + "</h2>" + "<div><h4>屋根: " + yane + " &nbsp;&nbsp; ベンチ: " + benchi  + "</h4><br><div class='input'><input type='button' id='btn' value='ここからのルート' /><br><br><input type='button' id='btn' value='ここへのルート' /></div></div></div>"
+                          content: contentStr
                       });
 
                       // finally hook up an "OnClick" listener to the map so it pops up out info-window when the marker-pin is clicked!
