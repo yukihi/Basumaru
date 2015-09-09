@@ -3,7 +3,20 @@
 }
 
 
+@{ 
+    string flag = Request.QueryString["flag"];
+    string value = Request.QueryString["value"];
+    if (flag == "0")
+    {
+        Session["start"] = value;
+    }
+    else
+    {
+        Session["goal"] = value;
+    }
 
+
+}
 
 
 
@@ -14,18 +27,18 @@
           enctype="multipart/form-data" id="fm" method="post" name="myform">
 
         <span class="hacchaku"><img src="~/Image/shuppatsu.png"></img></span>
-        <input type="text" name="start" value="">
+        <input type="text" name="start" value=@Session["start"]>
         <br />
         <span class="chizubutton">
-            <button type="button" onClick="location.href = 'http://localhost:49834/Home/Busstop';" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>
+            <button type="button" onClick="location.href = 'http://localhost:49834/Home/Busstop?flag=0';" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>
         </span>
 
             <br><br>
             <span class="hacchaku"><img src="~/Image/touchaku.png"></img></span>
-        <input type="text" name="goal" value="">
+        <input type="text" name="goal" value="@Session["goal"]">
         <br />
         <span class="chizubutton">
-            <button type="button" onClick="location.href = 'http://localhost:49834/Home/Busstop';" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>
+            <button type="button" onClick="location.href = 'http://localhost:49834/Home/Busstop?flag=1';" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>
         </span>
             <br><br><br>
 
