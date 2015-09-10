@@ -148,8 +148,8 @@
                                             //console.log(item.ido);
                                             //console.log(item.keido);
 
-                                            if (item.yaneFlg == 1 & item.benchiFlg == 1) marker.setIcon('/Image/basu_aka.png');
-                                            else marker.setIcon('/Image/basu_ao.png');
+                                            if (item.yaneFlg == 1 || item.benchiFlg == 1) marker.setIcon('/Image/basu_ao.png');
+                                            else marker.setIcon('/Image/basu_aka.png');
                                             
                                             if (item.yaneFlg == 1) { var yane = "屋根" }
                                             else { var yane = "" };
