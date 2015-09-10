@@ -65,7 +65,6 @@
                         var geocoder;
                         var directions;
 
-                        <!-- This code tells the browser to execute the "Initialize" method only when the complete document model has been loaded. -->
                         $(document).ready(function () {
                             Initialize();
 
@@ -127,136 +126,63 @@
                                 // This makes the div with id "map_canvas" a google map
                                 map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
-                            });
+                                $.ajax({
+                                    url: "http://fic-h24039/basumaruAPI/api/Basuteis?format=json",
+                                    dataType: 'json',
+                                    async: true,
+                                    success: function (json) {
 
-                            // This shows adding a simple pin "marker" - this happens to be the Tate Gallery in Liverpool!
-                            // var myLatlng = new google.maps.LatLng(53.40091, -2.994464);
+                                        $.each(json, function (i, item) {
 
-                            //var marker = new google.maps.Marker({
-                            //    position: myLatlng,
-                            //    map: map,
-                            //    title: 'Tate Gallery'
-                            //});
+                                            //console.log("item.basuteimei");
 
-                            // You can make markers different colors...  google it up!
-                            //marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+                                            var marker = new google.maps.Marker({
+                                                position: new google.maps.LatLng(item.ido, item.keido),
+                                                map: map,
+                                                //title: item.basuteimei
+                                            });
 
-                            // a sample list of JSON encoded data of places to visit in Liverpool, UK
-                            // you can either make up a JSON list server side, or call it from a controller using JSONResult
-                            //var data = [
-                            //          { "Id": 1, "PlaceName": "郡山駅", "Roof":"有り", "Bench":"有り", "GeoLong": "37.398924", "GeoLat": "140.388131" },
-                            //          { "Id": 2, "PlaceName": "中央大町", "Roof": "無し", "Bench":"無し", "GeoLong": "37.398167", "GeoLat": "140.384804" },
-                            //          { "Id": 3, "PlaceName": "清水台二丁目", "Roof": "有り", "Bench":"無し", "GeoLong": "37.399557", "GeoLat": "140.383846" },
-                            //          { "Id": 4, "PlaceName": "赤木町", "Roof": "無し", "Bench":"無し", "GeoLong": "37.401292", "GeoLat": "140.384841" },
-                            //          { "Id": 5, "PlaceName": "大町二丁目", "Roof": "無し", "Bench":"無し", "GeoLong": "37.405232", "GeoLat": "140.383991"},
-                            //          { "Id": 6, "PlaceName": "赤木小学校", "Roof": "無し", "Bench":"無し", "GeoLong": "37.405905", "GeoLat": "140.380334"},
-                            //          { "Id": 7, "PlaceName": "咲田二丁目", "Roof": "無し", "Bench":"無し", "GeoLong": "37.406276", "GeoLat": "140.378312"},
-                            //          { "Id": 8, "PlaceName": "西の内一丁目", "Roof": "無し", "Bench":"無し", "GeoLong": "37.407837", "GeoLat": "140.371381"},
-                            //          { "Id": 9, "PlaceName": "第五中学校", "Roof": "無し", "Bench":"無し", "GeoLong": "37.408129", "GeoLat": "140.368339"},
-                            //          { "Id": 10, "PlaceName": "太田西の内病院前", "Roof": "無し", "Bench":"無し", "GeoLong": "37.408404", "GeoLat": "140.365194"},
-                            //          { "Id": 11, "PlaceName": "西の内二丁目", "Roof": "無し", "Bench":"無し", "GeoLong": "37.408200", "GeoLat": "140.362453"},
-                            //          { "Id": 12, "PlaceName": "朝日三丁目", "Roof": "無し", "Bench":"無し", "GeoLong": "37.407708", "GeoLat": "140.358652"},
-                            //          { "Id": 13, "PlaceName": "福島放送前", "Roof": "無し", "Bench":"無し", "GeoLong": "37.407411", "GeoLat": "140.356281"},
-                            //          { "Id": 14, "PlaceName": "桑野三丁目", "Roof": "無し", "Bench":"無し", "GeoLong": "37.407027", "GeoLat": "140.353293"}
-                            //];
+                                            marker.setVisible(true);
 
-                            (function() {
-                                //var jqxhr = $.getJSON("http://fic-h24039/basumaruAPI/api/Basuteis?format=json", function() {
-                                //    console.log("success");
-                                //}).done(function() {
-                                //    console.log("second success");
-                                //}).fail(function() {
-                                //    console.log("error");
-                                //}).always(function() {
-                                //    console.log("complete");
-                                //});
+                                            //console.log(item.basuteimei);
+                                            //console.log(item.ido);
+                                            //console.log(item.keido);
 
-                                //$.ajaxSetup({async: false});
-                                $.getJSON("http://fic-h24039/basumaruAPI/api/Basuteis?format=json", function( data ) {
-                                    //$.getJSON("/Scripts/Basuteis.json", function( data ) {
-                                    // Using the JQuery "each" selector to iterate through the JSON list and drop marker pins
-                                    $.each(data, function (i, item) {
-                                        var marker = new google.maps.Marker({
-                                            'position': new google.maps.LatLng(item.ido, item.keido),
-                                            'map': map,
-                                            'title': item.basuteimei
-                                        });
+                                            marker.setIcon('/Image/basu_aka.png');
 
-                                        // Make the marker-pin blue!
-                                        marker.setIcon('/Image/basu_aka.png')
+                                            if(item.yaneFlg==1) {var yane="有り"}
+                                            else {var yane="無し"};
 
-                                        if(item.yaneFlg==1) {var yane="有り"}
-                                        else {var yane="無し"};
+                                            if(item.benchiFlg==1) {var benchi="有り"}
+                                            else {var benchi="無し"};
 
-                                        if(item.benchiFlg==1) {var benchi="有り"}
-                                        else {var benchi="無し"};
+                                            var flag = location.search;
 
-                                        var flag = location.search;
+                                            var contentStr = '<div class="infoDiv"><span class="basuteimei">' + item.basuteimei + '</span>' +
+                                                             '<div><span class="yanebenchi"><hr style="margin:0px;">屋根: ' + yane + '<br>ベンチ: ' + benchi  + '</span>' +
+                                                             '<br><br><a href="http://localhost:49834/Home/Index' + flag + '&value=' + item.basuteimei + '"><img src="/Image/sentaku.png"></a></div></div>'
 
-                                        var contentStr = '<div class="infoDiv"><span class="basuteimei">' + item.basuteimei + '</span>' +
-                                                         '<div><span class="yanebenchi"><hr style="margin:0px;">屋根: ' + yane + ' &nbsp;&nbsp; ベンチ: ' + benchi  + '</span>' +
-                                                         //'<br><a href="http://localhost:49834/Home/Index?value=item.basuteimei"><img src="/Image/shuppatsu.png"></a>' +
-                                                         '<br><br><a href="http://localhost:49834/Home/Index' + flag + '&value=' + item.basuteimei + '"><img src="/Image/sentaku.png"></a></div></div>'
-                                        //<div class="input"><input type="button" id="btn" onClick="location.href = 'http://localhost:49834/Home/Index';" value="ここからのルート" /><br><br><input type='button' id='btn' value='ここへのルート' /></div></div></div>";
+                                            // put in some information about each json object - in this case, the opening hours.
+                                            var infowindow = new google.maps.InfoWindow({
+                                                content: contentStr
+                                            });
 
-                                        // put in some information about each json object - in this case, the opening hours.
-                                        var infowindow = new google.maps.InfoWindow({
-                                            content: contentStr
-                                        });
+                                            // finally hook up an "OnClick" listener to the map so it pops up out info-window when the marker-pin is clicked!
+                                            google.maps.event.addListener(marker, 'click', function () {
+                                                infowindow.open(map, marker);
+                                            });
 
-                                        // finally hook up an "OnClick" listener to the map so it pops up out info-window when the marker-pin is clicked!
-                                        google.maps.event.addListener(marker, 'click', function () {
-                                            infowindow.open(map, marker);
-                                        });
+                                        })
+                                    },
+                                    error: function () {
+                                        console.log("error");
+                                    }
 
-                                    });
                                 });
-                            })();
 
-                            //// Using the JQuery "each" selector to iterate through the JSON list and drop marker pins
-                            //$.each(data, function (i, item) {
-                            //    var marker = new google.maps.Marker({
-                            //        'position': new google.maps.LatLng(item.GeoLong, item.GeoLat),
-                            //        'map': map,
-                            //        'title': item.PlaceName
-                            //    });
-
-                            //    // Make the marker-pin blue!
-                            //    marker.setIcon('/Image/basu_aka.png')
-
-                            //    // put in some information about each json object - in this case, the opening hours.
-                            //    var infowindow = new google.maps.InfoWindow({
-                            //        content: "<div class='infoDiv'><h2>" + item.PlaceName + "</h2>" + "<div><h4>屋根: " + item.Roof + " &nbsp;&nbsp; ベンチ: " + item.Bench  + "</h4><br><div class='input'><input type='button' id='btn' value='ここからのルート' /><br><br><input type='button' id='btn' value='ここへのルート' /></div></div></div>"
-                            //    });
-
-                            //    // finally hook up an "OnClick" listener to the map so it pops up out info-window when the marker-pin is clicked!
-                            //    google.maps.event.addListener(marker, 'click', function () {
-                            //        infowindow.open(map, marker);
-                            //    });
-
-
-                            //});
-
-                            //directions = new GDirections(map, document.getElementById('route'));
-
-                            //var point1 = new GLatLng(data[0].GeoLong, data[0].GeoLat);
-                            //var point2 = new GLatLng(data[1].GeoLong, data[1].GeoLat);
-                            //var point3 = new GLatLng(data[2].GeoLong, data[2].GeoLat);
-
-                            //var pointArray = [point1, point2, point3];
-
-                            //directions.loadFromWaypoints(pointArray, {locale: 'ja_JP'});
-
-                            //map.drawRoute({
-                            //    origin: [data[0].GeoLong, data[0].GeoLat],
-                            //    destination: [data[1].GeoLong, data[1].GeoLat],
-                            //    travelMode: 'driving',
-                            //    strokeColor: '#131540',
-                            //    strokeOpacity: 0.6,
-                            //    strokeWeight: 6
-                            //});
+                            });
                         }
-
+                       
                     </script>
                 </section>
             }
