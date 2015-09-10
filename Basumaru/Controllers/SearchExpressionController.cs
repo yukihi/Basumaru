@@ -20,7 +20,9 @@ namespace Basumaru.Controllers
         {
 
             string oktime = (string)Session["hour"] + (string)Session["minute"];//現在時刻
-            int flag = 0;//0が出発基準　1が到着基準
+
+            string kizyuntemp = (string)Session["kijun"];
+            int flag = int.Parse(kizyuntemp);//0が出発基準　1が到着基準
             string stin = (string)Session["start"];//出発バス停名
             string glin = (string)Session["goal"];//到着バス停名
 
@@ -77,6 +79,7 @@ namespace Basumaru.Controllers
                 if (start.Count() < 1)//データが見つかったかどうか判定
                 {
                     Session["ansbasuteimei"] = "ルートが見つかりませんでした。";
+                    Session["ansgbasuteimei"] = "ルートが見つかりませんでした。";
                 }
                 else
                 {
