@@ -80,12 +80,12 @@ namespace Basumaru.Controllers
             }
             else if (day == 0)//日曜なら
             {
-                daycode = "2";
+                daycode = "4";
             }
             /*祝日ならここに入る*/
             if (hi.holiday == HolidayChecker.HolidayInfo.HOLIDAY.SYUKUJITSU || hi.holiday == HolidayChecker.HolidayInfo.HOLIDAY.C_HOLIDAY)
             {
-                daycode = "5";
+                daycode = "4";
             }
 
 
