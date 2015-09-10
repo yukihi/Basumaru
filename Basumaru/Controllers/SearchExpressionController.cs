@@ -63,24 +63,34 @@ namespace Basumaru.Controllers
                 dateValue = new DateTime(iYear, ansmonth, ansday);
             }
 
+            HolidayChecker.HolidayInfo hi = HolidayChecker.Holiday(dateValue);
+
+
+
+
             int day = (int)dateValue.DayOfWeek;//日が0　土が6
             string daycode = "";//日付分類コード
             if (0 < day && day < 6)
             {
-                daycode = 0.ToString();//平日
+                daycode = "0"; //平日
             }
             else if (day == 6)//土曜なら
             {
-                daycode = 1.ToString();
+                daycode = "1";
             }
             else if (day == 0)//日曜なら
             {
-                daycode = 2.ToString();
+                daycode = "2";
             }
+            /*祝日ならここに入る*/
+            if (hi.holiday == HolidayChecker.HolidayInfo.HOLIDAY.SYUKUJITSU || hi.holiday == HolidayChecker.HolidayInfo.HOLIDAY.C_HOLIDAY)
+            {
+                daycode = "5";
+            }
+
 
             if (flag == 0)/*ここから下は出発場所基準*/
             {
-
                 /*ここ検索 出発時刻基準で指定されたバス停の中で近い乗車時刻を探す*/
                 /*p.zikoku.CompareTo(oktime)>0　oktimeより大きいやつを割り出し*/
                 var start = from p in db.jikokuhyou
