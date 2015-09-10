@@ -137,6 +137,7 @@ namespace Basumaru.Controllers
                 if (goal.Count() < 1)//データが見つかったかどうか判定
                 {
                     Session["ansbasuteimei"] = "ルートが見つかりませんでした。";
+                    Session["ansgbasuteimei"] = "ルートが見つかりませんでした。";
                 }
                 else
                 {
