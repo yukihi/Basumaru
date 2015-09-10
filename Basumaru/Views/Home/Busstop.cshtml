@@ -148,18 +148,19 @@
                                             //console.log(item.ido);
                                             //console.log(item.keido);
 
-                                            marker.setIcon('/Image/basu_aka.png');
+                                            if (item.yaneFlg == 1 & item.benchiFlg == 1) marker.setIcon('/Image/basu_aka.png');
+                                            else marker.setIcon('/Image/basu_ao.png');
+                                            
+                                            if (item.yaneFlg == 1) { var yane = "屋根" }
+                                            else { var yane = "" };
 
-                                            if(item.yaneFlg==1) {var yane="有り"}
-                                            else {var yane="無し"};
-
-                                            if(item.benchiFlg==1) {var benchi="有り"}
-                                            else {var benchi="無し"};
+                                            if(item.benchiFlg==1) {var benchi="ベンチ"}
+                                            else {var benchi=""};
 
                                             var flag = location.search;
 
                                             var contentStr = '<div class="infoDiv"><span class="basuteimei">' + item.basuteimei + '</span>' +
-                                                             '<div><span class="yanebenchi"><hr style="margin:0px;">屋根: ' + yane + '<br>ベンチ: ' + benchi  + '</span>' +
+                                                             '<div><span class="yanebenchi"><hr style="margin:0px;">' + yane + '&nbsp;' + benchi + '</span>' +
                                                              '<br><br><a href="http://localhost:49834/Home/Index' + flag + '&value=' + item.basuteimei + '"><img src="/Image/sentaku.png"></a></div></div>'
 
                                             // put in some information about each json object - in this case, the opening hours.
