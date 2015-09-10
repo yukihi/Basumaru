@@ -11,16 +11,16 @@
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
-        <div style="margin-left:10px">
-            <img src="~/Image/rogo.png"></img></div>
-            </div>
+        <div style="margin-left:2px">
+            <a class="navbar-brand" href="http://localhost:49834/Home/Index"><img src="~/Image/rogo.png"></img>
+        </div></a>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - マイ ASP.NET アプリケーション</p>
+            @*<p>&copy; @DateTime.Now.Year - マイ ASP.NET アプリケーション</p>*@
         </footer>
     </div>
 

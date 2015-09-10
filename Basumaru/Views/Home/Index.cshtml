@@ -27,7 +27,7 @@
           enctype="multipart/form-data" id="fm" method="post" name="myform">
 
         <span class="hacchaku"><img src="~/Image/shuppatsu.png"></img></span>
-        <input type="text" name="start" value=@Session["start"]>
+        <input type="text" name="start" value="@Session["start"]" placeholder="バス停名を入力">
         <br />
         <span class="chizubutton">
             <button type="button" onClick="location.href = '/Home/Busstop?flag=0';" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>
@@ -35,7 +35,7 @@
 
             <br><br>
             <span class="hacchaku"><img src="~/Image/touchaku.png"></img></span>
-        <input type="text" name="goal" value="@Session["goal"]">
+        <input type="text" name="goal" value="@Session["goal"]" placeholder="バス停名を入力">
         <br />
         <span class="chizubutton">
             <button type="button" onClick="location.href = '/Home/Busstop?flag=1';" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>
