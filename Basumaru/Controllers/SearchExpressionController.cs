@@ -99,9 +99,9 @@ namespace Basumaru.Controllers
                     }
 
                 }
-                
 
-                
+
+
             }
             else/*ここから下は到着基準*/
             {
