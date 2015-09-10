@@ -20,7 +20,7 @@ namespace Basumaru.Controllers
         {
 
             string oktime = (string)Session["hour"] + (string)Session["minute"];//現在時刻
-            int flag = 1;//0が出発基準　1が到着基準
+            int flag = 0;//0が出発基準　1が到着基準
             string stin = (string)Session["start"];//出発バス停名
             string glin = (string)Session["goal"];//到着バス停名
 
@@ -74,21 +74,34 @@ namespace Basumaru.Controllers
                            orderby p.zikoku
                            select p;
 
-                foreach (var item in start)
+                if (start.Count() < 1)//データが見つかったかどうか判定
                 {
-                    // Customer プロパティを明示的に読み込む。**Reference プロパティは自動的に生成され
-                    Session["kigyou"] = item.kigyou;
-                    Session["ansrosenmei"] = item.rosenmei;
-                    Session["ansbasuteimei"] = item.basuteimei;
-                    Session["anszikoku"] = item.zikoku;
-                    break;
+                    Session["ansbasuteimei"] = "ルートが見つかりませんでした。";
                 }
-                foreach (var item in goal)
+                else
                 {
-                    Session["ansgbasuteimei"] = item.basuteimei;
-                    Session["ansgzikoku"] = item.zikoku;
-                    break;
+
+                    foreach (var item in start)
+                    {
+                        // Customer プロパティを明示的に読み込む。**Reference プロパティは自動的に生成され
+                        Session["kigyou"] = item.kigyou;
+                        Session["ansrosenmei"] = item.rosenmei;
+                        Session["ansbasuteimei"] = item.basuteimei;
+                        Session["anszikoku"] = item.zikoku;
+                        break;
+                    }
+
+                    foreach (var item in goal)
+                    {
+                        Session["ansgbasuteimei"] = item.basuteimei;
+                        Session["ansgzikoku"] = item.zikoku;
+                        break;
+                    }
+
                 }
+                
+
+                
             }
             else/*ここから下は到着基準*/
             {
@@ -118,22 +131,30 @@ namespace Basumaru.Controllers
                             orderby p.zikoku descending
                             select p;
 
-                foreach (var item in start)
+                if (goal.Count() < 1)//データが見つかったかどうか判定
                 {
-                    // Customer プロパティを明示的に読み込む。**Reference プロパティは自動的に生成される
-                    Session["kigyou"] = item.kigyou;
-                    Session["ansrosenmei"] = item.rosenmei;
-                    Session["ansbasuteimei"] = item.basuteimei;
-                    Session["anszikoku"] = item.zikoku;
-                    break;
+                    Session["ansbasuteimei"] = "ルートが見つかりませんでした。";
                 }
-                foreach (var item in goal)
+                else
                 {
-                    // Customer プロパティを明示的に読み込む。**Reference プロパティは自動的に生成される
-                    Session["ansgbasuteimei"] = item.basuteimei;
-                    Session["ansgzikoku"] = item.zikoku;
-                    break;
+                    foreach (var item in start)
+                    {
+                        // Customer プロパティを明示的に読み込む。**Reference プロパティは自動的に生成される
+                        Session["kigyou"] = item.kigyou;
+                        Session["ansrosenmei"] = item.rosenmei;
+                        Session["ansbasuteimei"] = item.basuteimei;
+                        Session["anszikoku"] = item.zikoku;
+                        break;
+                    }
+                    foreach (var item in goal)
+                    {
+                        // Customer プロパティを明示的に読み込む。**Reference プロパティは自動的に生成される
+                        Session["ansgbasuteimei"] = item.basuteimei;
+                        Session["ansgzikoku"] = item.zikoku;
+                        break;
+                    }
                 }
+
             }
             return View();
         }
