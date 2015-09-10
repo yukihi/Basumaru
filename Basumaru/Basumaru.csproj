@@ -169,6 +169,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="BasumaruDBContext.cs" />
     <Compile Include="BasumaruInitializer.cs" />
+    <Compile Include="HolidayChecker.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BasuteisController.cs" />
     <Compile Include="Controllers\DataImportController.cs" />

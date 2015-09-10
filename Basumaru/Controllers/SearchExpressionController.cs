@@ -19,7 +19,21 @@ namespace Basumaru.Controllers
         public ActionResult SearchExpression()
         {
 
-            string oktime = (string)Session["hour"] + (string)Session["minute"];//現在時刻
+            string hourtemp = (string)Session["hour"];
+            int hourtemp2 = int.Parse(hourtemp);
+            string minutetemp = (string)Session["minute"];
+            int minutetemp2 = int.Parse(minutetemp);
+
+            string oktime;
+            oktime = (string)Session["hour"] + (string)Session["minute"];//現在時刻
+            if (hourtemp2 < 10)
+            {
+                oktime = "0" + (string)Session["hour"] + (string)Session["minute"];//6時等を06時に変更
+            }
+            if (minutetemp2 < 10)
+            {
+                oktime = (string)Session["hour"] + "0" + (string)Session["minute"];//6分等を06分に変更
+            }
 
             string kizyuntemp = (string)Session["kijun"];
             int flag = int.Parse(kizyuntemp);//0が出発基準　1が到着基準
@@ -31,25 +45,52 @@ namespace Basumaru.Controllers
             int ansmonth = int.Parse(temp1);
             string temp2 = (string)Session["day"];
             int ansday = int.Parse(temp2);
-            DateTime dateValue = new DateTime(2015, ansmonth, ansday);
+
+            // 必要な変数を宣言する
+            DateTime dtNow = DateTime.Now;
+            //現在日時を取得する
+            int iYear = dtNow.Year;
+            int imonth = dtNow.Day;
+            int iday = dtNow.Month;
+
+            DateTime dateValue = new DateTime(iYear, ansmonth, ansday);
+            if ((imonth < ansmonth) || ((imonth == ansmonth) && (iday < ansday)))
+            {
+                dateValue = new DateTime(iYear + 1, ansmonth, ansday);//未来の日付が選択された場合
+            }
+            else
+            {
+                dateValue = new DateTime(iYear, ansmonth, ansday);
+            }
+
+            HolidayChecker.HolidayInfo hi = HolidayChecker.Holiday(dateValue);
+
+
+
+
             int day = (int)dateValue.DayOfWeek;//日が0　土が6
             string daycode = "";//日付分類コード
             if (0 < day && day < 6)
             {
-                daycode = 0.ToString();//平日
+                daycode = "0"; //平日
             }
             else if (day == 6)//土曜なら
             {
-                daycode = 1.ToString();
+                daycode = "1";
             }
             else if (day == 0)//日曜なら
             {
-                daycode = 2.ToString();
+                daycode = "4";
             }
+            /*祝日ならここに入る*/
+            if (hi.holiday == HolidayChecker.HolidayInfo.HOLIDAY.SYUKUJITSU || hi.holiday == HolidayChecker.HolidayInfo.HOLIDAY.C_HOLIDAY)
+            {
+                daycode = "4";
+            }
+
 
             if (flag == 0)/*ここから下は出発場所基準*/
             {
-
                 /*ここ検索 出発時刻基準で指定されたバス停の中で近い乗車時刻を探す*/
                 /*p.zikoku.CompareTo(oktime)>0　oktimeより大きいやつを割り出し*/
                 var start = from p in db.jikokuhyou
@@ -76,7 +117,7 @@ namespace Basumaru.Controllers
                            orderby p.zikoku
                            select p;
 
-                if (start.Count() < 1)//データが見つかったかどうか判定
+                if (start.Count() < 1 || goal.Count() < 1)//データが見つかったかどうか判定
                 {
                     Session["ansbasuteimei"] = "ルートが見つかりませんでした。";
                     Session["ansgbasuteimei"] = "ルートが見つかりませんでした。";
@@ -91,6 +132,12 @@ namespace Basumaru.Controllers
                         Session["ansrosenmei"] = item.rosenmei;
                         Session["ansbasuteimei"] = item.basuteimei;
                         Session["anszikoku"] = item.zikoku;
+                        string temp = item.hachakuKubun;
+                        int hatemp = int.Parse(temp);
+                        if (0 < hatemp)
+                        {
+                            Session["hachakuKubun"] = item.hachakuKubun;
+                        }
                         break;
                     }
 
@@ -134,7 +181,7 @@ namespace Basumaru.Controllers
                             orderby p.zikoku descending
                             select p;
 
-                if (goal.Count() < 1)//データが見つかったかどうか判定
+                if (goal.Count() < 1 || goal.Count() < 1)//データが見つかったかどうか判定
                 {
                     Session["ansbasuteimei"] = "ルートが見つかりませんでした。";
                     Session["ansgbasuteimei"] = "ルートが見つかりませんでした。";

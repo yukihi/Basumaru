@@ -53,13 +53,20 @@ namespace Basumaru.Controllers
 
             // 選択された月のの日数を取得する
             int iDaysInMonth = DateTime.DaysInMonth(iyear, imonth);
-            bool hidukeerror = false; //-1:存在しない日がある
-            bool starterror = false; //-1:出発に存在しないバス停が選択されている
-            bool goalerror = false; //-1:到着に存在しないバス停が選択されている
+            bool hidukeerror = false; //存在しない日がある
+            bool starterror = false; //出発に存在しないバス停が選択されている
+            bool goalerror = false; //到着に存在しないバス停が選択されている
+            bool sameerror = false; //出発と到着が同じ
             //検査
             if (iday > iDaysInMonth)
             {
                 hidukeerror = true;
+
+            }
+
+            if (start == goal)
+            {
+                sameerror = true;
 
             }
 
@@ -86,7 +93,7 @@ namespace Basumaru.Controllers
 
 
 
-            if (hidukeerror == true || starterror == true || goalerror == true)
+            if (hidukeerror == true || starterror == true || goalerror == true　|| sameerror == true)
             {
                 if (starterror == true)
                 {
@@ -101,6 +108,11 @@ namespace Basumaru.Controllers
                 {
                     ViewBag.hidukeerror = "存在しない日付を選択しています";
                 }
+                if (sameerror == true　&& start == null)
+                {
+                    ViewBag.sameerror = "出発と到着のバス停名が同じです";
+                }
+
                 return View("Index");
             }
 
