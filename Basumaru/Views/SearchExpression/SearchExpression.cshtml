@@ -3,13 +3,69 @@
     ViewBag.Title = "SearchExpression";
 }
 
+<script>
+//更新
+function koshin(){
+  location.reload();
+}
+</script>
+
+
+
 <CENTER>
-    <button ="image" typeof="submit" value="ボタン"><img src="~/Image/ruto1.png"></img></button>
+    @ViewBag.messege
+    @using (Html.BeginRouteForm(
+                                       "Default", // ルート名
+                                       new
+                                       {
+                                           action = "SearchExpression",       // アクション名
+                                           controller = "SearchExpression",   // コントローラ名
+                                       }, // ルート・パラメータ
+                                       FormMethod.Post, // HTTPメソッド（method属性）
+                                       new { enctype = "multipart/form-data" } // そのほかの属性
+                                     ))
+    {
+        <button ="image" typeof="submit" name="route" value="0"><img src="~/Image/ruto1.png"></img></button>
+    }
+
+    <br>
+
+    @using (Html.BeginRouteForm(
+                                           "Default", // ルート名
+                                           new
+                                           {
+                                               action = "SearchExpression",       // アクション名
+                                               controller = "SearchExpression",   // コントローラ名
+                                           }, // ルート・パラメータ
+                                           FormMethod.Post, // HTTPメソッド（method属性）
+                                           new { enctype = "multipart/form-data" } // そのほかの属性
+                                         ))
+    {
+        <button ="image" typeof="submit" name="route" value="1"><img src="~/Image/ruto2.png"></img></button>
+    }
+
+    <br>
+
+    @using (Html.BeginRouteForm(
+                                           "Default", // ルート名
+                                           new
+                                           {
+                                               action = "SearchExpression",       // アクション名
+                                               controller = "SearchExpression",   // コントローラ名
+                                           }, // ルート・パラメータ
+                                           FormMethod.Post, // HTTPメソッド（method属性）
+                                           new { enctype = "multipart/form-data" } // そのほかの属性
+                                         ))
+    {
+        <button ="image" typeof="submit" name="route" value="2"><img src="~/Image/ruto3.png"></img></button>
+    }
+    <!--
+    <button ="image" typeof="submit" value="ボタン" onclick="susumu()"><img src="~/Image/ruto1.png"></img></button>
     &nbsp;
-    <button ="image" typeof="submit" value="ボタン"><img src="~/Image/ruto2.png"></img></button>
+    <button ="image" typeof="submit" value="ボタン" onclick="susumu()"><img src="~/Image/ruto2.png"></img></button>
     &nbsp;
-    <button ="image" typeof="submit" value="ボタン"><img src="~/Image/ruto3.png"></img></button>
-    <br><br>
+    <button ="image" typeof="submit" value="ボタン" onclick="susumu()"><img src="~/Image/ruto3.png"></img></button>
+        -->
     <table>
         <tr>
             <td><img src="~/Image/shuppatsuzikoku.png"></img></td>
@@ -37,4 +93,3 @@
         </tr>
     </table>
 </CENTER>
-

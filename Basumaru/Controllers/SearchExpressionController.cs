@@ -16,7 +16,7 @@ namespace Basumaru.Controllers
 
 
         // GET: SearchExpression
-        public ActionResult SearchExpression()
+        public ActionResult SearchExpression(string route)
         {
 
             string hourtemp = (string)Session["hour"];
@@ -124,6 +124,15 @@ namespace Basumaru.Controllers
                 }
                 else
                 {
+                    int i = 0;
+                    if (route == null)
+                    {
+                        i = 0;//int.Parse(route);
+                    }
+                    else
+                    {
+                        i = int.Parse(route);
+                    }
 
                     foreach (var item in start)
                     {
@@ -131,21 +140,38 @@ namespace Basumaru.Controllers
                         Session["kigyou"] = item.kigyou;
                         Session["ansrosenmei"] = item.rosenmei;
                         Session["ansbasuteimei"] = item.basuteimei;
-                        Session["anszikoku"] = item.zikoku;
+                        Session["anszikoku"] = item.zikoku.Substring(0, 2) + ":" + item.zikoku.Substring(2, 2);
                         string temp = item.hachakuKubun;
                         int hatemp = int.Parse(temp);
                         if (0 < hatemp)
                         {
                             Session["hachakuKubun"] = item.hachakuKubun;
                         }
-                        break;
+                        if (i == 0)
+                        {
+                            break;
+                        }
+                        i--;
                     }
 
+                    i = 0;
+                    if (route == null)
+                    {
+                        i = 0;//int.Parse(route);
+                    }
+                    else
+                    {
+                        i = int.Parse(route);
+                    }
                     foreach (var item in goal)
                     {
                         Session["ansgbasuteimei"] = item.basuteimei;
-                        Session["ansgzikoku"] = item.zikoku;
-                        break;
+                        Session["ansgzikoku"] = item.zikoku.Substring(0, 2) + ":" + item.zikoku.Substring(2, 2);
+                        if (i == 0)
+                        {
+                            break;
+                        }
+                        i--;
                     }
 
                 }
@@ -188,21 +214,51 @@ namespace Basumaru.Controllers
                 }
                 else
                 {
+
+                    int i = 0;
+                    if (route == null)
+                    {
+                        i = 0;//int.Parse(route);
+                    }
+                    else
+                    {
+                        i = int.Parse(route);
+                    }
+
                     foreach (var item in start)
                     {
                         // Customer プロパティを明示的に読み込む。**Reference プロパティは自動的に生成される
                         Session["kigyou"] = item.kigyou;
                         Session["ansrosenmei"] = item.rosenmei;
                         Session["ansbasuteimei"] = item.basuteimei;
-                        Session["anszikoku"] = item.zikoku;
-                        break;
+                        Session["anszikoku"] = item.zikoku.Substring(0, 2) + ":" + item.zikoku.Substring(2, 2);
+                        if (i == 0)
+                        {
+                            break;
+                        }
+                        i--;
                     }
+
+                    i = 0;
+                    if (route == null)
+                    {
+                        i = 0;//int.Parse(route);
+                    }
+                    else
+                    {
+                        i = int.Parse(route);
+                    }
+
                     foreach (var item in goal)
                     {
                         // Customer プロパティを明示的に読み込む。**Reference プロパティは自動的に生成される
                         Session["ansgbasuteimei"] = item.basuteimei;
-                        Session["ansgzikoku"] = item.zikoku;
-                        break;
+                        Session["ansgzikoku"] = item.zikoku.Substring(0, 2) + ":" + item.zikoku.Substring(2, 2);
+                        if (i == 0)
+                        {
+                            break;
+                        }
+                        i--;
                     }
                 }
 
