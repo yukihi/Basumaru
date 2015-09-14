@@ -126,7 +126,8 @@
                                 map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
                                 $.ajax({
-                                    url: "http://fic-h24039/basumaruAPI/api/Basuteis?format=json",
+                                    //url: "http://fic-h24039/basumaruAPI/api/Basuteis?format=json",
+                                    url: "http://localhost:49834/Scripts/Basuteis.json",
                                     dataType: 'json',
                                     async: true,
                                     success: function (json) {
@@ -147,13 +148,13 @@
                                             //console.log(item.ido);
                                             //console.log(item.keido);
 
-                                            if (item.yaneFlg == 1 || item.benchiFlg == 1) marker.setIcon('/Image/basu_ao.png');
+                                            if (item.yaneFlag == 1 || item.benchiFlag == 1) marker.setIcon('/Image/basu_ao.png');
                                             else marker.setIcon('/Image/basu_aka.png');
                                             
-                                            if (item.yaneFlg == 1) { var yane = "屋根" }
+                                            if (item.yaneFlag == 1) { var yane = "屋根" }
                                             else { var yane = "" };
 
-                                            if(item.benchiFlg==1) {var benchi="ベンチ"}
+                                            if(item.benchiFlag==1) {var benchi="ベンチ"}
                                             else {var benchi=""};
 
                                             var flag = location.search;
