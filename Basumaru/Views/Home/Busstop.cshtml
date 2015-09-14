@@ -177,6 +177,9 @@
                                     },
                                     error: function () {
                                         console.log("error");
+                                    },
+                                    beforeSend: function (xhr) {
+                                        xhr.overrideMimeType("text/html;charset=SJIS");
                                     }
 
                                 });
