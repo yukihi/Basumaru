@@ -14,12 +14,10 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="/Scripts/jquery.xdomainajax.js" type="text/javascript"></script>
 
-<!-- This css is to ensure that the google map contols (zoom bar etc) show and size correctly. -->
 @*<style>
     #map_canvas img{max-width:none}
     </style>*@
 
-<!-- This css is to give a nice big popup "info window" when a marker is clicked on the map -->
 <style>
     .infoDiv {
         height: auto;
@@ -49,12 +47,10 @@
         </div>
     </div>
 
-        <!-- This is the div that will contain the Google Map -->
         <div id="map_canvas" style="height:400px;"></div>
 
         @*<form action="#" onsubmit="showAddress(this.address.value); return false">*@
 
-            <!-- Enclose the Javascript in a "section" so that it is rendered in the correct order after scripts have been loaded etc -->
             @section scripts {
                 <section class="scripts">
 
@@ -100,26 +96,22 @@
                             geocoder = new google.maps.Geocoder();
                         });
 
-                        // Where all the fun happens
                         function Initialize() {
 
                             navigator.geolocation.getCurrentPosition(function (pos) {
                                 var i = pos.coords.latitude;
                                 var k = pos.coords.longitude;
 
-                                // Google has tweaked their interface somewhat - this tells the api to use that new UI
                                 google.maps.visualRefresh = true;
                                 //var Center = new google.maps.LatLng(i, k);
                                 var Center = new google.maps.LatLng(37.215629, 140.567835);
 
-                                // These are options that set initial zoom level, where the map is centered globally to start, and the type of map to show
                                 var mapOptions = {
                                     zoom: 14,
                                     center: Center,
                                     mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
                                 };
 
-                                // This makes the div with id "map_canvas" a google map
                                 map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
                                 $.ajax({
@@ -159,12 +151,10 @@
                                                              '<div><span class="yanebenchi"><hr style="margin:0px;">' + yane + '&nbsp;' + benchi + '</span>' +
                                                              '<br><br><a href="http://localhost:49834/Home/Index' + flag + '&value=' + item.basuteimei + '"><img src="/Image/sentaku.png"></a></div></div>'
 
-                                            // put in some information about each json object - in this case, the opening hours.
                                             infowindow = new google.maps.InfoWindow({
                                                 content: contentStr
                                             });
 
-                                            // finally hook up an "OnClick" listener to the map so it pops up out info-window when the marker-pin is clicked!
                                             google.maps.event.addListener(marker, 'click', function () {
                                                 infowindow.open(map, marker);
                                             });
