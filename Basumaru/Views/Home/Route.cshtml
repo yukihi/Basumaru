@@ -117,19 +117,12 @@
                                 // This makes the div with id "map_canvas" a google map
                                 map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
-                                var request = {
-                                    origin: "郡山駅",
-                                    destination: "平田村役場",
-                                    travelMode: google.maps.DirectionsTravelMode.DRIVING,
-                                };
-
-                                var directionsService = new google.maps.DirectionsService();
-
-                                directionsService.route(request, callback_direction);
-
                                 $.ajax({
                                     //url: "http://fic-h24039/basumaruAPI/api/Basuteis/" + a + "/" + b +"?format=json",
-                                    url: "http://localhost:49834/Scripts/Basuteis_Route.json",
+                                    //url: "http://localhost:49834/Scripts/Basuteis_Nagata.json",
+                                    //url: "http://localhost:49834/Scripts/Basuteis_Ono.json",
+                                    url: "http://localhost:49834/Scripts/Basuteis_Yomogida.json",
+                                    //url: "http://localhost:49834/Scripts/Basuteis_Ishikawa.json",
                                     dataType: 'json',
                                     async: true,
                                     success: function (json) {
@@ -175,6 +168,19 @@
                                             });
 
                                         })
+
+                                        for (var i = 0 ; i < json.length ; i=i+6) {
+                                            var request = {
+                                                origin: new google.maps.LatLng(json[i]['ido'], json[i]['keido']),
+                                                destination: new google.maps.LatLng(json[i+6]['ido'], json[i+6]['keido']),
+                                                travelMode: google.maps.DirectionsTravelMode.DRIVING,
+                                            };
+
+                                            var directionsService = new google.maps.DirectionsService();
+
+                                            directionsService.route(request, callback_direction);
+                                        }
+
                                     },
                                     error: function () {
                                         console.log("error");
