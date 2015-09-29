@@ -63,6 +63,7 @@
                         var map;
                         var geocoder;
                         var directions;
+                        var infowindow;
 
                         $(document).ready(function () {
                             Initialize();
@@ -159,7 +160,7 @@
                                                              '<br><br><a href="http://localhost:49834/Home/Index' + flag + '&value=' + item.basuteimei + '"><img src="/Image/sentaku.png"></a></div></div>'
 
                                             // put in some information about each json object - in this case, the opening hours.
-                                            var infowindow = new google.maps.InfoWindow({
+                                            infowindow = new google.maps.InfoWindow({
                                                 content: contentStr
                                             });
 
