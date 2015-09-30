@@ -87,11 +87,11 @@
 
                         function Initialize() {
 
-                            //var a = getQuerystring("kigyou");
-                            //var b = getQuerystring("rosenmei");
+                            var a = getQuerystring("kigyou");
+                            var b = getQuerystring("rosenmei");
 
-                            a = "福島交通";
-                            b = "石川・蓬田";
+                            //a = "福島交通";
+                            //b = "石川・蓬田";
 
                             navigator.geolocation.getCurrentPosition(function (pos) {
                                 var i = pos.coords.latitude;
@@ -110,10 +110,10 @@
                                 map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
                                 $.ajax({
-                                    //url: "http://fic-h24039/basumaruAPI/api/Basuteis/" + a + "/" + b +"?format=json",
+                                    url: "http://163.143.242.69/basumaruAPI/api/Basuteis/" + a + "/" + b + "?format=json",
                                     //url: "http://localhost:49834/Scripts/Basuteis_Nagata.json",
                                     //url: "http://localhost:49834/Scripts/Basuteis_Ono.json",
-                                    url: "http://localhost:49834/Scripts/Basuteis_Yomogida.json",
+                                    //url: "http://localhost:49834/Scripts/Basuteis_Yomogida.json",
                                     //url: "http://localhost:49834/Scripts/Basuteis_Ishikawa.json",
                                     dataType: 'json',
                                     async: true,
@@ -134,13 +134,13 @@
                                             //console.log(item.ido);
                                             //console.log(item.keido);
 
-                                            if (item.yaneFlag == 1 || item.benchiFlag == 1) marker.setIcon('/Image/basu_ao.png');
+                                            if (item.yaneFlg == 1 || item.benchiFlg == 1) marker.setIcon('/Image/basu_ao.png');
                                             else marker.setIcon('/Image/basu_aka.png');
 
-                                            if(item.yaneFlag==1) {var yane="屋根"}
+                                            if(item.yaneFlg==1) {var yane="屋根"}
                                             else {var yane=""};
 
-                                            if(item.benchiFlag==1) {var benchi="ベンチ"}
+                                            if(item.benchiFlg==1) {var benchi="ベンチ"}
                                             else {var benchi=""};
 
                                             //var flag = location.search;
@@ -161,8 +161,11 @@
 
                                         })
 
+      
+
                                         var paths = new Array(json.length);
-                                        for (var i = 0 ; i < json.length ; i++) {
+
+                                        for (var i = 0 ; i < json.length ; i=i+1) {
                                             paths[i] = new google.maps.LatLng(json[i]['ido'], json[i]['keido']);
                                         }
 
@@ -190,9 +193,6 @@
                                     },
                                     error: function () {
                                         console.log("error");
-                                    },
-                                    beforeSend: function (xhr) {
-                                        xhr.overrideMimeType("text/html;charset=SJIS");
                                     }
 
                                 });

@@ -59,7 +59,7 @@
                         var map;
                         var geocoder;
                         var directions;
-                        var infowindow;
+                        //var infowindow;
 
                         $(document).ready(function () {
                             Initialize();
@@ -151,7 +151,7 @@
                                                              '<div><span class="yanebenchi"><hr style="margin:0px;">' + yane + '&nbsp;' + benchi + '</span>' +
                                                              '<br><br><a href="http://localhost:49834/Home/Index' + flag + '&value=' + item.basuteimei + '"><img src="/Image/sentaku.png"></a></div></div>'
 
-                                            infowindow = new google.maps.InfoWindow({
+                                            var infowindow = new google.maps.InfoWindow({
                                                 content: contentStr
                                             });
 
@@ -164,9 +164,6 @@
                                     error: function () {
                                         console.log("error");
                                     }
-                                    //beforeSend: function (xhr) {
-                                    //    xhr.overrideMimeType("text/html;charset=SJIS");
-                                    //}
 
                                 });
 
