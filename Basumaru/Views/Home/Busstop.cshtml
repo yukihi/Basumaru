@@ -115,8 +115,8 @@
                                 map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
                                 $.ajax({
-                                    //url: "http://fic-h24039/basumaruAPI/api/Basuteis?format=json",
-                                    url: "http://localhost:49834/Scripts/Basuteis.json",
+                                    url: "http://163.143.242.69/basumaruAPI/api/Basuteis?format=json",
+                                    //url: "http://localhost:49834/Scripts/Basuteis.json",
                                     dataType: 'json',
                                     async: true,
                                     success: function (json) {
@@ -163,10 +163,10 @@
                                     },
                                     error: function () {
                                         console.log("error");
-                                    },
-                                    beforeSend: function (xhr) {
-                                        xhr.overrideMimeType("text/html;charset=SJIS");
                                     }
+                                    //beforeSend: function (xhr) {
+                                    //    xhr.overrideMimeType("text/html;charset=SJIS");
+                                    //}
 
                                 });
 
