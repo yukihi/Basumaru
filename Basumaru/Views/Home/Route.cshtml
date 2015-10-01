@@ -110,81 +110,86 @@
 
                                 map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
-                                var data;
-                                $.ajax({
-                                    url: "http://163.143.242.69/basumaruAPI/api/Jikokuhyous/" + a + "/" + b + "/" + c + "?hidukebunrui=0&format=json",
-                                    dataType: 'json',
-                                    async: true,
-                                    success: function (js) {
-                                        data = js;
-                                        $.each(data, function (i, item) {
-                                            console.log(item.basuteimei);
-                                            console.log(item.zikoku);
-                                        })
-                                    },
-                                    error: function () {
-                                        console.log("error");
-                                    }
-                                });
-
                                 $.ajax({
                                     url: "http://163.143.242.69/basumaruAPI/api/Basuteis/" + a + "/" + b + "?format=json",
                                     dataType: 'json',
                                     async: true,
                                     success: function (json) {
 
-                                        $.each(json, function (i, item) {
+                                        $.ajax({
+                                            url: "http://163.143.242.69/basumaruAPI/api/Jikokuhyous/" + a + "/" + b + "/" + c + "?hidukebunrui=0&format=json",
+                                            dataType: 'json',
+                                            async: true,
+                                            success: function (js) {
+                                                //$.each(js, function (i, item) {
+                                                //    console.log(item.JikokuhyouId);
+                                                //    console.log(item.basuteimei);
+                                                //    console.log(item.zikoku);
+                                                //})
 
-                                            //console.log("item.basuteimei");
+                                                $.each(json, function (i, item) {
 
-                                            var marker = new google.maps.Marker({
-                                                position: new google.maps.LatLng(item.ido, item.keido),
-                                                map: map,
-                                            });
+                                                    $.each(js, function (i, item) {
+                                                        console.log(item.JikokuhyouId);
+                                                        console.log(item.basuteimei);
+                                                        console.log(item.zikoku);
+                                                    })
 
-                                            marker.setVisible(true);
+                                                    //console.log("item.basuteimei");
 
-                                            //console.log(item.basuteimei);
-                                            //console.log(item.ido);
-                                            //console.log(item.keido);
+                                                    var marker = new google.maps.Marker({
+                                                        position: new google.maps.LatLng(item.ido, item.keido),
+                                                        map: map,
+                                                    });
 
-                                            if (item.yaneFlg == 1 || item.benchiFlg == 1) marker.setIcon('/Image/basu_ao.png');
-                                            else marker.setIcon('/Image/basu_aka.png');
+                                                    marker.setVisible(true);
 
-                                            if (item.yaneFlg == 1) { var yane = "屋根" }
-                                            else { var yane = "" };
+                                                    //console.log(item.basuteimei);
+                                                    //console.log(item.ido);
+                                                    //console.log(item.keido);
 
-                                            if (item.benchiFlg == 1) { var benchi = "ベンチ" }
-                                            else { var benchi = "" };
+                                                    if (item.yaneFlg == 1 || item.benchiFlg == 1) marker.setIcon('/Image/basu_ao.png');
+                                                    else marker.setIcon('/Image/basu_aka.png');
 
-                                            var contentStr = '<div class="infoDiv"><span class="basuteimei">' + item.basuteimei + '</span>' +
-                                                             '<div><span class="yanebenchi"><hr style="margin:0px;">' + yane + '&nbsp;' + benchi + '</span>'
+                                                    if (item.yaneFlg == 1) { var yane = "屋根" }
+                                                    else { var yane = "" };
 
-                                            var infowindow = new google.maps.InfoWindow({
-                                                content: contentStr
-                                            });
+                                                    if (item.benchiFlg == 1) { var benchi = "ベンチ" }
+                                                    else { var benchi = "" };
 
-                                            //infowindow.open(map, marker);
+                                                    var contentStr = '<div class="infoDiv"><span class="basuteimei">' + item.basuteimei + '</span>' +
+                                                                     '<div><span class="yanebenchi"><hr style="margin:0px;">' + yane + '&nbsp;' + benchi + '</span>'
 
-                                            google.maps.event.addListener(marker, 'click', function () {
-                                                infowindow.open(map, marker);
-                                            });
+                                                    var infowindow = new google.maps.InfoWindow({
+                                                        content: contentStr
+                                                    });
 
-                                        })
+                                                    //infowindow.open(map, marker);
 
-                                        var paths = new Array(json.length);
+                                                    google.maps.event.addListener(marker, 'click', function () {
+                                                        infowindow.open(map, marker);
+                                                    });
 
-                                        for (var i = 0 ; i < json.length ; i = i + 1) {
-                                            paths[i] = new google.maps.LatLng(json[i]['ido'], json[i]['keido']);
-                                        }
+                                                })
 
-                                        var polyline = new google.maps.Polyline({
-                                            map: map,
-                                            path: paths,
-                                            strokeColor: "blue",
-                                            strokeOpacity: 0.8,
-                                            strokeWeight: 5,
-                                            zIndex: 1
+                                                var paths = new Array(json.length);
+
+                                                for (var i = 0 ; i < json.length ; i = i + 1) {
+                                                    paths[i] = new google.maps.LatLng(json[i]['ido'], json[i]['keido']);
+                                                }
+
+                                                var polyline = new google.maps.Polyline({
+                                                    map: map,
+                                                    path: paths,
+                                                    strokeColor: "blue",
+                                                    strokeOpacity: 0.8,
+                                                    strokeWeight: 5,
+                                                    zIndex: 1
+                                                });
+                                            },
+                                            error: function () {
+                                                console.log("error");
+                                            }
                                         });
                                     },
                                     error: function () {
