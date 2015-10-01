@@ -87,11 +87,12 @@
 
                         function Initialize() {
 
-                            var a = getQuerystring("kigyou");
-                            var b = getQuerystring("rosenmei");
+                            //var a = getQuerystring("kigyou");
+                            //var b = getQuerystring("rosenmei");
 
-                            //a = "福島交通";
-                            //b = "石川・蓬田";
+                            a = "福島交通";
+                            b = "石川・蓬田";
+                            c = "石川駅前行";
 
                             navigator.geolocation.getCurrentPosition(function (pos) {
                                 var i = pos.coords.latitude;
@@ -109,12 +110,25 @@
 
                                 map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
+                                var data;
+                                $.ajax({
+                                    url: "http://163.143.242.69/basumaruAPI/api/Jikokuhyous/" + a + "/" + b + "/" + c + "?hidukebunrui=0&format=json",
+                                    dataType: 'json',
+                                    async: true,
+                                    success: function (js) {
+                                        data = js;
+                                        $.each(data, function (i, item) {
+                                            console.log(item.basuteimei);
+                                            console.log(item.zikoku);
+                                        })
+                                    },
+                                    error: function () {
+                                        console.log("error");
+                                    }
+                                });
+
                                 $.ajax({
                                     url: "http://163.143.242.69/basumaruAPI/api/Basuteis/" + a + "/" + b + "?format=json",
-                                    //url: "http://localhost:49834/Scripts/Basuteis_Nagata.json",
-                                    //url: "http://localhost:49834/Scripts/Basuteis_Ono.json",
-                                    //url: "http://localhost:49834/Scripts/Basuteis_Yomogida.json",
-                                    //url: "http://localhost:49834/Scripts/Basuteis_Ishikawa.json",
                                     dataType: 'json',
                                     async: true,
                                     success: function (json) {
@@ -137,17 +151,14 @@
                                             if (item.yaneFlg == 1 || item.benchiFlg == 1) marker.setIcon('/Image/basu_ao.png');
                                             else marker.setIcon('/Image/basu_aka.png');
 
-                                            if(item.yaneFlg==1) {var yane="屋根"}
-                                            else {var yane=""};
+                                            if (item.yaneFlg == 1) { var yane = "屋根" }
+                                            else { var yane = "" };
 
-                                            if(item.benchiFlg==1) {var benchi="ベンチ"}
-                                            else {var benchi=""};
-
-                                            //var flag = location.search;
+                                            if (item.benchiFlg == 1) { var benchi = "ベンチ" }
+                                            else { var benchi = "" };
 
                                             var contentStr = '<div class="infoDiv"><span class="basuteimei">' + item.basuteimei + '</span>' +
                                                              '<div><span class="yanebenchi"><hr style="margin:0px;">' + yane + '&nbsp;' + benchi + '</span>'
-                                                             //'<br><br><a href="http://localhost:49834/Home/Index' + flag + '&value=' + item.basuteimei + '"><img src="/Image/sentaku.png"></a></div></div>'
 
                                             var infowindow = new google.maps.InfoWindow({
                                                 content: contentStr
@@ -161,11 +172,9 @@
 
                                         })
 
-      
-
                                         var paths = new Array(json.length);
 
-                                        for (var i = 0 ; i < json.length ; i=i+1) {
+                                        for (var i = 0 ; i < json.length ; i = i + 1) {
                                             paths[i] = new google.maps.LatLng(json[i]['ido'], json[i]['keido']);
                                         }
 
@@ -177,24 +186,10 @@
                                             strokeWeight: 5,
                                             zIndex: 1
                                         });
-
-                                        //for (var i = 0 ; i < json.length ; i=i+5) {
-                                        //    var request = {
-                                        //        origin: new google.maps.LatLng(json[i]['ido'], json[i]['keido']),
-                                        //        destination: new google.maps.LatLng(json[i+5]['ido'], json[i+5]['keido']),
-                                        //        travelMode: google.maps.DirectionsTravelMode.DRIVING,
-                                        //    };
-
-                                        //    var directionsService = new google.maps.DirectionsService();
-
-                                        //    directionsService.route(request, callback_direction);
-                                        //}
-
                                     },
                                     error: function () {
                                         console.log("error");
                                     }
-
                                 });
 
                             });
