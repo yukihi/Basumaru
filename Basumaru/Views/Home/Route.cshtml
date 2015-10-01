@@ -129,10 +129,14 @@
 
                                                 $.each(json, function (i, item) {
 
-                                                    $.each(js, function (i, item) {
-                                                        console.log(item.JikokuhyouId);
-                                                        console.log(item.basuteimei);
-                                                        console.log(item.zikoku);
+                                                    var str = '<div><span class="yanebenchi"><hr style="margin:0px;">時刻表</span>';
+                                                    $.each(js, function (j, it) {
+                                                        if (it.basuteimei == item.basuteimei) {
+                                                            //console.log(it.JikokuhyouId);
+                                                            //console.log(it.basuteimei);
+                                                            //console.log(it.zikoku);
+                                                            str = str + '<div><span class="yanebenchi"><hr style="margin:0px;">' + it.zikoku + '</span>'
+                                                        };
                                                     })
 
                                                     //console.log("item.basuteimei");
@@ -158,7 +162,7 @@
                                                     else { var benchi = "" };
 
                                                     var contentStr = '<div class="infoDiv"><span class="basuteimei">' + item.basuteimei + '</span>' +
-                                                                     '<div><span class="yanebenchi"><hr style="margin:0px;">' + yane + '&nbsp;' + benchi + '</span>'
+                                                                     '<div><span class="yanebenchi"><hr style="margin:0px;">' + yane + '&nbsp;' + benchi + '</span>' + str
 
                                                     var infowindow = new google.maps.InfoWindow({
                                                         content: contentStr
