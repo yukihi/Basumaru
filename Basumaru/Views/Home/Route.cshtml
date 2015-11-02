@@ -87,12 +87,17 @@
 
                         function Initialize() {
 
-                            //var a = getQuerystring("kigyou");
-                            //var b = getQuerystring("rosenmei");
+                            //var kigyou = getQuerystring("kigyou");
+                            //var rosenmei = getQuerystring("rosenmei");
 
-                            a = "福島交通";
-                            b = "石川・蓬田";
-                            c = "石川駅前行";
+                            kigyou = "福島交通";
+                            rosenmei = "石川・蓬田";
+                            ikisaki = "石川駅前行";
+                            hidukebunrui = "0";
+                            toutyaku = "石川駅前";
+                            toutyakuji = "1624";
+                            shuppatu = "小林（福島県）";
+                            shuppatuji = "1601"
 
                             navigator.geolocation.getCurrentPosition(function (pos) {
                                 var i = pos.coords.latitude;
@@ -111,13 +116,13 @@
                                 map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
                                 $.ajax({
-                                    url: "http://163.143.242.69/basumaruAPI/api/Basuteis/" + a + "/" + b + "?format=json",
+                                    url: "http://163.143.242.69/basumaruAPI/api/Basuteis/" + kigyou + "/" + rosenmei + "?format=json",
                                     dataType: 'json',
                                     async: true,
                                     success: function (json) {
 
                                         $.ajax({
-                                            url: "http://163.143.242.69/basumaruAPI/api/Jikokuhyous/" + a + "/" + b + "/" + c + "?hidukebunrui=0&format=json",
+                                            url: "http://163.143.242.69/basumaruAPI/api/Jikokuhyous/" + kigyou + "/" + rosenmei + "/" + ikisaki + "?hidukebunrui=" + hidukebunrui + "&format=json",
                                             dataType: 'json',
                                             async: true,
                                             success: function (js) {
@@ -135,7 +140,13 @@
                                                             //console.log(it.JikokuhyouId);
                                                             //console.log(it.basuteimei);
                                                             //console.log(it.zikoku);
-                                                            str = str + '<div><span class="yanebenchi"><hr style="margin:0px;">' + it.zikoku + '</span>'
+
+                                                            a = it.zikoku.substring(0, 2);
+                                                            b = it.zikoku.substring(2, 4);
+
+                                                            if (it.zikoku == shuppatuji) { str = str + '<div><span class="yanebenchi"><hr style="margin:0px;">' + a + ':' + b + '&nbsp;出発</span>' }
+                                                            else if (it.zikoku == toutyakuji) { str = str + '<div><span class="yanebenchi"><hr style="margin:0px;">' + a + ':' + b + '&nbsp;到着</span>' }
+                                                            else { str = str + '<div><span class="yanebenchi"><hr style="margin:0px;">' + a + ':' + b + '</span>' }
                                                         };
                                                     })
 
@@ -168,7 +179,9 @@
                                                         content: contentStr
                                                     });
 
-                                                    //infowindow.open(map, marker);
+
+                                                    if(item.basuteimei == shuppatu || item.basuteimei == toutyaku)
+                                                    infowindow.open(map, marker);
 
                                                     google.maps.event.addListener(marker, 'click', function () {
                                                         infowindow.open(map, marker);
