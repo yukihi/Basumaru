@@ -96,8 +96,8 @@
                             rosenmei1 = "石川・蓬田";
                             ikisaki1 = "清水内（平田村）行";
                             hidukebunrui1 = "0";
-                            shuppatu1 = "石川駅前";
-                            shuppatuji1 = "0710";
+                            shuppatu1 = "大河内（福島県）";
+                            shuppatuji1 = "0734";
                             toutyaku1 = "上蓬田";
                             toutyakuji1 = "0802";
 
@@ -155,51 +155,92 @@
                                                                 a = it.zikoku.substring(0, 2);
                                                                 b = it.zikoku.substring(2, 4);
 
-                                                                if (it.zikoku == shuppatuji1) { str = str + '<div><span class="yanebenchi"><hr style="margin:0px;"><strong>' + a + ':' + b + '&nbsp;出発</strong></span>' }
-                                                                else if (it.zikoku == toutyakuji1) { str = str + '<div><span class="yanebenchi"><hr style="margin:0px;"><strong>' + a + ':' + b + '&nbsp;到着</strong></span>' }
+                                                                if (it.zikoku == shuppatuji1 && it.basuteimei == shuppatu1) { str = str + '<div><span class="yanebenchi"><hr style="margin:0px;"><strong>' + a + ':' + b + '&nbsp;出発</strong></span>' }
+                                                                else if (it.zikoku == toutyakuji1 && it.basuteimei == toutyaku1) { str = str + '<div><span class="yanebenchi"><hr style="margin:0px;"><strong>' + a + ':' + b + '&nbsp;到着</strong></span>' }
                                                                 else { str = str + '<div><span class="yanebenchi"><hr style="margin:0px;">' + a + ':' + b + '</span>' }
                                                             };
                                                         })
 
                                                         //console.log("item.basuteimei");
 
-                                                        var marker = new google.maps.Marker({
-                                                            position: new google.maps.LatLng(item.ido, item.keido),
-                                                            map: map,
-                                                        });
-
-                                                        marker.setVisible(true);
-
-                                                        //console.log(item.basuteimei);
-                                                        //console.log(item.ido);
-                                                        //console.log(item.keido);
-
-                                                        if (item.yaneFlg == 1 || item.benchiFlg == 1) marker.setIcon('/Image/basu_ao.png');
-                                                        else marker.setIcon('/Image/basu_aka.png');
-
-                                                        if (item.yaneFlg == 1) { var yane = "屋根" }
-                                                        else { var yane = "" };
-
-                                                        if (item.benchiFlg == 1) { var benchi = "ベンチ" }
-                                                        else { var benchi = "" };
-
-                                                        var contentStr = '<div class="infoDiv"><span class="basuteimei">' + item.basuteimei + '</span>' +
-                                                                         '<div><span class="yanebenchi"><hr style="margin:0px;">' + yane + '&nbsp;' + benchi + '</span>' + str
-
-                                                        var infowindow = new google.maps.InfoWindow({
-                                                            content: contentStr
-                                                        });
-
                                                         if (flag == 0) {
-                                                            if (item.basuteimei == shuppatu1 || item.basuteimei == toutyaku1) infowindow.open(map, marker);
-                                                        }else if(flag == 1){
-                                                            if (item.basuteimei == shuppatu1) infowindow.open(map, marker);
+                                                            var marker = new google.maps.Marker({
+                                                                position: new google.maps.LatLng(item.ido, item.keido),
+                                                                map: map,
+                                                            });
+
+                                                            marker.setVisible(true);
+
+                                                            //console.log(item.basuteimei);
+                                                            //console.log(item.ido);
+                                                            //console.log(item.keido);
+
+                                                            if (item.yaneFlg == 1 || item.benchiFlg == 1) marker.setIcon('/Image/basu_ao.png');
+                                                            else marker.setIcon('/Image/basu_aka.png');
+
+                                                            if (item.yaneFlg == 1) { var yane = "屋根" }
+                                                            else { var yane = "" };
+
+                                                            if (item.benchiFlg == 1) { var benchi = "ベンチ" }
+                                                            else { var benchi = "" };
+
+                                                            var contentStr = '<div class="infoDiv"><span class="basuteimei">' + item.basuteimei + '</span>' +
+                                                                             '<div><span class="yanebenchi"><hr style="margin:0px;">' + yane + '&nbsp;' + benchi + '</span>' + str
+
+                                                            var infowindow = new google.maps.InfoWindow({
+                                                                content: contentStr
+                                                            });
+
+                                                            if (flag == 0) {
+                                                                if (item.basuteimei == shuppatu1 || item.basuteimei == toutyaku1) infowindow.open(map, marker);
+                                                            } else if (flag == 1) {
+                                                                if (item.basuteimei == shuppatu1) infowindow.open(map, marker);
+                                                            }
+
+                                                            google.maps.event.addListener(marker, 'click', function () {
+                                                                infowindow.open(map, marker);
+                                                            });
+
+                                                        } else if (flag == 1) {
+                                                            if (item.basuteimei != toutyaku1) {
+                                                                var marker = new google.maps.Marker({
+                                                                    position: new google.maps.LatLng(item.ido, item.keido),
+                                                                    map: map,
+                                                                });
+
+                                                                marker.setVisible(true);
+
+                                                                //console.log(item.basuteimei);
+                                                                //console.log(item.ido);
+                                                                //console.log(item.keido);
+
+                                                                if (item.yaneFlg == 1 || item.benchiFlg == 1) marker.setIcon('/Image/basu_ao.png');
+                                                                else marker.setIcon('/Image/basu_aka.png');
+
+                                                                if (item.yaneFlg == 1) { var yane = "屋根" }
+                                                                else { var yane = "" };
+
+                                                                if (item.benchiFlg == 1) { var benchi = "ベンチ" }
+                                                                else { var benchi = "" };
+
+                                                                var contentStr = '<div class="infoDiv"><span class="basuteimei">' + item.basuteimei + '</span>' +
+                                                                                 '<div><span class="yanebenchi"><hr style="margin:0px;">' + yane + '&nbsp;' + benchi + '</span>' + str
+
+                                                                var infowindow = new google.maps.InfoWindow({
+                                                                    content: contentStr
+                                                                });
+
+                                                                if (flag == 0) {
+                                                                    if (item.basuteimei == shuppatu1 || item.basuteimei == toutyaku1) infowindow.open(map, marker);
+                                                                } else if (flag == 1) {
+                                                                    if (item.basuteimei == shuppatu1) infowindow.open(map, marker);
+                                                                }
+
+                                                                google.maps.event.addListener(marker, 'click', function () {
+                                                                    infowindow.open(map, marker);
+                                                                });
+                                                            }
                                                         }
-
-                                                        google.maps.event.addListener(marker, 'click', function () {
-                                                            infowindow.open(map, marker);
-                                                        });
-
                                                     })
 
                                                     var c, d;
@@ -280,8 +321,8 @@
                                                                 a = it.zikoku.substring(0, 2);
                                                                 b = it.zikoku.substring(2, 4);
 
-                                                                if (it.zikoku == shuppatuji2) { str = str + '<div><span class="yanebenchi"><hr style="margin:0px;"><strong>' + a + ':' + b + '&nbsp;乗り換え</strong></span>' }
-                                                                else if (it.zikoku == toutyakuji2) { str = str + '<div><span class="yanebenchi"><hr style="margin:0px;"><strong>' + a + ':' + b + '&nbsp;到着</strong></span>' }
+                                                                if (it.zikoku == shuppatuji2 && it.basuteimei == shuppatu2) { str = str + '<div><span class="yanebenchi"><hr style="margin:0px;"><strong>' + a + ':' + b + '&nbsp;乗り換え</strong></span>' }
+                                                                else if (it.zikoku == toutyakuji2 && it.basuteimei == toutyaku2) { str = str + '<div><span class="yanebenchi"><hr style="margin:0px;"><strong>' + a + ':' + b + '&nbsp;到着</strong></span>' }
                                                                 else { str = str + '<div><span class="yanebenchi"><hr style="margin:0px;">' + a + ':' + b + '</span>' }
                                                             };
                                                         })
