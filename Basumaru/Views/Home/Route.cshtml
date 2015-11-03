@@ -91,20 +91,23 @@
                             //var rosenmei = getQuerystring("rosenmei");
 
                             kigyou = "福島交通";
+                            flag = "1";
+
                             rosenmei1 = "石川・蓬田";
-                            ikisaki1 = "石川駅前行";
+                            ikisaki1 = "清水内（平田村）行";
                             hidukebunrui1 = "0";
-                            toutyaku1 = "石川駅前";
-                            toutyakuji1 = "0754";
-                            shuppatu1 = "清水内（平田村）";
-                            shuppatuji1 = "0700";
+                            shuppatu1 = "石川駅前";
+                            shuppatuji1 = "0710";
+                            toutyaku1 = "上蓬田";
+                            toutyakuji1 = "0802";
+
                             rosenmei2 = "小野・石川";
                             ikisaki2 = "石川駅前行";
                             hidukebunrui2 = "0";
-                            shuppatu2 = "小野営業所";
-                            shuppatuji2 = "0652";
-                            toutyaku2 = "小野石橋";
-                            toutyakuji2 = "0701";
+                            shuppatu2 = "上蓬田";
+                            shuppatuji2 = "0819";
+                            toutyaku2 = "千五沢";
+                            toutyakuji2 = "0834";
 
                             navigator.geolocation.getCurrentPosition(function (pos) {
                                 var i = pos.coords.latitude;
@@ -122,213 +125,252 @@
 
                                 map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
-                                $.ajax({
-                                    url: "http://163.143.242.69/basumaruAPI/api/Basuteis/" + kigyou + "/" + rosenmei1 + "?format=json",
-                                    dataType: 'json',
-                                    async: true,
-                                    success: function (json) {
+                                if (flag == 0 || flag == 1) {
+                                    $.ajax({
+                                        url: "http://163.143.242.69/basumaruAPI/api/Basuteis/" + kigyou + "/" + rosenmei1 + "?format=json",
+                                        dataType: 'json',
+                                        async: true,
+                                        success: function (json) {
 
-                                        $.ajax({
-                                            url: "http://163.143.242.69/basumaruAPI/api/Jikokuhyous/" + kigyou + "/" + rosenmei1 + "/" + ikisaki1 + "?hidukebunrui=" + hidukebunrui1 + "&format=json",
-                                            dataType: 'json',
-                                            async: true,
-                                            success: function (js) {
-                                                //$.each(js, function (i, item) {
-                                                //    console.log(item.JikokuhyouId);
-                                                //    console.log(item.basuteimei);
-                                                //    console.log(item.zikoku);
-                                                //})
+                                            $.ajax({
+                                                url: "http://163.143.242.69/basumaruAPI/api/Jikokuhyous/" + kigyou + "/" + rosenmei1 + "/" + ikisaki1 + "?hidukebunrui=" + hidukebunrui1 + "&format=json",
+                                                dataType: 'json',
+                                                async: true,
+                                                success: function (js) {
+                                                    //$.each(js, function (i, item) {
+                                                    //    console.log(item.JikokuhyouId);
+                                                    //    console.log(item.basuteimei);
+                                                    //    console.log(item.zikoku);
+                                                    //})
 
-                                                $.each(json, function (i, item) {
+                                                    $.each(json, function (i, item) {
 
-                                                    var str = '<div><span class="yanebenchi"><hr style="margin:0px;">時刻表</span>';
-                                                    $.each(js, function (j, it) {
-                                                        if (it.basuteimei == item.basuteimei) {
-                                                            //console.log(it.JikokuhyouId);
-                                                            //console.log(it.basuteimei);
-                                                            //console.log(it.zikoku);
+                                                        var str = '<div><span class="yanebenchi"><hr style="margin:0px;">時刻表</span>';
+                                                        $.each(js, function (j, it) {
+                                                            if (it.basuteimei == item.basuteimei) {
+                                                                //console.log(it.JikokuhyouId);
+                                                                //console.log(it.basuteimei);
+                                                                //console.log(it.zikoku);
 
-                                                            a = it.zikoku.substring(0, 2);
-                                                            b = it.zikoku.substring(2, 4);
+                                                                a = it.zikoku.substring(0, 2);
+                                                                b = it.zikoku.substring(2, 4);
 
-                                                            if (it.zikoku == shuppatuji1) { str = str + '<div><span class="yanebenchi"><hr style="margin:0px;"><strong>' + a + ':' + b + '&nbsp;出発</strong></span>' }
-                                                            else if (it.zikoku == toutyakuji1) { str = str + '<div><span class="yanebenchi"><hr style="margin:0px;"><strong>' + a + ':' + b + '&nbsp;到着</strong></span>' }
-                                                            else { str = str + '<div><span class="yanebenchi"><hr style="margin:0px;">' + a + ':' + b + '</span>' }
-                                                        };
+                                                                if (it.zikoku == shuppatuji1) { str = str + '<div><span class="yanebenchi"><hr style="margin:0px;"><strong>' + a + ':' + b + '&nbsp;出発</strong></span>' }
+                                                                else if (it.zikoku == toutyakuji1) { str = str + '<div><span class="yanebenchi"><hr style="margin:0px;"><strong>' + a + ':' + b + '&nbsp;到着</strong></span>' }
+                                                                else { str = str + '<div><span class="yanebenchi"><hr style="margin:0px;">' + a + ':' + b + '</span>' }
+                                                            };
+                                                        })
+
+                                                        //console.log("item.basuteimei");
+
+                                                        var marker = new google.maps.Marker({
+                                                            position: new google.maps.LatLng(item.ido, item.keido),
+                                                            map: map,
+                                                        });
+
+                                                        marker.setVisible(true);
+
+                                                        //console.log(item.basuteimei);
+                                                        //console.log(item.ido);
+                                                        //console.log(item.keido);
+
+                                                        if (item.yaneFlg == 1 || item.benchiFlg == 1) marker.setIcon('/Image/basu_ao.png');
+                                                        else marker.setIcon('/Image/basu_aka.png');
+
+                                                        if (item.yaneFlg == 1) { var yane = "屋根" }
+                                                        else { var yane = "" };
+
+                                                        if (item.benchiFlg == 1) { var benchi = "ベンチ" }
+                                                        else { var benchi = "" };
+
+                                                        var contentStr = '<div class="infoDiv"><span class="basuteimei">' + item.basuteimei + '</span>' +
+                                                                         '<div><span class="yanebenchi"><hr style="margin:0px;">' + yane + '&nbsp;' + benchi + '</span>' + str
+
+                                                        var infowindow = new google.maps.InfoWindow({
+                                                            content: contentStr
+                                                        });
+
+                                                        if (flag == 0) {
+                                                            if (item.basuteimei == shuppatu1 || item.basuteimei == toutyaku1) infowindow.open(map, marker);
+                                                        }else if(flag == 1){
+                                                            if (item.basuteimei == shuppatu1) infowindow.open(map, marker);
+                                                        }
+
+                                                        google.maps.event.addListener(marker, 'click', function () {
+                                                            infowindow.open(map, marker);
+                                                        });
+
                                                     })
 
-                                                    //console.log("item.basuteimei");
+                                                    var c, d;
 
-                                                    var marker = new google.maps.Marker({
-                                                        position: new google.maps.LatLng(item.ido, item.keido),
+                                                    for (var l = 0 ; l < json.length ; l = l + 1) {
+                                                        if (json[l].basuteimei == shuppatu1) c = l;
+                                                        else if (json[l].basuteimei == toutyaku1) { d = l; }
+                                                    }
+
+                                                    if (c <= d) {
+                                                        var paths = new Array(d - c + 1);
+
+                                                        var k = 0;
+                                                        for (var i = c ; i <= d ; i = i + 1) {
+                                                            //paths[i] = new google.maps.LatLng(json[i]['ido'], json[i]['keido']);
+                                                            paths[k] = new google.maps.LatLng(json[i].ido, json[i].keido);
+                                                            k++;
+                                                        }
+                                                    }
+                                                    else {
+                                                        var paths = new Array(c - d + 1);
+
+                                                        var k = 0;
+                                                        for (var i = d; i <= c ; i = i + 1) {
+                                                            paths[k] = new google.maps.LatLng(json[i].ido, json[i].keido);
+                                                            k++;
+                                                        }
+                                                    }
+
+
+                                                    var polyline = new google.maps.Polyline({
                                                         map: map,
+                                                        path: paths,
+                                                        strokeColor: "blue",
+                                                        strokeOpacity: 0.8,
+                                                        strokeWeight: 5,
+                                                        zIndex: 1
                                                     });
-
-                                                    marker.setVisible(true);
-
-                                                    //console.log(item.basuteimei);
-                                                    //console.log(item.ido);
-                                                    //console.log(item.keido);
-
-                                                    if (item.yaneFlg == 1 || item.benchiFlg == 1) marker.setIcon('/Image/basu_ao.png');
-                                                    else marker.setIcon('/Image/basu_aka.png');
-
-                                                    if (item.yaneFlg == 1) { var yane = "屋根" }
-                                                    else { var yane = "" };
-
-                                                    if (item.benchiFlg == 1) { var benchi = "ベンチ" }
-                                                    else { var benchi = "" };
-
-                                                    var contentStr = '<div class="infoDiv"><span class="basuteimei">' + item.basuteimei + '</span>' +
-                                                                     '<div><span class="yanebenchi"><hr style="margin:0px;">' + yane + '&nbsp;' + benchi + '</span>' + str
-
-                                                    var infowindow = new google.maps.InfoWindow({
-                                                        content: contentStr
-                                                    });
-
-
-                                                    if (item.basuteimei == shuppatu1 || item.basuteimei == toutyaku1)
-                                                        infowindow.open(map, marker);
-
-                                                    google.maps.event.addListener(marker, 'click', function () {
-                                                        infowindow.open(map, marker);
-                                                    });
-
-                                                })
-
-                                                var c, d;
-
-                                                for (var l = 0 ; l < json.length ; l = l + 1) {
-                                                    if (json[l].basuteimei == shuppatu1) c = l;
-                                                    else if (json[l].basuteimei == toutyaku1) { d = l;}
+                                                },
+                                                error: function () {
+                                                    console.log("error");
                                                 }
+                                            });
+                                        },
+                                        error: function () {
+                                            console.log("error");
+                                        }
+                                    });
+                                }
 
-                                                var paths = new Array(d-c+1);
+                                if (flag == 1) {
+                                    $.ajax({
+                                        url: "http://163.143.242.69/basumaruAPI/api/Basuteis/" + kigyou + "/" + rosenmei2 + "?format=json",
+                                        dataType: 'json',
+                                        async: true,
+                                        success: function (json) {
 
-                                                var k = 0;
-                                                for (var i = c ; i <= d ; i = i + 1) {
-                                                    //paths[i] = new google.maps.LatLng(json[i]['ido'], json[i]['keido']);
-                                                    paths[k] = new google.maps.LatLng(json[i].ido, json[i].keido);
-                                                    k++;
+                                            $.ajax({
+                                                url: "http://163.143.242.69/basumaruAPI/api/Jikokuhyous/" + kigyou + "/" + rosenmei2 + "/" + ikisaki2 + "?hidukebunrui=" + hidukebunrui2 + "&format=json",
+                                                dataType: 'json',
+                                                async: true,
+                                                success: function (js) {
+                                                    //$.each(js, function (i, item) {
+                                                    //    console.log(item.JikokuhyouId);
+                                                    //    console.log(item.basuteimei);
+                                                    //    console.log(item.zikoku);
+                                                    //})
+
+                                                    $.each(json, function (i, item) {
+
+                                                        var str = '<div><span class="yanebenchi"><hr style="margin:0px;">時刻表</span>';
+                                                        $.each(js, function (j, it) {
+                                                            if (it.basuteimei == item.basuteimei) {
+                                                                //console.log(it.JikokuhyouId);
+                                                                //console.log(it.basuteimei);
+                                                                //console.log(it.zikoku);
+
+                                                                a = it.zikoku.substring(0, 2);
+                                                                b = it.zikoku.substring(2, 4);
+
+                                                                if (it.zikoku == shuppatuji2) { str = str + '<div><span class="yanebenchi"><hr style="margin:0px;"><strong>' + a + ':' + b + '&nbsp;乗り換え</strong></span>' }
+                                                                else if (it.zikoku == toutyakuji2) { str = str + '<div><span class="yanebenchi"><hr style="margin:0px;"><strong>' + a + ':' + b + '&nbsp;到着</strong></span>' }
+                                                                else { str = str + '<div><span class="yanebenchi"><hr style="margin:0px;">' + a + ':' + b + '</span>' }
+                                                            };
+                                                        })
+
+                                                        //console.log("item.basuteimei");
+
+                                                        var marker = new google.maps.Marker({
+                                                            position: new google.maps.LatLng(item.ido, item.keido),
+                                                            map: map,
+                                                        });
+
+                                                        marker.setVisible(true);
+
+                                                        //console.log(item.basuteimei);
+                                                        //console.log(item.ido);
+                                                        //console.log(item.keido);
+
+                                                        if (item.yaneFlg == 1 || item.benchiFlg == 1) marker.setIcon('/Image/basu_ao.png');
+                                                        else marker.setIcon('/Image/basu_aka.png');
+
+                                                        if (item.yaneFlg == 1) { var yane = "屋根" }
+                                                        else { var yane = "" };
+
+                                                        if (item.benchiFlg == 1) { var benchi = "ベンチ" }
+                                                        else { var benchi = "" };
+
+                                                        var contentStr = '<div class="infoDiv"><span class="basuteimei">' + item.basuteimei + '</span>' +
+                                                                         '<div><span class="yanebenchi"><hr style="margin:0px;">' + yane + '&nbsp;' + benchi + '</span>' + str
+
+                                                        var infowindow = new google.maps.InfoWindow({
+                                                            content: contentStr
+                                                        });
+
+
+                                                        if (item.basuteimei == shuppatu2 || item.basuteimei == toutyaku2)
+                                                            infowindow.open(map, marker);
+
+                                                        google.maps.event.addListener(marker, 'click', function () {
+                                                            infowindow.open(map, marker);
+                                                        });
+
+                                                    })
+
+                                                    var c, d;
+
+                                                    for (var l = 0; l < json.length ; l = l + 1) {
+                                                        if (json[l].basuteimei == shuppatu2) c = l;
+                                                        else if (json[l].basuteimei == toutyaku2) d = l;
+                                                    }
+
+                                                    if (c <= d) {
+                                                        var paths = new Array(d - c + 1);
+
+                                                        var k = 0;
+                                                        for (var i = c ; i <= d ; i = i + 1) {
+                                                            //paths[i] = new google.maps.LatLng(json[i]['ido'], json[i]['keido']);
+                                                            paths[k] = new google.maps.LatLng(json[i].ido, json[i].keido);
+                                                            k++;
+                                                        }
+                                                    }
+                                                    else {
+                                                        var paths = new Array(c - d + 1);
+
+                                                        var k = 0;
+                                                        for (var i = d; i <= c ; i = i + 1) {
+                                                            paths[k] = new google.maps.LatLng(json[i].ido, json[i].keido);
+                                                            k++;
+                                                        }
+                                                    }
+
+                                                    var polyline = new google.maps.Polyline({
+                                                        map: map,
+                                                        path: paths,
+                                                        strokeColor: "red",
+                                                        strokeOpacity: 0.8,
+                                                        strokeWeight: 5,
+                                                        zIndex: 1
+                                                    });
+                                                },
+                                                error: function () {
+                                                    console.log("error");
                                                 }
-
-                                                var polyline = new google.maps.Polyline({
-                                                    map: map,
-                                                    path: paths,
-                                                    strokeColor: "blue",
-                                                    strokeOpacity: 0.8,
-                                                    strokeWeight: 5,
-                                                    zIndex: 1
-                                                });
-                                            },
-                                            error: function () {
-                                                console.log("error");
-                                            }
-                                        });
-                                    },
-                                    error: function () {
-                                        console.log("error");
-                                    }
-                                });
-
-                                //$.ajax({
-                                //    url: "http://163.143.242.69/basumaruAPI/api/Basuteis/" + kigyou + "/" + rosenmei2 + "?format=json",
-                                //    dataType: 'json',
-                                //    async: true,
-                                //    success: function (json) {
-
-                                //        $.ajax({
-                                //            url: "http://163.143.242.69/basumaruAPI/api/Jikokuhyous/" + kigyou + "/" + rosenmei2 + "/" + ikisaki2 + "?hidukebunrui=" + hidukebunrui2 + "&format=json",
-                                //            dataType: 'json',
-                                //            async: true,
-                                //            success: function (js) {
-                                //                //$.each(js, function (i, item) {
-                                //                //    console.log(item.JikokuhyouId);
-                                //                //    console.log(item.basuteimei);
-                                //                //    console.log(item.zikoku);
-                                //                //})
-
-                                //                $.each(json, function (i, item) {
-
-                                //                    var str = '<div><span class="yanebenchi"><hr style="margin:0px;">時刻表</span>';
-                                //                    $.each(js, function (j, it) {
-                                //                        if (it.basuteimei == item.basuteimei) {
-                                //                            //console.log(it.JikokuhyouId);
-                                //                            //console.log(it.basuteimei);
-                                //                            //console.log(it.zikoku);
-
-                                //                            a = it.zikoku.substring(0, 2);
-                                //                            b = it.zikoku.substring(2, 4);
-
-                                //                            if (it.zikoku == shuppatuji2) { str = str + '<div><span class="yanebenchi"><hr style="margin:0px;"><strong>' + a + ':' + b + '&nbsp;出発</strong></span>' }
-                                //                            else if (it.zikoku == toutyakuji2) { str = str + '<div><span class="yanebenchi"><hr style="margin:0px;"><strong>' + a + ':' + b + '&nbsp;到着</strong></span>' }
-                                //                            else { str = str + '<div><span class="yanebenchi"><hr style="margin:0px;">' + a + ':' + b + '</span>' }
-                                //                        };
-                                //                    })
-
-                                //                    //console.log("item.basuteimei");
-
-                                //                    var marker = new google.maps.Marker({
-                                //                        position: new google.maps.LatLng(item.ido, item.keido),
-                                //                        map: map,
-                                //                    });
-
-                                //                    marker.setVisible(true);
-
-                                //                    //console.log(item.basuteimei);
-                                //                    //console.log(item.ido);
-                                //                    //console.log(item.keido);
-
-                                //                    if (item.yaneFlg == 1 || item.benchiFlg == 1) marker.setIcon('/Image/basu_ao.png');
-                                //                    else marker.setIcon('/Image/basu_aka.png');
-
-                                //                    if (item.yaneFlg == 1) { var yane = "屋根" }
-                                //                    else { var yane = "" };
-
-                                //                    if (item.benchiFlg == 1) { var benchi = "ベンチ" }
-                                //                    else { var benchi = "" };
-
-                                //                    var contentStr = '<div class="infoDiv"><span class="basuteimei">' + item.basuteimei + '</span>' +
-                                //                                     '<div><span class="yanebenchi"><hr style="margin:0px;">' + yane + '&nbsp;' + benchi + '</span>' + str
-
-                                //                    var infowindow = new google.maps.InfoWindow({
-                                //                        content: contentStr
-                                //                    });
-
-
-                                //                    if (item.basuteimei == shuppatu2 || item.basuteimei == toutyaku2)
-                                //                        infowindow.open(map, marker);
-
-                                //                    google.maps.event.addListener(marker, 'click', function () {
-                                //                        infowindow.open(map, marker);
-                                //                    });
-
-                                //                })
-
-                                //                var paths = new Array(json.length);
-
-                                //                for (var i = 0 ; i < json.length ; i = i + 1) {
-                                //                    paths[i] = new google.maps.LatLng(json[i]['ido'], json[i]['keido']);
-                                //                }
-
-                                //                var polyline = new google.maps.Polyline({
-                                //                    map: map,
-                                //                    path: paths,
-                                //                    strokeColor: "red",
-                                //                    strokeOpacity: 0.8,
-                                //                    strokeWeight: 5,
-                                //                    zIndex: 1
-                                //                });
-                                //            },
-                                //            error: function () {
-                                //                console.log("error");
-                                //            }
-                                //        });
-                                //    },
-                                //    error: function () {
-                                //        console.log("error");
-                                //    }
-                                //});
+                                            });
+                                        },
+                                        error: function () {
+                                            console.log("error");
+                                        }
+                                    });
+                                }
 
                             });
                         }
