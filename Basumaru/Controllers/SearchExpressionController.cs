@@ -140,6 +140,8 @@ namespace Basumaru.Controllers
                         Session["kigyou"] = item.kigyou;
                         Session["ansrosenmei"] = item.rosenmei;
                         Session["ansbasuteimei"] = item.basuteimei;
+                        Session["ansikisaki"] = item.ikisaki;
+                        Session["anszikoku_"] = item.zikoku;
                         Session["anszikoku"] = item.zikoku.Substring(0, 2) + ":" + item.zikoku.Substring(2, 2);
                         string temp = item.hachakuKubun;
                         int hatemp = int.Parse(temp);
@@ -166,6 +168,7 @@ namespace Basumaru.Controllers
                     foreach (var item in goal)
                     {
                         Session["ansgbasuteimei"] = item.basuteimei;
+                        Session["ansgzikoku_"] = item.zikoku;
                         Session["ansgzikoku"] = item.zikoku.Substring(0, 2) + ":" + item.zikoku.Substring(2, 2);
                         if (i == 0)
                         {
@@ -231,6 +234,8 @@ namespace Basumaru.Controllers
                         Session["kigyou"] = item.kigyou;
                         Session["ansrosenmei"] = item.rosenmei;
                         Session["ansbasuteimei"] = item.basuteimei;
+                        Session["ansikisaki"] = item.ikisaki;
+                        Session["anszikoku_"] = item.zikoku;
                         Session["anszikoku"] = item.zikoku.Substring(0, 2) + ":" + item.zikoku.Substring(2, 2);
                         if (i == 0)
                         {
@@ -253,6 +258,7 @@ namespace Basumaru.Controllers
                     {
                         // Customer プロパティを明示的に読み込む。**Reference プロパティは自動的に生成される
                         Session["ansgbasuteimei"] = item.basuteimei;
+                        Session["ansgzikoku_"] = item.zikoku;
                         Session["ansgzikoku"] = item.zikoku.Substring(0, 2) + ":" + item.zikoku.Substring(2, 2);
                         if (i == 0)
                         {

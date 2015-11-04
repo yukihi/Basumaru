@@ -87,47 +87,47 @@
 
                         function Initialize() {
 
-                            //var kigyou = getQuerystring("kigyou");
-                            //var flag = getQuerystring("flag");
+                            var kigyou = getQuerystring("kigyou");
+                            var flag = getQuerystring("flag");
 
-                            //if (flag == 0 || flag == 1) {
-                            //    var rosenmei1 = getQuerystring("rosenmei1");
-                            //    var ikisaki1 = getQuerystring("ikisaki1");
-                            //    var hidukebunrui1 = getQuerystring("hidukebunrui1");
-                            //    var shuppatu1 = getQuerystring("shuppatu1");
-                            //    var shuppatuji1 = getQuerstring("shuppatuji1");
-                            //    var toutyaku1 = getQuerystring("toutyaku1");
-                            //    var toutyakuji1 = getQuerystring("toutyakuji1");
-                            //}
+                            if (flag == 0 || flag == 1) {
+                                var rosenmei1 = getQuerystring("rosenmei1");
+                                var ikisaki1 = getQuerystring("ikisaki1");
+                                var hidukebunrui1 = getQuerystring("hidukebunrui1");
+                                var shuppatu1 = getQuerystring("shuppatu1");
+                                var shuppatuji1 = getQuerystring("shuppatuji1");
+                                var toutyaku1 = getQuerystring("toutyaku1");
+                                var toutyakuji1 = getQuerystring("toutyakuji1");
+                            }
 
-                            //if (flag == 1) {
-                            //    var rosenmei2 = getQuerystring("rosenmei2");
-                            //    var ikisaki2 = getQuerystring("ikisaki2");
-                            //    var hidukebunrui2 = getQuerystring("hidukebunrui2");
-                            //    var shuppatu2 = getQuerystring("shuppatu2");
-                            //    var shuppatuji2 = getQuerstring("shuppatuji2");
-                            //    var toutyaku2 = getQuerystring("toutyaku2");
-                            //    var toutyakuji2 = getQuerystring("toutyakuji2");
-                            //}
+                            if (flag == 1) {
+                                var rosenmei2 = getQuerystring("rosenmei2");
+                                var ikisaki2 = getQuerystring("ikisaki2");
+                                var hidukebunrui2 = getQuerystring("hidukebunrui2");
+                                var shuppatu2 = getQuerystring("shuppatu2");
+                                var shuppatuji2 = getQuerystring("shuppatuji2");
+                                var toutyaku2 = getQuerystring("toutyaku2");
+                                var toutyakuji2 = getQuerystring("toutyakuji2");
+                            }
 
-                            kigyou = "福島交通";
-                            flag = "1";
+                            //kigyou = "福島交通";
+                            //flag = "1";
 
-                            rosenmei1 = "石川・蓬田";
-                            ikisaki1 = "清水内（平田村）行";
-                            hidukebunrui1 = "0";
-                            shuppatu1 = "大河内（福島県）";
-                            shuppatuji1 = "0734";
-                            toutyaku1 = "上蓬田";
-                            toutyakuji1 = "0802";
+                            //rosenmei1 = "石川・蓬田";
+                            //ikisaki1 = "清水内（平田村）行";
+                            //hidukebunrui1 = "0";
+                            //shuppatu1 = "大河内（福島県）";
+                            //shuppatuji1 = "0734";
+                            //toutyaku1 = "上蓬田";
+                            //toutyakuji1 = "0802";
 
-                            rosenmei2 = "小野・石川";
-                            ikisaki2 = "石川駅前行";
-                            hidukebunrui2 = "0";
-                            shuppatu2 = "上蓬田";
-                            shuppatuji2 = "0819";
-                            toutyaku2 = "千五沢";
-                            toutyakuji2 = "0834";
+                            //rosenmei2 = "小野・石川";
+                            //ikisaki2 = "石川駅前行";
+                            //hidukebunrui2 = "0";
+                            //shuppatu2 = "上蓬田";
+                            //shuppatuji2 = "0819";
+                            //toutyaku2 = "千五沢";
+                            //toutyakuji2 = "0834";
 
                             navigator.geolocation.getCurrentPosition(function (pos) {
                                 var i = pos.coords.latitude;
