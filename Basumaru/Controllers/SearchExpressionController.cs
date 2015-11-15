@@ -91,33 +91,97 @@ namespace Basumaru.Controllers
 
             if (flag == 0)/*ここから下は出発場所基準*/
             {
+
                 /*ここ検索 出発時刻基準で指定されたバス停の中で近い乗車時刻を探す*/
                 /*p.zikoku.CompareTo(oktime)>0　oktimeより大きいやつを割り出し*/
                 var start = from p in db.jikokuhyou
-                            where p.basuteimei == stin & (p.zikoku.CompareTo(oktime) > 0) & (p.hidukebunrui.CompareTo(daycode) == 0)
+                            where (p.basuteimei == stin) & (p.zikoku.CompareTo(oktime) > 0) & (p.hidukebunrui.CompareTo(daycode) == 0)/*oktime以上を導出*/
+                            orderby p.zikoku
+                            select p;
+
+                var goal = from p in db.jikokuhyou
+                           where (p.basuteimei == glin) & (p.zikoku.CompareTo(oktime) > 0) & (p.hidukebunrui.CompareTo(daycode) == 0)
+                           orderby p.zikoku
+                           select p;
+
+                string ans = "12";
+                string[] srosenmei = new string[100];
+                string[] sikisaki = new string[100];
+                string[] szikoku = new string[100];
+
+                int a = 0;
+                foreach(var item1 in start)
+                {
+                    srosenmei[a] = item1.rosenmei;
+                    sikisaki[a] = item1.ikisaki;
+                    szikoku[a] = item1.zikoku;
+                    a++;
+                }
+
+                string[] grosenmei = new string[100];
+                string[] gikisaki = new string[100];
+                string[] gzikoku = new string[100];
+
+                int b = 0;
+                foreach(var item2 in goal)
+                {
+                    grosenmei[b] = item2.rosenmei;
+                    gikisaki[b] = item2.ikisaki;
+                    gzikoku[b] = item2.zikoku;
+                    b++;
+                }
+
+                for(int k=0; k<srosenmei.Length; k++)
+                {
+                    for (int l = 0; l < grosenmei.Length; l++){
+                        if (srosenmei[k] == grosenmei[l] & sikisaki[k] == gikisaki[l])
+                        {
+                            if (gzikoku[l] != null & szikoku[k] != null)
+                            {
+                                if (int.Parse(gzikoku[l]) > int.Parse(szikoku[k]) & l == k)
+                                {
+                                    ans = sikisaki[k];
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                var start2 = from p in db.jikokuhyou
+                            where (p.basuteimei == stin) & (p.ikisaki == ans) & (p.zikoku.CompareTo(oktime) > 0) & (p.hidukebunrui.CompareTo(daycode) == 0)/*oktime以上を導出*/
                             orderby p.zikoku
                             select p;
 
                 string rosen = "";
-                foreach (var item in start)
+
+                foreach (var item in start2)
                 {
                     rosen = item.rosenmei;//同じ路線で検索するので路線名を格納
-                    break;
+                    break;       
                 }
 
                 string starttime = "";
-                foreach (var item in start)
+
+                foreach (var item in start2)
                 {
                     starttime = item.zikoku;//基準となるバス停の乗車時刻を格納
                     break;
                 }
 
-                var goal = from p in db.jikokuhyou
-                           where p.basuteimei == glin & (p.rosenmei.CompareTo(rosen) == 0) & (p.zikoku.CompareTo(starttime) > 0) & (p.hidukebunrui.CompareTo(daycode) == 0)
+                /*変換
+                int sttemp = int.Parse(starttime);
+                if (sttemp < 1000)
+                {
+                    starttime = "0" + starttime;//6時等を06時に変更
+                }*/
+
+                var goal2 = from p in db.jikokuhyou
+                           where (p.basuteimei == glin) & (p.rosenmei.CompareTo(rosen) == 0) & (p.zikoku.CompareTo(starttime) > 0) & (p.hidukebunrui.CompareTo(daycode) == 0)
                            orderby p.zikoku
                            select p;
 
-                if (start.Count() < 1 || goal.Count() < 1)//データが見つかったかどうか判定
+                if (start2.Count() < 1 || goal2.Count() < 1)//データが見つかったかどうか判定
                 {
                     Session["ansbasuteimei"] = "ルートが見つかりませんでした。";
                     Session["ansgbasuteimei"] = "ルートが見つかりませんでした。";
@@ -134,7 +198,7 @@ namespace Basumaru.Controllers
                         i = int.Parse(route);
                     }
 
-                    foreach (var item in start)
+                    foreach (var item in start2)
                     {
                         // Customer プロパティを明示的に読み込む。**Reference プロパティは自動的に生成され
                         Session["kigyou"] = item.kigyou;
@@ -165,7 +229,7 @@ namespace Basumaru.Controllers
                     {
                         i = int.Parse(route);
                     }
-                    foreach (var item in goal)
+                    foreach (var item in goal2)
                     {
                         Session["ansgbasuteimei"] = item.basuteimei;
                         Session["ansgzikoku_"] = item.zikoku;
@@ -185,7 +249,7 @@ namespace Basumaru.Controllers
             else/*ここから下は到着基準*/
             {
                 /*ここ検索 出発時刻基準で指定されたバス停の中で近い乗車時刻を探す*/
-                /*p.zikoku.CompareTo(oktime)>0　oktimeより大きいやつを割り出し*/
+                /*p.zikoku.CompareTo(oktime)<0　oktimeより大きいやつを割り出し*/
                 var goal = from p in db.jikokuhyou
                            where p.basuteimei == glin & (p.zikoku.CompareTo(oktime) < 0) & (p.hidukebunrui.CompareTo(daycode) == 0)
                            orderby p.zikoku descending
