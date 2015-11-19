@@ -131,7 +131,6 @@ namespace Basumaru.Controllers
                     b++;
                 }
 
-                int d = 0;
                 for(int k=0; k<szikoku.Length; k++)
                 {
                     for (int l = 0; l < gzikoku.Length; l++){
@@ -142,7 +141,6 @@ namespace Basumaru.Controllers
                                 if (int.Parse(gzikoku[l]) > int.Parse(szikoku[k]))
                                 {
                                     ans = sikisaki[k];
-                                    d = 1;
                                     break;
                                 }
                                 else
@@ -152,7 +150,6 @@ namespace Basumaru.Controllers
                             }
                         }
                     }
-                   // if (d == 1) break;
                 }
 
                 var start2 = from p in db.jikokuhyou
@@ -194,6 +191,7 @@ namespace Basumaru.Controllers
                     Session["ansgbasuteimei"] = "ルートが見つかりませんでした。";
                     Session["anszikoku"] = "";
                     Session["ansgzikoku"] = "";
+                    Session["ansrosenmei"] = "";
                 }
                 else
                 {
@@ -214,6 +212,7 @@ namespace Basumaru.Controllers
                         Session["ansrosenmei"] = item.rosenmei;
                         Session["ansbasuteimei"] = item.basuteimei;
                         Session["ansikisaki"] = item.ikisaki;
+                        Session["anshidukebunrui"] = item.hidukebunrui;
                         Session["anszikoku_"] = item.zikoku;
                         Session["anszikoku"] = item.zikoku.Substring(0, 2) + ":" + item.zikoku.Substring(2, 2);
                         string temp = item.hachakuKubun;
@@ -348,6 +347,7 @@ namespace Basumaru.Controllers
                     Session["ansgbasuteimei"] = "ルートが見つかりませんでした。";
                     Session["anszikoku"] = "";
                     Session["ansgzikoku"] = "";
+                    Session["ansrosenmei"] = "";
                 }
                 else
                 {
@@ -369,6 +369,7 @@ namespace Basumaru.Controllers
                         Session["ansrosenmei"] = item.rosenmei;
                         Session["ansbasuteimei"] = item.basuteimei;
                         Session["ansikisaki"] = item.ikisaki;
+                        Session["anshidukebunrui"] = item.hidukebunrui;
                         Session["anszikoku_"] = item.zikoku;
                         Session["anszikoku"] = item.zikoku.Substring(0, 2) + ":" + item.zikoku.Substring(2, 2);
                         if (i == 0)
