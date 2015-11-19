@@ -131,21 +131,28 @@ namespace Basumaru.Controllers
                     b++;
                 }
 
-                for(int k=0; k<srosenmei.Length; k++)
+                int d = 0;
+                for(int k=0; k<szikoku.Length; k++)
                 {
-                    for (int l = 0; l < grosenmei.Length; l++){
+                    for (int l = 0; l < gzikoku.Length; l++){
                         if (srosenmei[k] == grosenmei[l] & sikisaki[k] == gikisaki[l])
                         {
                             if (gzikoku[l] != null & szikoku[k] != null)
                             {
-                                if (int.Parse(gzikoku[l]) > int.Parse(szikoku[k]) & l == k)
+                                if (int.Parse(gzikoku[l]) > int.Parse(szikoku[k]))
                                 {
                                     ans = sikisaki[k];
+                                    d = 1;
+                                    break;
+                                }
+                                else
+                                {
                                     break;
                                 }
                             }
                         }
                     }
+                   // if (d == 1) break;
                 }
 
                 var start2 = from p in db.jikokuhyou
@@ -177,7 +184,7 @@ namespace Basumaru.Controllers
                 }*/
 
                 var goal2 = from p in db.jikokuhyou
-                           where (p.basuteimei == glin) & (p.rosenmei.CompareTo(rosen) == 0) & (p.zikoku.CompareTo(starttime) > 0) & (p.hidukebunrui.CompareTo(daycode) == 0)
+                           where (p.basuteimei == glin) & (p.ikisaki == ans) & (p.rosenmei.CompareTo(rosen) == 0) & (p.zikoku.CompareTo(starttime) > 0) & (p.hidukebunrui.CompareTo(daycode) == 0)
                            orderby p.zikoku
                            select p;
 
@@ -185,6 +192,8 @@ namespace Basumaru.Controllers
                 {
                     Session["ansbasuteimei"] = "ルートが見つかりませんでした。";
                     Session["ansgbasuteimei"] = "ルートが見つかりませんでした。";
+                    Session["anszikoku"] = "";
+                    Session["ansgzikoku"] = "";
                 }
                 else
                 {
@@ -250,34 +259,95 @@ namespace Basumaru.Controllers
             {
                 /*ここ検索 出発時刻基準で指定されたバス停の中で近い乗車時刻を探す*/
                 /*p.zikoku.CompareTo(oktime)<0　oktimeより大きいやつを割り出し*/
+                var start = from p in db.jikokuhyou
+                            where (p.basuteimei == stin) & (p.zikoku.CompareTo(oktime) < 0) & (p.hidukebunrui.CompareTo(daycode) == 0)/*oktime以上を導出*/
+                            orderby p.zikoku
+                            select p;
+
                 var goal = from p in db.jikokuhyou
-                           where p.basuteimei == glin & (p.zikoku.CompareTo(oktime) < 0) & (p.hidukebunrui.CompareTo(daycode) == 0)
+                           where (p.basuteimei == glin) & (p.zikoku.CompareTo(oktime) < 0) & (p.hidukebunrui.CompareTo(daycode) == 0)
+                           orderby p.zikoku
+                           select p;
+
+                string ans = "12";
+                string[] srosenmei = new string[100];
+                string[] sikisaki = new string[100];
+                string[] szikoku = new string[100];
+
+                int a = 0;
+                foreach (var item1 in start)
+                {
+                    srosenmei[a] = item1.rosenmei;
+                    sikisaki[a] = item1.ikisaki;
+                    szikoku[a] = item1.zikoku;
+                    a++;
+                }
+
+                string[] grosenmei = new string[100];
+                string[] gikisaki = new string[100];
+                string[] gzikoku = new string[100];
+
+                int b = 0;
+                foreach (var item2 in goal)
+                {
+                    grosenmei[b] = item2.rosenmei;
+                    gikisaki[b] = item2.ikisaki;
+                    gzikoku[b] = item2.zikoku;
+                    b++;
+                }
+
+                for (int k = 0; k < sikisaki.Length; k++)
+                {
+                    for (int l = 0; l < gikisaki.Length; l++)
+                    {
+                        if (srosenmei[k] == grosenmei[l] & sikisaki[k] == gikisaki[l])
+                        {
+                            if (gzikoku[l] != null & szikoku[k] != null)
+                            {
+                                if (int.Parse(gzikoku[l]) > int.Parse(szikoku[k]))
+                                {
+                                    ans = sikisaki[k];
+                                    break;
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                var goal2 = from p in db.jikokuhyou
+                           where (p.basuteimei == glin) & (p.ikisaki == ans) & (p.zikoku.CompareTo(oktime) < 0) & (p.hidukebunrui.CompareTo(daycode) == 0)
                            orderby p.zikoku descending
                            select p;
 
                 string rosen = "";
-                foreach (var item in goal)
+                foreach (var item in goal2)
                 {
                     rosen = item.rosenmei;
                     break;
                 }
 
                 string starttime = "";
-                foreach (var item in goal)
+                foreach (var item in goal2)
                 {
                     starttime = item.zikoku;
                     break;
                 }
 
-                var start = from p in db.jikokuhyou
-                            where p.basuteimei == stin & (p.rosenmei.CompareTo(rosen) == 0) & (p.zikoku.CompareTo(starttime) < 0) & (p.hidukebunrui.CompareTo(daycode) == 0)
+                var start2 = from p in db.jikokuhyou
+                            where (p.basuteimei == stin) & (p.ikisaki == ans) & (p.rosenmei.CompareTo(rosen) == 0) & (p.zikoku.CompareTo(starttime) < 0) & (p.hidukebunrui.CompareTo(daycode) == 0)
                             orderby p.zikoku descending
                             select p;
 
-                if (goal.Count() < 1 || goal.Count() < 1)//データが見つかったかどうか判定
+                if (goal2.Count() < 1 || goal2.Count() < 1)//データが見つかったかどうか判定
                 {
                     Session["ansbasuteimei"] = "ルートが見つかりませんでした。";
                     Session["ansgbasuteimei"] = "ルートが見つかりませんでした。";
+                    Session["anszikoku"] = "";
+                    Session["ansgzikoku"] = "";
                 }
                 else
                 {
@@ -292,7 +362,7 @@ namespace Basumaru.Controllers
                         i = int.Parse(route);
                     }
 
-                    foreach (var item in start)
+                    foreach (var item in start2)
                     {
                         // Customer プロパティを明示的に読み込む。**Reference プロパティは自動的に生成される
                         Session["kigyou"] = item.kigyou;
@@ -318,7 +388,7 @@ namespace Basumaru.Controllers
                         i = int.Parse(route);
                     }
 
-                    foreach (var item in goal)
+                    foreach (var item in goal2)
                     {
                         // Customer プロパティを明示的に読み込む。**Reference プロパティは自動的に生成される
                         Session["ansgbasuteimei"] = item.basuteimei;
