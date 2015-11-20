@@ -145,7 +145,12 @@ namespace Basumaru.Controllers
                                 }
                                 else
                                 {
-                                    break;
+                                    if(int.Parse(szikoku[k].Substring(0,2)) == int.Parse(gzikoku[l].Substring(0,2)) || 
+                                        int.Parse(szikoku[k].Substring(0,2))-1 == int.Parse(gzikoku[l].Substring(0,2)) ||
+                                        int.Parse(szikoku[k].Substring(0,2))+1 == int.Parse(gzikoku[l].Substring(0, 2)))
+                                    {
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -310,7 +315,12 @@ namespace Basumaru.Controllers
                                 }
                                 else
                                 {
-                                    break;
+                                    if (int.Parse(szikoku[k].Substring(0, 2)) == int.Parse(gzikoku[l].Substring(0, 2)) ||
+                                        int.Parse(szikoku[k].Substring(0, 2)) - 1 == int.Parse(gzikoku[l].Substring(0, 2)) ||
+                                        int.Parse(szikoku[k].Substring(0, 2)) + 1 == int.Parse(gzikoku[l].Substring(0, 2)))
+                                    {
+                                        break;
+                                    }
                                 }
                             }
                         }
