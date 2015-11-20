@@ -66,6 +66,7 @@ function koshin(){
     &nbsp;
     <button ="image" typeof="submit" value="ボタン" onclick="susumu()"><img src="~/Image/ruto3.png"></img></button>
         -->
+
     <table>
         <tr>
             <td><img src="~/Image/shuppatsuzikoku.png"></img></td>
@@ -81,7 +82,11 @@ function koshin(){
         </tr>
         <tr>
             <td></td>
-            <td><button type="button" value="ボタン" onClick="location.href = '/Home/Route?flag=0&kigyou=@Session["kigyou"]&rosenmei1=@Session["ansrosenmei"]&ikisaki1=@Session["ansikisaki"]&hidukebunrui1=@Session["anshidukebunrui"]&shuppatu1=@Session["ansbasuteimei"]&shuppatuji1=@Session["anszikoku_"]&toutyaku1=@Session["ansgbasuteimei"]&toutyakuji1=@Session["ansgzikoku_"]';"><img src="~/Image/ruto.png"></img></button></td>
+            <td><button type="button" value="ボタン" onClick="location.href = '/Home/Route?flag=@Session["f"]&kigyou=@Session["kigyou"]&rosenmei1=@Session["ansrosenmei"]&ikisaki1=@Session["ansikisaki"]&hidukebunrui1=@Session["anshidukebunrui"]&shuppatu1=@Session["ansbasuteimei"]&shuppatuji1=@Session["anszikoku_"]&toutyaku1=@Session["ansgbasuteimei"]&toutyakuji1=@Session["ansgzikoku_"]';"><img src="~/Image/ruto.png"></img></button></td>
+        </tr>
+        <tr>
+            <td><p>乗り換え回数</p></img></td>
+            <td><span class="mozi">@(Session["f"])</span></td>
         </tr>
         <tr>
             <td><img src="~/Image/touchakuzikoku.png"></img></td>

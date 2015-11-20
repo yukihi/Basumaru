@@ -87,8 +87,7 @@ namespace Basumaru.Controllers
             {
                 daycode = "4";
             }
-
-
+ 
             if (flag == 0)/*ここから下は出発場所基準*/
             {
 
@@ -131,128 +130,157 @@ namespace Basumaru.Controllers
                     b++;
                 }
 
-                for(int k=0; k<szikoku.Length; k++)
+                var f = 1;
+                for(int n=0; n<sikisaki.Length; n++)
                 {
-                    for (int l = 0; l < gzikoku.Length; l++){
-                        if (srosenmei[k] == grosenmei[l] & sikisaki[k] == gikisaki[l])
+                    for(int m=0; m<gikisaki.Length; m++)
+                    {
+                        if (sikisaki[n] != null & gikisaki[m] != null)
                         {
-                            if (gzikoku[l] != null & szikoku[k] != null)
+                            if ((srosenmei[n] == grosenmei[m]) & (sikisaki[n] == gikisaki[m]))
                             {
-                                if (int.Parse(gzikoku[l]) > int.Parse(szikoku[k]))
+                                f = 0;
+                                break;
+                            }
+                        }
+                    }
+                    break;
+                }
+
+                Session["f"] = f;
+
+                if (f == 0){
+                    for (int k = 0; k < szikoku.Length; k++)
+                    {
+                        for (int l = 0; l < gzikoku.Length; l++) {
+                            if (srosenmei[k] == grosenmei[l] & sikisaki[k] == gikisaki[l])
+                            {
+                                if (gzikoku[l] != null & szikoku[k] != null)
                                 {
-                                    ans = sikisaki[k];
-                                    break;
-                                }
-                                else
-                                {
-                                    if(int.Parse(szikoku[k].Substring(0,2)) == int.Parse(gzikoku[l].Substring(0,2)) || 
-                                        int.Parse(szikoku[k].Substring(0,2))-1 == int.Parse(gzikoku[l].Substring(0,2)) ||
-                                        int.Parse(szikoku[k].Substring(0,2))+1 == int.Parse(gzikoku[l].Substring(0, 2)))
+                                    if (int.Parse(gzikoku[l]) > int.Parse(szikoku[k]))
                                     {
+                                        ans = sikisaki[k];
                                         break;
+                                    }
+                                    else
+                                    {
+                                        if (int.Parse(szikoku[k].Substring(0, 2)) == int.Parse(gzikoku[l].Substring(0, 2)) ||
+                                            int.Parse(szikoku[k].Substring(0, 2)) - 1 == int.Parse(gzikoku[l].Substring(0, 2)) ||
+                                            int.Parse(szikoku[k].Substring(0, 2)) + 1 == int.Parse(gzikoku[l].Substring(0, 2)))
+                                        {
+                                            break;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }
 
-                var start2 = from p in db.jikokuhyou
-                            where (p.basuteimei == stin) & (p.ikisaki == ans) & (p.zikoku.CompareTo(oktime) > 0) & (p.hidukebunrui.CompareTo(daycode) == 0)/*oktime以上を導出*/
-                            orderby p.zikoku
-                            select p;
+                    var start2 = from p in db.jikokuhyou
+                                 where (p.basuteimei == stin) & (p.ikisaki == ans) & (p.zikoku.CompareTo(oktime) > 0) & (p.hidukebunrui.CompareTo(daycode) == 0)/*oktime以上を導出*/
+                                 orderby p.zikoku
+                                 select p;
 
-                string rosen = "";
-
-                foreach (var item in start2)
-                {
-                    rosen = item.rosenmei;//同じ路線で検索するので路線名を格納
-                    break;       
-                }
-
-                string starttime = "";
-
-                foreach (var item in start2)
-                {
-                    starttime = item.zikoku;//基準となるバス停の乗車時刻を格納
-                    break;
-                }
-
-                /*変換
-                int sttemp = int.Parse(starttime);
-                if (sttemp < 1000)
-                {
-                    starttime = "0" + starttime;//6時等を06時に変更
-                }*/
-
-                var goal2 = from p in db.jikokuhyou
-                           where (p.basuteimei == glin) & (p.ikisaki == ans) & (p.rosenmei.CompareTo(rosen) == 0) & (p.zikoku.CompareTo(starttime) > 0) & (p.hidukebunrui.CompareTo(daycode) == 0)
-                           orderby p.zikoku
-                           select p;
-
-                if (start2.Count() < 1 || goal2.Count() < 1)//データが見つかったかどうか判定
-                {
-                    Session["ansbasuteimei"] = "ルートが見つかりませんでした。";
-                    Session["ansgbasuteimei"] = "ルートが見つかりませんでした。";
-                    Session["anszikoku"] = "";
-                    Session["ansgzikoku"] = "";
-                    Session["ansrosenmei"] = "";
-                }
-                else
-                {
-                    int i = 0;
-                    if (route == null)
-                    {
-                        i = 0;//int.Parse(route);
-                    }
-                    else
-                    {
-                        i = int.Parse(route);
-                    }
+                    string rosen = "";
 
                     foreach (var item in start2)
                     {
-                        // Customer プロパティを明示的に読み込む。**Reference プロパティは自動的に生成され
-                        Session["kigyou"] = item.kigyou;
-                        Session["ansrosenmei"] = item.rosenmei;
-                        Session["ansbasuteimei"] = item.basuteimei;
-                        Session["ansikisaki"] = item.ikisaki;
-                        Session["anshidukebunrui"] = item.hidukebunrui;
-                        Session["anszikoku_"] = item.zikoku;
-                        Session["anszikoku"] = item.zikoku.Substring(0, 2) + ":" + item.zikoku.Substring(2, 2);
-                        string temp = item.hachakuKubun;
-                        int hatemp = int.Parse(temp);
-                        if (0 < hatemp)
-                        {
-                            Session["hachakuKubun"] = item.hachakuKubun;
-                        }
-                        if (i == 0)
-                        {
-                            break;
-                        }
-                        i--;
+                        rosen = item.rosenmei;//同じ路線で検索するので路線名を格納
+                        break;
                     }
 
-                    i = 0;
-                    if (route == null)
+                    string starttime = "";
+
+                    foreach (var item in start2)
                     {
-                        i = 0;//int.Parse(route);
+                        starttime = item.zikoku;//基準となるバス停の乗車時刻を格納
+                        break;
+                    }
+
+                    /*変換
+                    int sttemp = int.Parse(starttime);
+                    if (sttemp < 1000)
+                    {
+                        starttime = "0" + starttime;//6時等を06時に変更
+                    }*/
+
+                    var goal2 = from p in db.jikokuhyou
+                                where (p.basuteimei == glin) & (p.ikisaki == ans) & (p.rosenmei.CompareTo(rosen) == 0) & (p.zikoku.CompareTo(starttime) > 0) & (p.hidukebunrui.CompareTo(daycode) == 0)
+                                orderby p.zikoku
+                                select p;
+
+                    if (start2.Count() < 1 || goal2.Count() < 1)//データが見つかったかどうか判定
+                    {
+                        Session["ansbasuteimei"] = "ルートが見つかりませんでした。";
+                        Session["ansgbasuteimei"] = "ルートが見つかりませんでした。";
+                        Session["anszikoku"] = "";
+                        Session["ansgzikoku"] = "";
+                        Session["ansrosenmei"] = "";
                     }
                     else
                     {
-                        i = int.Parse(route);
-                    }
-                    foreach (var item in goal2)
-                    {
-                        Session["ansgbasuteimei"] = item.basuteimei;
-                        Session["ansgzikoku_"] = item.zikoku;
-                        Session["ansgzikoku"] = item.zikoku.Substring(0, 2) + ":" + item.zikoku.Substring(2, 2);
-                        if (i == 0)
+                        int i = 0;
+                        if (route == null)
                         {
-                            break;
+                            i = 0;//int.Parse(route);
                         }
-                        i--;
+                        else
+                        {
+                            i = int.Parse(route);
+                        }
+
+                        foreach (var item in start2)
+                        {
+                            // Customer プロパティを明示的に読み込む。**Reference プロパティは自動的に生成され
+                            Session["kigyou"] = item.kigyou;
+                            Session["ansrosenmei"] = item.rosenmei;
+                            Session["ansbasuteimei"] = item.basuteimei;
+                            Session["ansikisaki"] = item.ikisaki;
+                            Session["anshidukebunrui"] = item.hidukebunrui;
+                            Session["anszikoku_"] = item.zikoku;
+                            Session["anszikoku"] = item.zikoku.Substring(0, 2) + ":" + item.zikoku.Substring(2, 2);
+                            string temp = item.hachakuKubun;
+                            int hatemp = int.Parse(temp);
+                            if (0 < hatemp)
+                            {
+                                Session["hachakuKubun"] = item.hachakuKubun;
+                            }
+                            if (i == 0)
+                            {
+                                break;
+                            }
+                            i--;
+                        }
+
+                        i = 0;
+                        if (route == null)
+                        {
+                            i = 0;//int.Parse(route);
+                        }
+                        else
+                        {
+                            i = int.Parse(route);
+                        }
+                        foreach (var item in goal2)
+                        {
+                            Session["ansgbasuteimei"] = item.basuteimei;
+                            Session["ansgzikoku_"] = item.zikoku;
+                            Session["ansgzikoku"] = item.zikoku.Substring(0, 2) + ":" + item.zikoku.Substring(2, 2);
+                            if (i == 0)
+                            {
+                                break;
+                            }
+                            i--;
+                        }
+
                     }
+                } else if(f == 1){
+                    Session["anszikoku"] = "";
+                    Session["ansbasuteimei"] = "";
+                    Session["hachakuKubun"] = "";
+                    Session["ansrosenmei"] = "";
+                    Session["ansgzikoku"] = "";
+                    Session["ansgbasuteimei"] = "";
 
                 }
 
@@ -274,6 +302,7 @@ namespace Basumaru.Controllers
                            select p;
 
                 string ans = "12";
+                string ans2 = "12";
                 string[] srosenmei = new string[100];
                 string[] sikisaki = new string[100];
                 string[] szikoku = new string[100];
@@ -311,6 +340,7 @@ namespace Basumaru.Controllers
                                 if (int.Parse(gzikoku[l]) > int.Parse(szikoku[k]))
                                 {
                                     ans = sikisaki[k];
+                                    ans2 = srosenmei[k]; 
                                     break;
                                 }
                                 else
@@ -347,11 +377,11 @@ namespace Basumaru.Controllers
                 }
 
                 var start2 = from p in db.jikokuhyou
-                            where (p.basuteimei == stin) & (p.ikisaki == ans) & (p.rosenmei.CompareTo(rosen) == 0) & (p.zikoku.CompareTo(starttime) < 0) & (p.hidukebunrui.CompareTo(daycode) == 0)
+                            where (p.basuteimei == stin) & (p.ikisaki == ans) & (p.rosenmei == ans2) & (p.zikoku.CompareTo(starttime) < 0) & (p.hidukebunrui.CompareTo(daycode) == 0)
                             orderby p.zikoku descending
                             select p;
 
-                if (goal2.Count() < 1 || goal2.Count() < 1)//データが見つかったかどうか判定
+                if (start2.Count() < 1 || goal2.Count() < 1)//データが見つかったかどうか判定
                 {
                     Session["ansbasuteimei"] = "ルートが見つかりませんでした。";
                     Session["ansgbasuteimei"] = "ルートが見つかりませんでした。";
@@ -401,10 +431,12 @@ namespace Basumaru.Controllers
 
                     foreach (var item in goal2)
                     {
+                        if(item.ikisaki == ans & item.rosenmei == ans2) { 
                         // Customer プロパティを明示的に読み込む。**Reference プロパティは自動的に生成される
                         Session["ansgbasuteimei"] = item.basuteimei;
                         Session["ansgzikoku_"] = item.zikoku;
                         Session["ansgzikoku"] = item.zikoku.Substring(0, 2) + ":" + item.zikoku.Substring(2, 2);
+                        }
                         if (i == 0)
                         {
                             break;
