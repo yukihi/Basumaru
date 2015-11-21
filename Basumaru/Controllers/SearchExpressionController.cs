@@ -282,6 +282,132 @@ namespace Basumaru.Controllers
                     Session["ansgzikoku"] = "";
                     Session["ansgbasuteimei"] = "";
 
+                    var ansnorikae = "12";
+                    for (int k = 0; k < srosenmei.Length; k++)
+                    {
+                        for (int g = 0; g < grosenmei.Length; g++)
+                        {
+                            var aa = srosenmei[k];
+                            var bb = grosenmei[g];
+
+                            if (srosenmei[k] != null & grosenmei[g] != null)
+                            {
+                                var h = from p in db.basutei
+                                        where (p.rosenmei == aa)
+                                        select p;
+
+                                string[] sbasuteimei = new string[110];
+                                int r = 0;
+                                foreach (var it in h)
+                                {
+                                    sbasuteimei[r] = it.basuteimei;
+                                    r++;
+                                }
+
+                                var w = from p in db.basutei
+                                        where (p.rosenmei == bb)
+                                        select p;
+
+                                string[] gbasuteimei = new string[110];
+                                int y = 0;
+                                foreach (var it in w)
+                                {
+                                    gbasuteimei[y] = it.basuteimei;
+                                    y++;
+                                }
+
+                                for (int q = 0; q < sbasuteimei.Length; q++)
+                                {
+                                    for (int p = 0; p < gbasuteimei.Length; p++)
+                                    {
+                                        if (sbasuteimei[q] != null & gbasuteimei[p] != null)
+                                        {
+                                            if (sbasuteimei[q].CompareTo(gbasuteimei[p]) == 0)
+                                            {
+                                                ansnorikae = sbasuteimei[q];
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    var norikae = from p in db.jikokuhyou
+                                  where (p.basuteimei == ansnorikae) & (p.zikoku.CompareTo(oktime) > 0) & (p.hidukebunrui.CompareTo(daycode) == 0)
+                                  orderby p.zikoku
+                                  select p;
+
+                    string an = "12";
+                    string anq = "12";
+                    string[] nrosenmei = new string[100];
+                    string[] nikisaki = new string[100];
+                    string[] nzikoku = new string[100];
+
+                    int u = 0;
+                    foreach(var it in norikae)
+                    {
+                        nrosenmei[u] = it.rosenmei;
+                        nikisaki[u] = it.ikisaki;
+                        nzikoku[u] = it.zikoku;
+                        u++;
+                    }
+
+                    for (int k = 0; k < szikoku.Length; k++)
+                    {
+                        for (int l = 0; l < nzikoku.Length; l++)
+                        {
+                            if (srosenmei[k] == nrosenmei[l] & sikisaki[k] == nikisaki[l])
+                            {
+                                if (nzikoku[l] != null & szikoku[k] != null)
+                                {
+                                    if (int.Parse(nzikoku[l]) > int.Parse(szikoku[k]))
+                                    {
+                                        an = sikisaki[k];
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        if (int.Parse(szikoku[k].Substring(0, 2)) == int.Parse(nzikoku[l].Substring(0, 2)) ||
+                                            int.Parse(szikoku[k].Substring(0, 2)) - 1 == int.Parse(nzikoku[l].Substring(0, 2)) ||
+                                            int.Parse(szikoku[k].Substring(0, 2)) + 1 == int.Parse(nzikoku[l].Substring(0, 2)))
+                                        {
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    for (int k = 0; k < nzikoku.Length; k++)
+                    {
+                        for (int l = 0; l < gzikoku.Length; l++)
+                        {
+                            if (nrosenmei[k] == grosenmei[l] & nikisaki[k] == gikisaki[l])
+                            {
+                                if (gzikoku[l] != null & nzikoku[k] != null)
+                                {
+                                    if (int.Parse(gzikoku[l]) > int.Parse(nzikoku[k]))
+                                    {
+                                        anq = nikisaki[k];
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        if (int.Parse(nzikoku[k].Substring(0, 2)) == int.Parse(gzikoku[l].Substring(0, 2)) ||
+                                            int.Parse(nzikoku[k].Substring(0, 2)) - 1 == int.Parse(gzikoku[l].Substring(0, 2)) ||
+                                            int.Parse(nzikoku[k].Substring(0, 2)) + 1 == int.Parse(gzikoku[l].Substring(0, 2)))
+                                        {
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                 }
 
 
