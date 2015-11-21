@@ -26,13 +26,21 @@ namespace Basumaru.Controllers
 
             string oktime;
             oktime = (string)Session["hour"] + (string)Session["minute"];//現在時刻
-            if (hourtemp2 < 10)
+            if (hourtemp2 < 10 & 10 <= minutetemp2)
             {
                 oktime = "0" + (string)Session["hour"] + (string)Session["minute"];//6時等を06時に変更
             }
-            if (minutetemp2 < 10)
+            else if (minutetemp2 < 10 & 10 <= hourtemp2)
             {
                 oktime = (string)Session["hour"] + "0" + (string)Session["minute"];//6分等を06分に変更
+            }
+            else if (minutetemp2 < 10 & hourtemp2 < 10)
+            {
+                oktime = "0" + (string)Session["hour"] + "0" + (string)Session["minute"];
+            }
+            else if (minutetemp2 >= 10 & hourtemp2 >= 10)
+            {
+                oktime = (string)Session["hour"] + (string)Session["minute"];
             }
 
             string kizyuntemp = (string)Session["kijun"];
@@ -144,7 +152,6 @@ namespace Basumaru.Controllers
                             }
                         }
                     }
-                    break;
                 }
 
                 Session["f"] = f;
@@ -289,6 +296,8 @@ namespace Basumaru.Controllers
                     Session["ansgbasuteimei"] = "";
                     Session["ansnbasuteimei"] = "";
                     Session["ansnzikoku"] = "";
+                    Session["ansnnbasuteimei"] = "";
+                    Session["ansnnzikoku"] = "";
 
                     var ansnorikae = "12";
                     for (int k = 0; k < srosenmei.Length; k++)
@@ -486,11 +495,11 @@ namespace Basumaru.Controllers
                     if (snorikae.Count() < 1 || nnorikae.Count() < 1 || nnnorikae.Count() < 1 || gnorikae.Count() < 1)//データが見つかったかどうか判定
                     {
                         Session["ansbasuteimei"] = "ルートが見つかりませんでした。";
-                        Session["ansnbasuteimei"] = "ルートが見つかりませんでした。";
+                        Session["ansnnbasuteimei"] = "ルートが見つかりませんでした。";
                         Session["anszikoku"] = "";
                         Session["ansnzikoku"] = "";
                         Session["ansrosenmei"] = "";
-                        Session["ansgbasuteimei"] = "";
+                        Session["ansgbasuteimei"] = "ルートが見つかりませんでした。";
                         Session["ansgzikoku"] = "";
                     }
                     else
