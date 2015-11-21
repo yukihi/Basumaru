@@ -216,6 +216,8 @@ namespace Basumaru.Controllers
                         Session["anszikoku"] = "";
                         Session["ansgzikoku"] = "";
                         Session["ansrosenmei"] = "";
+                        Session["ansnnbasuteimei"] = "ルートが見つかりませんでした。";
+                        Session["ansnnzikoku"] = "";
                     }
                     else
                     {
@@ -264,8 +266,12 @@ namespace Basumaru.Controllers
                         foreach (var item in goal2)
                         {
                             Session["ansgbasuteimei"] = item.basuteimei;
+                            Session["ansnbasuteimei"] = item.basuteimei;
                             Session["ansgzikoku_"] = item.zikoku;
+                            Session["ansnzikoku_"] = item.zikoku;
                             Session["ansgzikoku"] = item.zikoku.Substring(0, 2) + ":" + item.zikoku.Substring(2, 2);
+                            Session["ansnnbasuteimei"] = "なし";
+                            Session["ansnnzikoku"] = "なし";
                             if (i == 0)
                             {
                                 break;
@@ -281,6 +287,8 @@ namespace Basumaru.Controllers
                     Session["ansrosenmei"] = "";
                     Session["ansgzikoku"] = "";
                     Session["ansgbasuteimei"] = "";
+                    Session["ansnbasuteimei"] = "";
+                    Session["ansnzikoku"] = "";
 
                     var ansnorikae = "12";
                     for (int k = 0; k < srosenmei.Length; k++)
@@ -408,6 +416,183 @@ namespace Basumaru.Controllers
                         }
                     }
 
+                    var snorikae = from p in db.jikokuhyou
+                                   where (p.basuteimei == stin) & (p.ikisaki == an) & (p.zikoku.CompareTo(oktime) > 0) & (p.hidukebunrui.CompareTo(daycode) == 0)/*oktime以上を導出*/
+                                   orderby p.zikoku
+                                   select p;
+
+                    string rosen = "";
+
+                    foreach (var item in snorikae)
+                    {
+                        rosen = item.rosenmei;//同じ路線で検索するので路線名を格納
+                        break;
+                    }
+
+                    string starttime = "";
+
+                    foreach (var item in snorikae)
+                    {
+                        starttime = item.zikoku;//基準となるバス停の乗車時刻を格納
+                        break;
+                    }
+
+                    /*変換
+                    int sttemp = int.Parse(starttime);
+                    if (sttemp < 1000)
+                    {
+                        starttime = "0" + starttime;//6時等を06時に変更
+                    }*/
+
+                    var nnorikae = from p in db.jikokuhyou
+                                   where (p.basuteimei == ansnorikae) & (p.ikisaki == an) & (p.rosenmei.CompareTo(rosen) == 0) & (p.zikoku.CompareTo(starttime) > 0) & (p.hidukebunrui.CompareTo(daycode) == 0)
+                                   orderby p.zikoku
+                                   select p;
+
+                    string norikaetime = "";
+
+                    foreach (var item in nnorikae)
+                    {
+                        norikaetime = item.zikoku;
+                        break;
+                    }
+
+                    var nnnorikae = from p in db.jikokuhyou
+                                    where (p.basuteimei == ansnorikae) & (p.ikisaki == anq) & (p.zikoku.CompareTo(norikaetime) > 0) & (p.hidukebunrui.CompareTo(daycode) == 0)
+                                    orderby p.zikoku
+                                    select p;
+
+                    string rosen2 = "";
+                    
+                    foreach(var item in nnnorikae)
+                    {
+                        rosen2 = item.rosenmei;
+                        break;
+                    }
+
+                    string goaltime = "";
+
+                    foreach(var item in nnnorikae)
+                    {
+                        goaltime = item.zikoku;
+                        break;
+                    }
+
+                    var gnorikae = from p in db.jikokuhyou
+                                   where (p.basuteimei == glin) & (p.ikisaki == anq) & (p.rosenmei.CompareTo(rosen2) == 0) & (p.zikoku.CompareTo(goaltime) > 0) & (p.hidukebunrui.CompareTo(daycode) == 0)
+                                   orderby p.zikoku
+                                   select p; 
+
+                    if (snorikae.Count() < 1 || nnorikae.Count() < 1 || nnnorikae.Count() < 1 || gnorikae.Count() < 1)//データが見つかったかどうか判定
+                    {
+                        Session["ansbasuteimei"] = "ルートが見つかりませんでした。";
+                        Session["ansnbasuteimei"] = "ルートが見つかりませんでした。";
+                        Session["anszikoku"] = "";
+                        Session["ansnzikoku"] = "";
+                        Session["ansrosenmei"] = "";
+                        Session["ansgbasuteimei"] = "";
+                        Session["ansgzikoku"] = "";
+                    }
+                    else
+                    {
+                        int i = 0;
+                        if (route == null)
+                        {
+                            i = 0;//int.Parse(route);
+                        }
+                        else
+                        {
+                            i = int.Parse(route);
+                        }
+
+                        foreach (var item in snorikae)
+                        {
+                            // Customer プロパティを明示的に読み込む。**Reference プロパティは自動的に生成され
+                            Session["kigyou"] = item.kigyou;
+                            Session["ansrosenmei"] = item.rosenmei;
+                            Session["ansbasuteimei"] = item.basuteimei;
+                            Session["ansikisaki"] = item.ikisaki;
+                            Session["anshidukebunrui"] = item.hidukebunrui;
+                            Session["anszikoku_"] = item.zikoku;
+                            Session["anszikoku"] = item.zikoku.Substring(0, 2) + ":" + item.zikoku.Substring(2, 2);
+                            string temp = item.hachakuKubun;
+                            int hatemp = int.Parse(temp);
+                            if (0 < hatemp)
+                            {
+                                Session["hachakuKubun"] = item.hachakuKubun;
+                            }
+                            if (i == 0)
+                            {
+                                break;
+                            }
+                            i--;
+                        }
+
+                        i = 0;
+                        if(route == null)
+                        {
+                            i = 0;
+                        }
+                        else
+                        {
+                            i = int.Parse(route);
+                        }
+                        foreach(var item in nnorikae)
+                        {
+                            Session["ansnbasuteimei"] = item.basuteimei;
+                            Session["ansnzikoku_"] = item.zikoku;
+                            if (i == 0)
+                            {
+                                break;
+                            }
+                            i--;
+                        }
+
+                        i = 0;
+                        if (route == null)
+                        {
+                            i = 0;//int.Parse(route);
+                        }
+                        else
+                        {
+                            i = int.Parse(route);
+                        }
+                        foreach (var item in nnnorikae)
+                        {
+                            Session["ansnnrosenmei"] = item.rosenmei;
+                            Session["ansnnbasuteimei"] = item.basuteimei;
+                            Session["ansnnikisaki"] = item.ikisaki;
+                            Session["ansnnhidukebunrui"] = item.hidukebunrui;
+                            Session["ansnnzikoku_"] = item.zikoku;
+                            Session["ansnnzikoku"] = item.zikoku.Substring(0, 2) + ":" + item.zikoku.Substring(2, 2);
+                            if (i == 0)
+                            {
+                                break;
+                            }
+                            i--;
+                        }
+
+                        i = 0;
+                        if(route == null)
+                        {
+                            i = 0;
+                        }
+                        else
+                        {
+                            i = int.Parse(route);
+                        }
+                        foreach(var item in gnorikae)
+                        {
+                            Session["ansgbasuteimei"] = item.basuteimei;
+                            Session["ansgzikoku_"] = item.zikoku;
+                            Session["ansgzikoku"] = item.zikoku.Substring(0, 2) + ":" + item.zikoku.Substring(2, 2);
+                            if(i == 0)
+                            {
+                                break;
+                            }
+                            i--;
+                        }
+                    }
                 }
 
 

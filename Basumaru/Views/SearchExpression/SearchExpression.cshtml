@@ -82,11 +82,19 @@ function koshin(){
         </tr>
         <tr>
             <td></td>
-            <td><button type="button" value="ボタン" onClick="location.href = '/Home/Route?flag=@Session["f"]&kigyou=@Session["kigyou"]&rosenmei1=@Session["ansrosenmei"]&ikisaki1=@Session["ansikisaki"]&hidukebunrui1=@Session["anshidukebunrui"]&shuppatu1=@Session["ansbasuteimei"]&shuppatuji1=@Session["anszikoku_"]&toutyaku1=@Session["ansgbasuteimei"]&toutyakuji1=@Session["ansgzikoku_"]';"><img src="~/Image/ruto.png"></img></button></td>
+            <td><button type="button" value="ボタン" onClick="location.href = '/Home/Route?flag=@Session["f"]&kigyou=@Session["kigyou"]&rosenmei1=@Session["ansrosenmei"]&ikisaki1=@Session["ansikisaki"]&hidukebunrui1=@Session["anshidukebunrui"]&shuppatu1=@Session["ansbasuteimei"]&shuppatuji1=@Session["anszikoku_"]&toutyaku1=@Session["ansnbasuteimei"]&toutyakuji1=@Session["ansnzikoku_"]&rosenmei2=@Session["ansnnrosenmei"]&ikisaki2=@Session["ansnnikisaki"]&hidukebunrui2=@Session["ansnnhidukebunrui"]&shuppatu2=@Session["ansnnbasuteimei"]&shuppatuji2=@Session["ansnnzikoku_"]&toutyaku2=@Session["ansgbasuteimei"]&toutyakuji2=@Session["ansgzikoku_"]';"><img src="~/Image/ruto.png"></img></button></td>
         </tr>
         <tr>
-            <td><p>乗り換え回数</p></img></td>
+            <td><p>乗り換え回数</p></td>
             <td><span class="mozi">@(Session["f"])</span></td>
+        </tr>
+        <tr>
+            <td><p>乗り換え時刻</p></td>
+            <td><span class="mozi">@("" + (string)Session["ansnnzikoku"])</span></td>
+        </tr>
+        <tr>
+            <td><p>乗り換えバス停名</p></td>
+            <td><span class="mozi">@("" + (string)Session["ansnnbasuteimei"])</span></td>
         </tr>
         <tr>
             <td><img src="~/Image/touchakuzikoku.png"></img></td>
