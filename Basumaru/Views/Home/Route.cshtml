@@ -149,7 +149,8 @@
                                 if (flag == 0 || flag == 1) {
                                     $.ajax({
                                         //url: "http://10.4.144.39/basumaruAPI/api/Basuteis/" + kigyou + "/" + rosenmei1 + "?format=json",
-                                        url: "http://163.143.242.69/basumaruAPI/api/Basuteis/" + kigyou + "/" + rosenmei1 + "?format=json",
+                                        //url: "http://163.143.242.69/basumaruAPI/api/Basuteis/" + kigyou + "/" + rosenmei1 + "?format=json",
+                                        url: "http://192.168.11.6/basumaruAPI/api/Basuteis/" + kigyou + "/" + rosenmei1 + "?format=json",
                                         dataType: 'json',
                                         async: true,
                                         success: function (json) {
@@ -157,6 +158,7 @@
                                             $.ajax({
                                                 //url: "http://10.4.144.39/basumaruAPI/api/Jikokuhyous/" + kigyou + "/" + rosenmei1 + "/" + ikisaki1 + "?hidukebunrui=" + hidukebunrui1 + "&format=json",
                                                 url: "http://163.143.242.69/basumaruAPI/api/Jikokuhyous/" + kigyou + "/" + rosenmei1 + "/" + ikisaki1 + "?hidukebunrui=" + hidukebunrui1 + "&format=json",
+                                                url: "http://192.168.11.6/basumaruAPI/api/Jikokuhyous/" + kigyou + "/" + rosenmei1 + "/" + ikisaki1 + "?hidukebunrui=" + hidukebunrui1 + "&format=json",
                                                 dataType: 'json',
                                                 async: true,
                                                 success: function (js) {
@@ -315,14 +317,16 @@
                                 if (flag == 1) {
                                     $.ajax({
                                         //url: "http://10.4.144.39/basumaruAPI/api/Basuteis/" + kigyou + "/" + rosenmei2 + "?format=json",
-                                        url: "http://163.143.242.69/basumaruAPI/api/Basuteis/" + kigyou + "/" + rosenmei2 + "?format=json",
+                                        //url: "http://163.143.242.69/basumaruAPI/api/Basuteis/" + kigyou + "/" + rosenmei2 + "?format=json",
+                                        url: "http://192.168.11.6/basumaruAPI/api/Basuteis/" + kigyou + "/" + rosenmei2 + "?format=json",
                                         dataType: 'json',
                                         async: true,
                                         success: function (json) {
 
                                             $.ajax({
                                                 //url: "http://10.4.144.39/basumaruAPI/api/Jikokuhyous/" + kigyou + "/" + rosenmei2 + "/" + ikisaki2 + "?hidukebunrui=" + hidukebunrui2 + "&format=json",
-                                                url: "http://163.143.242.69/basumaruAPI/api/Jikokuhyous/" + kigyou + "/" + rosenmei2 + "/" + ikisaki2 + "?hidukebunrui=" + hidukebunrui2 + "&format=json",
+                                                //url: "http://163.143.242.69/basumaruAPI/api/Jikokuhyous/" + kigyou + "/" + rosenmei2 + "/" + ikisaki2 + "?hidukebunrui=" + hidukebunrui2 + "&format=json",
+                                                url: "http://192.168.11.6/basumaruAPI/api/Jikokuhyous/" + kigyou + "/" + rosenmei2 + "/" + ikisaki2 + "?hidukebunrui=" + hidukebunrui2 + "&format=json",
                                                 dataType: 'json',
                                                 async: true,
                                                 success: function (js) {

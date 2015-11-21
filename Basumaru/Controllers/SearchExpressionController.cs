@@ -172,7 +172,7 @@ namespace Basumaru.Controllers
                                     else
                                     {
                                         if (int.Parse(szikoku[k].Substring(0, 2)) == int.Parse(gzikoku[l].Substring(0, 2)) ||
-                                            int.Parse(szikoku[k].Substring(0, 2)) - 1 == int.Parse(gzikoku[l].Substring(0, 2)) ||
+                                            //int.Parse(szikoku[k].Substring(0, 2)) - 1 == int.Parse(gzikoku[l].Substring(0, 2)) ||
                                             int.Parse(szikoku[k].Substring(0, 2)) + 1 == int.Parse(gzikoku[l].Substring(0, 2)))
                                         {
                                             break;
@@ -387,7 +387,7 @@ namespace Basumaru.Controllers
                                     else
                                     {
                                         if (int.Parse(szikoku[k].Substring(0, 2)) == int.Parse(nzikoku[l].Substring(0, 2)) ||
-                                            int.Parse(szikoku[k].Substring(0, 2)) - 1 == int.Parse(nzikoku[l].Substring(0, 2)) ||
+                                            //int.Parse(szikoku[k].Substring(0, 2)) - 1 == int.Parse(nzikoku[l].Substring(0, 2)) ||
                                             int.Parse(szikoku[k].Substring(0, 2)) + 1 == int.Parse(nzikoku[l].Substring(0, 2)))
                                         {
                                             break;
@@ -414,7 +414,7 @@ namespace Basumaru.Controllers
                                     else
                                     {
                                         if (int.Parse(nzikoku[k].Substring(0, 2)) == int.Parse(gzikoku[l].Substring(0, 2)) ||
-                                            int.Parse(nzikoku[k].Substring(0, 2)) - 1 == int.Parse(gzikoku[l].Substring(0, 2)) ||
+                                            // int.Parse(nzikoku[k].Substring(0, 2)) - 1 == int.Parse(gzikoku[l].Substring(0, 2)) ||
                                             int.Parse(nzikoku[k].Substring(0, 2)) + 1 == int.Parse(gzikoku[l].Substring(0, 2)))
                                         {
                                             break;
@@ -666,7 +666,7 @@ namespace Basumaru.Controllers
                                 else
                                 {
                                     if (int.Parse(szikoku[k].Substring(0, 2)) == int.Parse(gzikoku[l].Substring(0, 2)) ||
-                                        int.Parse(szikoku[k].Substring(0, 2)) - 1 == int.Parse(gzikoku[l].Substring(0, 2)) ||
+                                        //int.Parse(szikoku[k].Substring(0, 2)) - 1 == int.Parse(gzikoku[l].Substring(0, 2)) ||
                                         int.Parse(szikoku[k].Substring(0, 2)) + 1 == int.Parse(gzikoku[l].Substring(0, 2)))
                                     {
                                         break;
