@@ -708,6 +708,8 @@ namespace Basumaru.Controllers
                     Session["anszikoku"] = "";
                     Session["ansgzikoku"] = "";
                     Session["ansrosenmei"] = "";
+                    Session["ansnnbasuteimei"] = "ルートが見つかりませんでした。";
+                    Session["ansnnzikoku"] = "";
                 }
                 else
                 {
@@ -732,6 +734,12 @@ namespace Basumaru.Controllers
                         Session["anshidukebunrui"] = item.hidukebunrui;
                         Session["anszikoku_"] = item.zikoku;
                         Session["anszikoku"] = item.zikoku.Substring(0, 2) + ":" + item.zikoku.Substring(2, 2);
+                        string temp = item.hachakuKubun;
+                        int hatemp = int.Parse(temp);
+                        if (0 < hatemp)
+                        {
+                            Session["hachakuKubun"] = item.hachakuKubun;
+                        }
                         if (i == 0)
                         {
                             break;
@@ -751,11 +759,15 @@ namespace Basumaru.Controllers
 
                     foreach (var item in goal2)
                     {
-                        if(item.ikisaki == ans & item.rosenmei == ans2) { 
-                        // Customer プロパティを明示的に読み込む。**Reference プロパティは自動的に生成される
-                        Session["ansgbasuteimei"] = item.basuteimei;
-                        Session["ansgzikoku_"] = item.zikoku;
-                        Session["ansgzikoku"] = item.zikoku.Substring(0, 2) + ":" + item.zikoku.Substring(2, 2);
+                        if(item.ikisaki == ans & item.rosenmei == ans2) {
+                            // Customer プロパティを明示的に読み込む。**Reference プロパティは自動的に生成される
+                            Session["ansgbasuteimei"] = item.basuteimei;
+                            Session["ansnbasuteimei"] = item.basuteimei;
+                            Session["ansgzikoku_"] = item.zikoku;
+                            Session["ansnzikoku_"] = item.zikoku;
+                            Session["ansgzikoku"] = item.zikoku.Substring(0, 2) + ":" + item.zikoku.Substring(2, 2);
+                            Session["ansnnbasuteimei"] = "なし";
+                            Session["ansnnzikoku"] = "なし";
                         }
                         if (i == 0)
                         {
