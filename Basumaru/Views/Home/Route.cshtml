@@ -47,8 +47,8 @@
         </div>
     </div>
 
-        @*<div id="map_canvas" style="height:400px;"></div>*@
-        <div id="map_canvas" style="height:800px;"></div>
+        <div id="map_canvas" style="height:280px;"></div>
+        @*<div id="map_canvas" style="height:800px;"></div>*@
 
         @*<form action="#" onsubmit="showAddress(this.address.value); return false">*@
 
@@ -139,7 +139,7 @@
                                 var Center = new google.maps.LatLng(37.215629, 140.567835);
 
                                 var mapOptions = {
-                                    zoom: 12,
+                                    zoom: 11,
                                     center: Center,
                                     mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
                                 };
@@ -148,7 +148,7 @@
 
                                 if (flag == 0 || flag == 1) {
                                     $.ajax({
-                                        url: "http://10.4.144.188/basumaruAPI/api/Basuteis/" + kigyou + "/" + rosenmei1 + "?format=json",
+                                        url: "http://busmaru.com/busmaruAPI/api/Basuteis/" + kigyou + "/" + rosenmei1 + "?format=json",
                                         //url: "http://163.143.242.69/basumaruAPI/api/Basuteis/" + kigyou + "/" + rosenmei1 + "?format=json",
                                         //url: "http://192.168.11.6/basumaruAPI/api/Basuteis/" + kigyou + "/" + rosenmei1 + "?format=json",
                                         dataType: 'json',
@@ -156,7 +156,7 @@
                                         success: function (json) {
 
                                             $.ajax({
-                                                url: "http://10.4.144.188/basumaruAPI/api/Jikokuhyous/" + kigyou + "/" + rosenmei1 + "/" + ikisaki1 + "?hidukebunrui=" + hidukebunrui1 + "&format=json",
+                                                url: "http://busmaru.com/busmaruAPI/api/Jikokuhyous/" + kigyou + "/" + rosenmei1 + "/" + ikisaki1 + "?hidukebunrui=" + hidukebunrui1 + "&format=json",
                                                 //url: "http://163.143.242.69/basumaruAPI/api/Jikokuhyous/" + kigyou + "/" + rosenmei1 + "/" + ikisaki1 + "?hidukebunrui=" + hidukebunrui1 + "&format=json",
                                                 //url: "http://192.168.11.6/basumaruAPI/api/Jikokuhyous/" + kigyou + "/" + rosenmei1 + "/" + ikisaki1 + "?hidukebunrui=" + hidukebunrui1 + "&format=json",
                                                 dataType: 'json',
@@ -316,7 +316,7 @@
 
                                 if (flag == 1) {
                                     $.ajax({
-                                        url: "http://10.4.144.188/basumaruAPI/api/Basuteis/" + kigyou + "/" + rosenmei2 + "?format=json",
+                                        url: "http://busmaru.com/busmaruAPI/api/Basuteis/" + kigyou + "/" + rosenmei2 + "?format=json",
                                         //url: "http://163.143.242.69/basumaruAPI/api/Basuteis/" + kigyou + "/" + rosenmei2 + "?format=json",
                                         //url: "http://192.168.11.6/basumaruAPI/api/Basuteis/" + kigyou + "/" + rosenmei2 + "?format=json",
                                         dataType: 'json',
@@ -324,7 +324,7 @@
                                         success: function (json) {
 
                                             $.ajax({
-                                                url: "http://10.4.144.188/basumaruAPI/api/Jikokuhyous/" + kigyou + "/" + rosenmei2 + "/" + ikisaki2 + "?hidukebunrui=" + hidukebunrui2 + "&format=json",
+                                                url: "http://busmaru.com/busmaruAPI/api/Jikokuhyous/" + kigyou + "/" + rosenmei2 + "/" + ikisaki2 + "?hidukebunrui=" + hidukebunrui2 + "&format=json",
                                                 //url: "http://163.143.242.69/basumaruAPI/api/Jikokuhyous/" + kigyou + "/" + rosenmei2 + "/" + ikisaki2 + "?hidukebunrui=" + hidukebunrui2 + "&format=json",
                                                 //url: "http://192.168.11.6/basumaruAPI/api/Jikokuhyous/" + kigyou + "/" + rosenmei2 + "/" + ikisaki2 + "?hidukebunrui=" + hidukebunrui2 + "&format=json",
                                                 dataType: 'json',

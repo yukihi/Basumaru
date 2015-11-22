@@ -174,7 +174,6 @@
     <Compile Include="Controllers\BasuteisController.cs" />
     <Compile Include="Controllers\DataImportController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\JinController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SearchExpressionController.cs" />
     <Compile Include="Global.asax.cs">
@@ -189,6 +188,11 @@
     <Compile Include="Models\Rosen.cs" />
     <Compile Include="Controllers\RosensController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -223,6 +227,11 @@
     <Content Include="Scripts\Basuteis_Yomogida.json" />
     <Content Include="Scripts\Basuteis_Ono.json" />
     <Content Include="Scripts\Basuteis_Nagata.json" />
+    <None Include="Properties\PublishProfiles\AWSBusmaru.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\gmaps.js" />
     <Content Include="Scripts\jquery.xdomainajax.js" />
@@ -281,7 +290,6 @@
     <Content Include="Views\Jikokuhyous\Details.cshtml" />
     <Content Include="Views\Jikokuhyous\Edit.cshtml" />
     <Content Include="Views\Jikokuhyous\Index.cshtml" />
-    <Content Include="Views\Jin\Delete.cshtml" />
     <Content Include="Views\Home\Route.cshtml" />
     <Content Include="Views\SearchExpression\SearchExpression.cshtml" />
     <Content Include="Views\Basuteis\Create.cshtml" />

@@ -13,7 +13,9 @@ function koshin(){
 
 
 <CENTER>
+    <div style="overflow: hidden;width: 250px;margin:0px auto;">
     @ViewBag.messege
+        <div style="float: left;">
     @using (Html.BeginRouteForm(
                                        "Default", // ルート名
                                        new
@@ -22,15 +24,14 @@ function koshin(){
                                            controller = "SearchExpression",   // コントローラ名
                                        }, // ルート・パラメータ
                                        FormMethod.Post, // HTTPメソッド（method属性）
-                                       new { enctype = "multipart/form-data" } // そのほかの属性
+                                       new { enctype = "multipart/form-data"}
                                      ))
     {
         <button ="image" typeof="submit" name="route" value="0"><img src="~/Image/ruto1.png"></img></button>
     }
-
-    <br>
-
-    @using (Html.BeginRouteForm(
+    </div>
+        <div style="float: left;">
+            @using (Html.BeginRouteForm(
                                            "Default", // ルート名
                                            new
                                            {
@@ -40,13 +41,13 @@ function koshin(){
                                            FormMethod.Post, // HTTPメソッド（method属性）
                                            new { enctype = "multipart/form-data" } // そのほかの属性
                                          ))
-    {
-        <button ="image" typeof="submit" name="route" value="1"><img src="~/Image/ruto2.png"></img></button>
-    }
+            {
+                <button ="image" typeof="submit" name="route" value="1"><img src="~/Image/ruto2.png"></img></button>
+            }
 
-    <br>
-
-    @using (Html.BeginRouteForm(
+            </div>
+        <div style="float: left;">
+            @using (Html.BeginRouteForm(
                                            "Default", // ルート名
                                            new
                                            {
@@ -56,9 +57,11 @@ function koshin(){
                                            FormMethod.Post, // HTTPメソッド（method属性）
                                            new { enctype = "multipart/form-data" } // そのほかの属性
                                          ))
-    {
-        <button ="image" typeof="submit" name="route" value="2"><img src="~/Image/ruto3.png"></img></button>
-    }
+            {
+                <button ="image" typeof="submit" name="route" value="2"><img src="~/Image/ruto3.png"></img></button>
+            }
+            </div>
+        </div>
     <!--
     <button ="image" typeof="submit" value="ボタン" onclick="susumu()"><img src="~/Image/ruto1.png"></img></button>
     &nbsp;
@@ -84,7 +87,7 @@ function koshin(){
             <td></td>
             <td><button type="button" value="ボタン" onClick="location.href = '/Home/Route?flag=@Session["f"]&kigyou=@Session["kigyou"]&rosenmei1=@Session["ansrosenmei"]&ikisaki1=@Session["ansikisaki"]&hidukebunrui1=@Session["anshidukebunrui"]&shuppatu1=@Session["ansbasuteimei"]&shuppatuji1=@Session["anszikoku_"]&toutyaku1=@Session["ansnbasuteimei"]&toutyakuji1=@Session["ansnzikoku_"]&rosenmei2=@Session["ansnnrosenmei"]&ikisaki2=@Session["ansnnikisaki"]&hidukebunrui2=@Session["ansnnhidukebunrui"]&shuppatu2=@Session["ansnnbasuteimei"]&shuppatuji2=@Session["ansnnzikoku_"]&toutyaku2=@Session["ansgbasuteimei"]&toutyakuji2=@Session["ansgzikoku_"]';"><img src="~/Image/ruto.png"></img></button></td>
         </tr>
-        <tr>
+        @*<tr>
             <td><p>乗り換え回数</p></td>
             <td><span class="mozi">@(Session["f"])</span></td>
         </tr>
@@ -95,7 +98,7 @@ function koshin(){
         <tr>
             <td><p>乗り換えバス停名</p></td>
             <td><span class="mozi">@("" + (string)Session["ansnnbasuteimei"])</span></td>
-        </tr>
+        </tr>*@
         <tr>
             <td><img src="~/Image/touchakuzikoku.png"></img></td>
             <td><span class="mozi">@("" + (string)Session["ansgzikoku"])</span></td>

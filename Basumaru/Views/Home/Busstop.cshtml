@@ -47,8 +47,8 @@
         </div>
     </div>
 
-        @*<div id="map_canvas" style="height:400px;"></div>*@
-        <div id="map_canvas" style="height:800px;"></div>
+        <div id="map_canvas" style="height:280px;"></div>
+        @*<div id="map_canvas" style="height:800px;"></div>*@
 
         @*<form action="#" onsubmit="showAddress(this.address.value); return false">*@
 
@@ -90,7 +90,7 @@
                             }
 
                             var myOptions = {
-                                zoom: 8,
+                                zoom: 11,
                                 mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
                             };
                             var marker = null;
@@ -108,7 +108,7 @@
                                 var Center = new google.maps.LatLng(37.215629, 140.567835);
 
                                 var mapOptions = {
-                                    zoom: 13,
+                                    zoom: 11,
                                     center: Center,
                                     mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
                                 };
@@ -116,7 +116,7 @@
                                 map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
                                 $.ajax({
-                                    url: "http://10.4.144.188/basumaruAPI/api/Basuteis?format=json",
+                                    url: "http://busmaru.com/busmaruAPI/api/Basuteis?format=json",
                                     //url: "http://163.143.242.69/basumaruAPI/api/Basuteis?format=json",
                                     //url: "http://192.168.11.6/basumaruAPI/api/Basuteis?format=json",
                                     dataType: 'json',
@@ -151,6 +151,7 @@
 
                                             var contentStr = '<div class="infoDiv"><span class="basuteimei">' + item.basuteimei + '</span>' +
                                                              '<div><span class="yanebenchi"><hr style="margin:0px;">' + yane + '&nbsp;' + benchi + '</span>' +
+                                                             //'<br><br><a href="http://busmaru.com/Home/Index' + flag + '&value=' + item.basuteimei + '"><img src="/Image/sentaku.png"></a></div></div>'
                                                              '<br><br><a href="http://localhost:49834/Home/Index' + flag + '&value=' + item.basuteimei + '"><img src="/Image/sentaku.png"></a></div></div>'
 
                                             var infowindow = new google.maps.InfoWindow({
