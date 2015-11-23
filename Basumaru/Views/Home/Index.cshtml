@@ -21,12 +21,12 @@
 
 
 <CENTER>
-    @ViewBag.sameerror
-    @ViewBag.starterror
-    @ViewBag.goalerror
+    @Html.Raw( @ViewBag.sameerror )
+    @Html.Raw( @ViewBag.starterror )
+    @Html.Raw( @ViewBag.goalerror )
     <br>
 
-    @ViewBag.hidukeerror
+    @Html.Raw( @ViewBag.hidukeerror )
 
     <!--{Html.BeginForm("myform"); -->
     <form action="/Home/Index"
