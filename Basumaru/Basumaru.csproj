@@ -298,6 +298,7 @@
     <Content Include="Views\Basuteis\Edit.cshtml" />
     <Content Include="Views\Basuteis\Index.cshtml" />
     <Content Include="Views\DataImport\DataImport.cshtml" />
+    <Content Include="Views\SearchExpression\SearchExpressionError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

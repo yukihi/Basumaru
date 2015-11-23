@@ -14,6 +14,11 @@ namespace Basumaru.Controllers
 
         private BasumaruDBContext db = new BasumaruDBContext();
 
+        public ActionResult SearchExpressionError(string route)
+        {
+            return View();
+        }
+
 
         // GET: SearchExpression
         public ActionResult SearchExpression(string route)
@@ -778,7 +783,15 @@ namespace Basumaru.Controllers
                 }
 
             }
-            return View();
+
+            if ((string)Session["ansbasuteimei"] == "ルートが見つかりませんでした。")
+            {
+                return RedirectToAction("SearchExpressionError","SearchExpression");
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }

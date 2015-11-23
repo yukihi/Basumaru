@@ -97,20 +97,20 @@ namespace Basumaru.Controllers
             {
                 if (starterror == true)
                 {
-                    ViewBag.starterror = "出発バス停が選択されていません</br>";
+                    ViewBag.starterror = "出発バス停が選択されていません";
 
                 }
                 if (goalerror == true)
                 {
-                    ViewBag.goalerror = "到着バス停が選択されていません</br>";
+                    ViewBag.goalerror = "到着バス停が選択されていません";
                 }
                 if (hidukeerror == true)
                 {
-                    ViewBag.hidukeerror = "存在しない日付です</br>";
+                    ViewBag.hidukeerror = "存在しない日付です";
                 }
                 if (sameerror == true　&& start == null)
                 {
-                    ViewBag.sameerror = "出発と到着のバス停が同じです</br>";
+                    ViewBag.sameerror = "出発と到着のバス停が同じです";
                 }
 
                 return View("Index");
