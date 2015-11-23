@@ -89,7 +89,10 @@
                         function Initialize() {
 
                             var kigyou = getQuerystring("kigyou");
+                            kigyou = decodeURI(kigyou);
+
                             var flag = getQuerystring("flag");
+                            flag = decodeURI(flag);
 
                             if (flag == 0 || flag == 1) {
                                 var rosenmei1 = getQuerystring("rosenmei1");
@@ -99,6 +102,14 @@
                                 var shuppatuji1 = getQuerystring("shuppatuji1");
                                 var toutyaku1 = getQuerystring("toutyaku1");
                                 var toutyakuji1 = getQuerystring("toutyakuji1");
+
+                                rosenmei1 = decodeURI(rosenmei1);
+                                ikisaki1 = decodeURI(ikisaki1);
+                                hidukebunrui1 = decodeURI(hidukebunrui1);
+                                shuppatu1 = decodeURI(shuppatu1);
+                                shuppatuji1 = decodeURI(shuppatuji1);
+                                toutyaku1 = decodeURI(toutyaku1);
+                                toutyakuji1 = decodeURI(toutyakuji1);
                             }
 
                             if (flag == 1) {
@@ -109,6 +120,14 @@
                                 var shuppatuji2 = getQuerystring("shuppatuji2");
                                 var toutyaku2 = getQuerystring("toutyaku2");
                                 var toutyakuji2 = getQuerystring("toutyakuji2");
+
+                                rosenmei2 = decodeURI(rosenmei2);
+                                ikisaki2 = decodeURI(ikisaki2);
+                                hidukebunrui2 = decodeURI(hidukebunrui2);
+                                shuppatu2 = decodeURI(shuppatu2);
+                                shuppatuji2 = decodeURI(shuppatuji2);
+                                toutyaku2 = decodeURI(toutyaku2);
+                                toutyakuji2 = decodeURI(toutyakuji2);
                             }
 
                             //kigyou = "福島交通";
