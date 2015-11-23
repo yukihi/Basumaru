@@ -208,6 +208,7 @@
     <Content Include="Image\benchi.png" />
     <Content Include="Image\chizu.png" />
     <Content Include="Image\kensaku.png" />
+    <Content Include="Image\M.png" />
     <Content Include="Image\mushimegane.png" />
     <Content Include="Image\rogo.png" />
     <Content Include="Image\ruto.png" />
