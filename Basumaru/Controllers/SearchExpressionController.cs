@@ -193,6 +193,15 @@ namespace Basumaru.Controllers
                                  orderby p.zikoku
                                  select p;
 
+                    string[] sz = new string[100];
+                    int s = 0;
+                    foreach (var item in start2)
+                    {
+                        sz[s] = item.zikoku;
+                        if (sz[s] == null) break;
+                        s++;
+                    }
+
                     string rosen = "";
 
                     foreach (var item in start2)
@@ -245,6 +254,15 @@ namespace Basumaru.Controllers
 
                         foreach (var item in start2)
                         {
+                            if ((s-1) < i)
+                            {
+                                Session["anszikoku"] = "";
+                                Session["ansnzikoku"] = "";
+                                Session["ansbasuteimei"] = "";
+                                Session["ansnbasuteimei"] = "";
+                                Session["ansrosenmei"] = "";
+                                break;
+                            }
                             // Customer プロパティを明示的に読み込む。**Reference プロパティは自動的に生成され
                             Session["kigyou"] = item.kigyou;
                             Session["ansrosenmei"] = item.rosenmei;
@@ -277,6 +295,16 @@ namespace Basumaru.Controllers
                         }
                         foreach (var item in goal2)
                         {
+                            if ((s - 1) < i)
+                            {
+                                Session["anszikoku"] = "";
+                                Session["ansgzikoku"] = "";
+                                Session["ansbasuteimei"] = "";
+                                Session["ansgbasuteimei"] = "";
+                                Session["ansrosenmei"] = "";
+                                break;
+                            }
+
                             Session["ansgbasuteimei"] = item.basuteimei;
                             Session["ansnbasuteimei"] = item.basuteimei;
                             Session["ansgzikoku_"] = item.zikoku;
@@ -514,6 +542,7 @@ namespace Basumaru.Controllers
                     else
                     {
                         int i = 0;
+                        var sz = "0";
                         if (route == null)
                         {
                             i = 0;//int.Parse(route);
@@ -524,7 +553,14 @@ namespace Basumaru.Controllers
                         }
 
                         foreach (var item in snorikae)
-                        {
+                        {   
+                            if(sz == item.zikoku)
+                            {
+                                Session["anszikoku"] = "";
+                                Session["ansgzikoku"] = "";
+                                break;
+                            }
+                             
                             // Customer プロパティを明示的に読み込む。**Reference プロパティは自動的に生成され
                             Session["kigyou"] = item.kigyou;
                             Session["ansrosenmei"] = item.rosenmei;

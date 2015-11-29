@@ -26,6 +26,12 @@ namespace Basumaru.Controllers
 
             return View();
         }
+
+        public ActionResult On_Button1()
+        {
+            return RedirectToAction("Busstop", "Home");
+        }
+
         [HttpPost]
         public ActionResult Index(string start, string goal, string kijun, string month, string day, string hour, string minute)
         {
