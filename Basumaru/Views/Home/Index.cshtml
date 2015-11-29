@@ -10,9 +10,14 @@
     {
         Session["start"] = value;
     }
-    else
+    else if(flag == "1")
     {
         Session["goal"] = value;
+    }
+    else
+    {
+        Session["start"] = "";
+        Session["goal"] = "";
     }
 
 
