@@ -12,10 +12,9 @@ function koshin(){
 
 
 
-<CENTER>
     <div style="overflow: hidden;width: 250px;margin:0px auto;">
     @ViewBag.messege
-        <div style="float: left;">
+        <div style="float: left;" id="disp1">
     @using (Html.BeginRouteForm(
                                        "Default", // ルート名
                                        new
@@ -30,7 +29,7 @@ function koshin(){
         <button ="image" typeof="submit" name="route" value="0"><img src="~/Image/ruto1.png"></img></button>
     }
     </div>
-        <div style="float: left;">
+        <div style="float: left;" id="disp2">
             @using (Html.BeginRouteForm(
                                            "Default", // ルート名
                                            new
@@ -46,7 +45,7 @@ function koshin(){
             }
 
             </div>
-        <div style="float: left;">
+        <div style="float: left;" id="disp3">
             @using (Html.BeginRouteForm(
                                            "Default", // ルート名
                                            new
@@ -70,6 +69,7 @@ function koshin(){
     <button ="image" typeof="submit" value="ボタン" onclick="susumu()"><img src="~/Image/ruto3.png"></img></button>
         -->
 
+<CENTER>
     <table>
         <tr>
             <td><img src="~/Image/shuppatsuzikoku.png"></img></td>
@@ -109,3 +109,19 @@ function koshin(){
         </tr>
     </table>
 </CENTER>
+
+<script type="text/javascript">
+    if(@Session["s"] == "1") {
+        document.getElementById("disp1").style.display="table-cell";
+        document.getElementById("disp2").style.display="none";
+        document.getElementById("disp3").style.display="none";
+    } else if(@Session["s"] == "2"){
+        document.getElementById("disp1").style.display="table-cell";
+        document.getElementById("disp2").style.display="table-cell";
+        document.getElementById("disp3").style.display="none";
+    } else {
+        document.getElementById("disp1").style.display="table-cell";
+        document.getElementById("disp2").style.display="table-cell";
+        document.getElementById("disp3").style.display="table-cell";
+    }
+</script>

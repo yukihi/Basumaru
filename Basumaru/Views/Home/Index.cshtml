@@ -3,14 +3,20 @@
 }
 
 
-@{ 
+@{
     string flag = Request.QueryString["flag"];
     string value = Request.QueryString["value"];
+    string sss = Request.QueryString["start"];
+    string ggg = Request.QueryString["goal"];
+
+    Session["start"] = sss;
+    Session["goal"] = ggg;
+
     if (flag == "0")
     {
         Session["start"] = value;
     }
-    else if(flag == "1")
+    else if (flag == "1")
     {
         Session["goal"] = value;
     }
@@ -19,8 +25,6 @@
         Session["start"] = "";
         Session["goal"] = "";
     }
-
-
 }
 
 
@@ -41,8 +45,7 @@
         <input type="text" name="start" value="@Session["start"]" placeholder="バス停名を入力">
         <br />
         <span class="chizubutton">
-            <button type="button" onClick="location.href = '/Home/Busstop?flag=0';" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>
-            @*<button type="button" onClick="On_Button1()" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>*@
+            <button type="button" onClick="On_Button1()" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>
         </span>
 
 
@@ -51,7 +54,7 @@
         <input type="text" name="goal" value="@Session["goal"]" placeholder="バス停名を入力">
         <br />
         <span class="chizubutton">
-            <button type="button" onClick="location.href = '/Home/Busstop?flag=1';" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>
+            <button type="button" onClick="On_Button2()" value="ボタン"><img src="~/Image/chizu.png" border="0"></img></button>
         </span>
             <br><br>
 
@@ -70,6 +73,17 @@
         &nbsp; &nbsp;
             <select name="minute"></select>分
             <script type="text/javascript">
+                function On_Button1() {
+                    var s;
+                    s = document.forms['myform'].elements['goal'].value;
+                    location.href = "/Home/Busstop?flag=0&goal=" + s;
+                }
+
+                function On_Button2() {
+                    var s;
+                    s = document.forms['myform'].elements['start'].value;
+                    location.href = "/Home/Busstop?flag=1&start=" + s;
+                }
 
                 /*====[ <select> 要素 ]====*/
 

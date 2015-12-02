@@ -201,6 +201,7 @@ namespace Basumaru.Controllers
                         if (sz[s] == null) break;
                         s++;
                     }
+                    Session["s"] = s;
 
                     string rosen = "";
 
@@ -467,6 +468,16 @@ namespace Basumaru.Controllers
                                    orderby p.zikoku
                                    select p;
 
+                    string[] ssz = new string[100];
+                    int ss = 0;
+                    foreach (var item in snorikae)
+                    {
+                        ssz[ss] = item.zikoku;
+                        if (ssz[ss] == null) break;
+                        ss++;
+                    }
+                    Session["s"] = ss;
+
                     string rosen = "";
 
                     foreach (var item in snorikae)
@@ -507,6 +518,18 @@ namespace Basumaru.Controllers
                                     where (p.basuteimei == ansnorikae) & (p.rosenmei == bnq) & (p.ikisaki == anq) & (p.zikoku.CompareTo(norikaetime) > 0) & (p.hidukebunrui.CompareTo(daycode) == 0)
                                     orderby p.zikoku
                                     select p;
+
+                    string[] ggz = new string[100];
+                    int gg = 0;
+                    foreach (var item in nnnorikae)
+                    {
+                        ggz[gg] = item.zikoku;
+                        if (ggz[gg] == null) break;
+                        gg++;
+                    }
+
+                    if (gg <= ss) Session["s"] = gg;
+                    else Session["s"] = ss;
 
                     string rosen2 = "";
                     
@@ -745,6 +768,16 @@ namespace Basumaru.Controllers
                            where (p.basuteimei == glin) & (p.ikisaki == ans) & (p.zikoku.CompareTo(oktime) < 0) & (p.hidukebunrui.CompareTo(daycode) == 0)
                            orderby p.zikoku descending
                            select p;
+
+                string[] sz = new string[100];
+                int s = 0;
+                foreach (var item in goal2)
+                {
+                    sz[s] = item.zikoku;
+                        if (sz[s] == null) break;
+                        s++;
+                }
+                Session["s"] = s;
 
                 string rosen = "";
                 foreach (var item in goal2)
@@ -989,6 +1022,15 @@ namespace Basumaru.Controllers
                                    orderby p.zikoku descending
                                    select p;
 
+                    string[] ssz = new string[100];
+                    int ss = 0;
+                    foreach (var item in gnorikae)
+                    {
+                        ssz[ss] = item.zikoku;
+                        if (ssz[ss] == null) break;
+                        ss++;
+                    }
+
                     string rosen2 = "";
 
                     foreach (var item in gnorikae)
@@ -1029,6 +1071,18 @@ namespace Basumaru.Controllers
                                    where (p.basuteimei == ansnorikae) & (p.rosenmei == bn) & (p.ikisaki == an) & (p.zikoku.CompareTo(norikaetime) < 0) & (p.hidukebunrui.CompareTo(daycode) == 0)
                                    orderby p.zikoku descending
                                    select p;
+
+                    string[] ggz = new string[100];
+                    int gg = 0;
+                    foreach (var item in nnorikae)
+                    {
+                        ggz[gg] = item.zikoku;
+                        if (ggz[gg] == null) break;
+                        gg++;
+                    }
+
+                    if (gg <= ss) Session["s"] = gg;
+                    else Session["s"] = ss;
 
                     string rosen = "";
 
