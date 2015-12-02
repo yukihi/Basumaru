@@ -113,7 +113,7 @@ namespace Basumaru.Controllers
                 {
                     ViewBag.hidukeerror = "存在しない日付です<br>";
                 }
-                if (sameerror == true　&& start == goal)
+                if (sameerror == true　&& start == goal && starterror != true && goalerror != true)
                 {
                     ViewBag.sameerror = "出発と到着のバス停が同じです<br>";
                 }
