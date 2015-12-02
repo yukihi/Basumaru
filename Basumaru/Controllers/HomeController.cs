@@ -97,28 +97,35 @@ namespace Basumaru.Controllers
 
             }
 
-
+            Session["starterror"] = "0";
+            Session["goalerror"] = "0";
+            Session["hidukeerror"] = "0";
+            Session["sameerror"] = "0";
 
             if (hidukeerror == true || starterror == true || goalerror == true　|| sameerror == true)
             {
                 if (starterror == true)
                 {
                     ViewBag.starterror = "出発バス停が選択されていません<br>";
+                    Session["starterror"] = "1";
                 }
                 if (goalerror == true)
                 {
                     ViewBag.goalerror = "到着バス停が選択されていません<br>";
+                    Session["goalerror"] = "1";
                 }
                 if (hidukeerror == true)
                 {
                     ViewBag.hidukeerror = "存在しない日付です<br>";
+                    Session["hidukeerror"] = "1";
                 }
                 if (sameerror == true　&& start == goal && starterror != true && goalerror != true)
                 {
                     ViewBag.sameerror = "出発と到着のバス停が同じです<br>";
+                    Session["sameerror"] = "1";
                 }
 
-                return View("Index");
+                //return View("Index");
             }
 
 

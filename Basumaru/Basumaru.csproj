@@ -301,6 +301,8 @@
     <Content Include="Views\Basuteis\Index.cshtml" />
     <Content Include="Views\DataImport\DataImport.cshtml" />
     <Content Include="Views\SearchExpression\SearchExpressionError.cshtml" />
+    <Content Include="Views\SearchExpression\SearchExpressionBasuteiError.cshtml" />
+    <Content Include="Views\SearchExpression\SearchExpressionHidukeError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

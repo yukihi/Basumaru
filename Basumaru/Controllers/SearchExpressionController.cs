@@ -19,10 +19,27 @@ namespace Basumaru.Controllers
             return View();
         }
 
+        public ActionResult SearchExpressionBasuteiError(string route)
+        {
+            return View();
+        }
+
+        public ActionResult SearchExpressionHidukeError(string route)
+        {
+            return View();
+        }
 
         // GET: SearchExpression
         public ActionResult SearchExpression(string route)
         {
+            if ((string)Session["starterror"] == "1" || (string)Session["goalerror"] == "1" || (string)Session["sameerror"] == "1")
+            {
+                return RedirectToAction("SearchExpressionBasuteiError", "SearchExpression"); ;
+            }
+            else if ((string)Session["hidukeerror"] == "1")
+            {
+                return RedirectToAction("SearchExpressionHidukeError", "SearchExpression");
+            }
 
             string hourtemp = (string)Session["hour"];
             int hourtemp2 = int.Parse(hourtemp);
@@ -1218,8 +1235,6 @@ namespace Basumaru.Controllers
                 }
 
             }
-
-
 
             if ((string)Session["ansbasuteimei"] == "ルートが見つかりませんでした。")
             {
