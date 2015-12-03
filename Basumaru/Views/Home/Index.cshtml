@@ -8,9 +8,31 @@
     string value = Request.QueryString["value"];
     string sss = Request.QueryString["start"];
     string ggg = Request.QueryString["goal"];
+    string ki = Request.QueryString["ki"];
+    string mo = Request.QueryString["mo"];
+    string da = Request.QueryString["da"];
+    string ho = Request.QueryString["ho"];
+    string mi = Request.QueryString["mi"];
 
     Session["start"] = sss;
     Session["goal"] = ggg;
+    Session["ki"] = "null";
+    Session["mo"] = "null";
+    Session["da"] = "null";
+    Session["ho"] = "null";
+    Session["mi"] = "null";
+    Session["ff"] = "null";
+
+    if (flag == "0" || flag == "1")
+    {
+        Session["ki"] = ki;
+        Session["mo"] = mo;
+        Session["da"] = da;
+        Session["ho"] = ho;
+        Session["mi"] = mi;
+        Session["ff"] = flag;
+    }
+
 
     if (flag == "0")
     {
@@ -58,7 +80,7 @@
         </span>
             <br><br>
 
-            <input type="radio" name="kijun" value="0" checked="checked">
+            <input type="radio" name="kijun" value="0">
             出発時刻　　　
             <input type="radio" name="kijun" value="1">
             到着時刻
@@ -74,15 +96,37 @@
             <select name="minute"></select>分
             <script type="text/javascript">
                 function On_Button1() {
-                    var s;
-                    s = document.forms['myform'].elements['goal'].value;
-                    location.href = "/Home/Busstop?flag=0&goal=" + s;
+                    var g;
+                    var ki;
+                    var mo;
+                    var da;
+                    var ho;
+                    var mi;
+
+                    g = document.forms['myform'].elements['goal'].value;
+                    ki = document.forms['myform'].elements['kijun'].value;
+                    mo = document.forms['myform'].elements['month'].value;
+                    da = document.forms['myform'].elements['day'].value;
+                    ho = document.forms['myform'].elements['hour'].value;
+                    mi = document.forms['myform'].elements['minute'].value;
+                    location.href = "/Home/Busstop?flag=0&goal=" + g + "&ki=" + ki + "&mo=" + mo + "&da=" + da + "&ho=" + ho + "&mi=" + mi;
                 }
 
                 function On_Button2() {
                     var s;
+                    var ki;
+                    var mo;
+                    var da;
+                    var ho;
+                    var mi;
+
                     s = document.forms['myform'].elements['start'].value;
-                    location.href = "/Home/Busstop?flag=1&start=" + s;
+                    ki = document.forms['myform'].elements['kijun'].value;
+                    mo = document.forms['myform'].elements['month'].value;
+                    da = document.forms['myform'].elements['day'].value;
+                    ho = document.forms['myform'].elements['hour'].value;
+                    mi = document.forms['myform'].elements['minute'].value;
+                    location.href = "/Home/Busstop?flag=1&start=" + s + "&ki=" + ki + "&mo=" + mo + "&da=" + da + "&ho=" + ho + "&mi=" + mi;
                 }
 
                 /*====[ <select> 要素 ]====*/
@@ -141,11 +185,44 @@
 
                 /*====[ 初期状態をセット ]====*/
 
-                for (var key in select) {
-                    var option = select[key].options;
-                    for (var i = 0; i < option.length; i++) {
-                        option[i].selected = (option[i].value == D[key]) ? true : false;
+                if(@Session["ff"] == null || @Session["ff"] == 2){
+                    for (var key in select) {
+                        var option = select[key].options;
+                        for (var i = 0; i < option.length; i++) {
+                            option[i].selected = (option[i].value == D[key]) ? true : false;
+                        }
                     }
+
+                    document.forms['myform'].kijun[0].checked = true;
+
+                }
+                else if(@Session["ff"] == 0 || @Session["ff"] == 1){
+                    for(var key in select){
+                        var option = select[key].options;
+                        if(key == "month"){
+                            for (var i = 0; i < option.length; i++) {
+                                option[i].selected = (option[i].value == @Session["mo"]) ? true : false;
+                            }
+                        }
+                        else if(key == "day"){
+                            for (var i = 0; i < option.length; i++) {
+                                option[i].selected = (option[i].value == @Session["da"]) ? true : false;
+                            }
+                        }
+                        else if(key == "hour"){
+                            for (var i = 0; i < option.length; i++) {
+                                option[i].selected = (option[i].value == @Session["ho"]) ? true : false;
+                            }
+                        }
+                        else{
+                            for (var i = 0; i < option.length; i++) {
+                                option[i].selected = (option[i].value == @Session["mi"]) ? true : false;
+                            }
+                        }
+                    }
+
+                    if(@Session["ki"] == 0) document.forms['myform'].kijun[0].checked = true;
+                    else document.forms['myform'].kijun[1].checked = true;
                 }
             </script>
 

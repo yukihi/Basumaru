@@ -80,8 +80,8 @@ namespace Basumaru.Controllers
             DateTime dtNow = DateTime.Now;
             //現在日時を取得する
             int iYear = dtNow.Year;
-            int imonth = dtNow.Day;
-            int iday = dtNow.Month;
+            int imonth = dtNow.Month;
+            int iday = dtNow.Day;
 
             DateTime dateValue = new DateTime(iYear, ansmonth, ansday);
             if ((imonth < ansmonth) || ((imonth == ansmonth) && (iday < ansday)))
