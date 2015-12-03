@@ -9,6 +9,7 @@
     string sss = Request.QueryString["start"];
     string ggg = Request.QueryString["goal"];
     string ki = Request.QueryString["ki"];
+    string ye = Request.QueryString["ye"];
     string mo = Request.QueryString["mo"];
     string da = Request.QueryString["da"];
     string ho = Request.QueryString["ho"];
@@ -17,6 +18,7 @@
     Session["start"] = sss;
     Session["goal"] = ggg;
     Session["ki"] = "null";
+    Session["ye"] = "null";
     Session["mo"] = "null";
     Session["da"] = "null";
     Session["ho"] = "null";
@@ -26,6 +28,7 @@
     if (flag == "0" || flag == "1")
     {
         Session["ki"] = ki;
+        Session["ye"] = ye;
         Session["mo"] = mo;
         Session["da"] = da;
         Session["ho"] = ho;
@@ -87,6 +90,8 @@
 
             <br><br>
 
+            <select name="year"></select>年
+        &nbsp; &nbsp; 
             <select name="month"></select>月
         &nbsp; &nbsp;
             <select name="day"></select>日
@@ -98,6 +103,7 @@
                 function On_Button1() {
                     var g;
                     var ki;
+                    var ye;
                     var mo;
                     var da;
                     var ho;
@@ -105,16 +111,18 @@
 
                     g = document.forms['myform'].elements['goal'].value;
                     ki = document.forms['myform'].elements['kijun'].value;
+                    ye = document.forms['myform'].elements['year'].value;
                     mo = document.forms['myform'].elements['month'].value;
                     da = document.forms['myform'].elements['day'].value;
                     ho = document.forms['myform'].elements['hour'].value;
                     mi = document.forms['myform'].elements['minute'].value;
-                    location.href = "/Home/Busstop?flag=0&goal=" + g + "&ki=" + ki + "&mo=" + mo + "&da=" + da + "&ho=" + ho + "&mi=" + mi;
+                    location.href = "/Home/Busstop?flag=0&goal=" + g + "&ki=" + ki + "&ye=" + ye + "&mo=" + mo + "&da=" + da + "&ho=" + ho + "&mi=" + mi;
                 }
 
                 function On_Button2() {
                     var s;
                     var ki;
+                    var ye;
                     var mo;
                     var da;
                     var ho;
@@ -122,16 +130,18 @@
 
                     s = document.forms['myform'].elements['start'].value;
                     ki = document.forms['myform'].elements['kijun'].value;
+                    ye = document.forms['myform'].elements['year'].value;
                     mo = document.forms['myform'].elements['month'].value;
                     da = document.forms['myform'].elements['day'].value;
                     ho = document.forms['myform'].elements['hour'].value;
                     mi = document.forms['myform'].elements['minute'].value;
-                    location.href = "/Home/Busstop?flag=1&start=" + s + "&ki=" + ki + "&mo=" + mo + "&da=" + da + "&ho=" + ho + "&mi=" + mi;
+                    location.href = "/Home/Busstop?flag=1&start=" + s + "&ki=" + ki + "&ye=" + ye + "&mo=" + mo + "&da=" + da + "&ho=" + ho + "&mi=" + mi;
                 }
 
                 /*====[ <select> 要素 ]====*/
 
                 var select = new Object()
+                select.year = document.myform.year;
                 select.month = document.myform.month;
                 select.day = document.myform.day;
                 select.hour = document.myform.hour;
@@ -140,10 +150,18 @@
                 /*====[ 日付データ ]====*/
 
                 var D = new Object();
+                D.year = (new Date()).getFullYear();
                 D.month = (new Date()).getMonth() + 1;
                 D.day = (new Date()).getDate();
                 D.hour = (new Date()).getHours();
                 D.minute = (new Date()).getMinutes();
+
+                for(var i=2014 ; i<=2025 ; i++){
+                    var option =
+                        select.year.appendChild(document.createElement('option'));
+                    option.text = i;
+                    option.value = i;
+                }
 
                 /*====[ 月の <option> を追加 ]====*/
 
@@ -199,7 +217,12 @@
                 else if(@Session["ff"] == 0 || @Session["ff"] == 1){
                     for(var key in select){
                         var option = select[key].options;
-                        if(key == "month"){
+                        if(key == "year"){
+                            for(var i=0; i<option.length; i++){
+                                option[i].selected = (option[i].value == @Session["ye"]) ? true : false;
+                            }
+                        }
+                        else if(key == "month"){
                             for (var i = 0; i < option.length; i++) {
                                 option[i].selected = (option[i].value == @Session["mo"]) ? true : false;
                             }

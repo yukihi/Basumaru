@@ -33,14 +33,15 @@ namespace Basumaru.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string start, string goal, string kijun, string month, string day, string hour, string minute)
+        public ActionResult Index(string start, string goal, string kijun, string year, string month, string day, string hour, string minute)
         {
 
             // 必要な変数を宣言する
             DateTime dtNow = DateTime.Now;
 
             // 年 (Year) を取得する
-            int year = dtNow.Year;
+            //int year = dtNow.Year;
+            Session["year"] = year;
             // Sessionに各データをを格納
             // Sessionに各データをを格納
             Session["start"] = start;
@@ -51,7 +52,8 @@ namespace Basumaru.Controllers
             Session["hour"] = hour;
             Session["minute"] = minute;
 
-            int iyear = year;
+            // int iyear = year;
+            int iyear = int.Parse(year);
             int imonth = int.Parse(month);
             int iday = int.Parse(day);
             int ihour = int.Parse(hour);

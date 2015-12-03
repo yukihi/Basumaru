@@ -71,6 +71,8 @@ namespace Basumaru.Controllers
             string glin = (string)Session["goal"];//到着バス停名
 
             /*日時から日付分類コードを割り出す 入力が現在より若い日付なら年を+1する*/
+            string temp0 = (string)Session["year"];
+            int ansyear = int.Parse(temp0);
             string temp1 = (string)Session["month"];
             int ansmonth = int.Parse(temp1);
             string temp2 = (string)Session["day"];
@@ -83,15 +85,16 @@ namespace Basumaru.Controllers
             int imonth = dtNow.Month;
             int iday = dtNow.Day;
 
-            DateTime dateValue = new DateTime(iYear, ansmonth, ansday);
-            if ((imonth < ansmonth) || ((imonth == ansmonth) && (iday < ansday)))
-            {
-                dateValue = new DateTime(iYear + 1, ansmonth, ansday);//未来の日付が選択された場合
-            }
-            else
-            {
-                dateValue = new DateTime(iYear, ansmonth, ansday);
-            }
+            //DateTime dateValue = new DateTime(iYear, ansmonth, ansday);
+            DateTime dateValue = new DateTime(ansyear, ansmonth, ansday);
+            //if ((imonth < ansmonth) || ((imonth == ansmonth) && (iday < ansday)))
+            //{
+            //    dateValue = new DateTime(iYear + 1, ansmonth, ansday);//未来の日付が選択された場合
+            //}
+            //else
+            //{
+            //    dateValue = new DateTime(iYear, ansmonth, ansday);
+            //}
 
             HolidayChecker.HolidayInfo hi = HolidayChecker.Holiday(dateValue);
 
