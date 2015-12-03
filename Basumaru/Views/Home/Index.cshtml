@@ -156,7 +156,7 @@
                 D.hour = (new Date()).getHours();
                 D.minute = (new Date()).getMinutes();
 
-                for(var i=2014 ; i<=2025 ; i++){
+                for(var i=D.year-1 ; i<=D.year+1 ; i++){
                     var option =
                         select.year.appendChild(document.createElement('option'));
                     option.text = i;
